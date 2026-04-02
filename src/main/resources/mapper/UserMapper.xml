@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须与 Mapper 接口的全限定名完全一致 -->
+<mapper namespace="app.modules.user.mapper.UserMapper">
+    <!-- 定义映射关系：type指定实体类 -->
+    <!-- 根据ID查询用户，id与接口方法名一致，resultType与返回值类型一致 -->
+    <select id="selectById" resultType="User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+    <!-- 根据Name查询用户，resultType与返回值类型一致 -->
+    <select id="selectByName" resultType="User">
+        SELECT * FROM user WHERE name = #{name}
+    </select>
+</mapper>

@@ -1,0 +1,12 @@
+{
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.runtimes": [
+    {
+        "name": "JavaSE-17",
+        "path": "C:/Program Files/Eclipse Adoptium/jdk-17.0.18.8-hotspot",
+        "default": true
+    }
+],
+"java.debug.settings.onBuildFailureProceed": true
+}

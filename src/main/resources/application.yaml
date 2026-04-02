@@ -1,0 +1,20 @@
+server:
+  port: ${SERVER_PORT:9090}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: root
+    password: ${DB_PASSWORD}
+
+mybatis:
+  # 指定 Mapper XML 文件的路径
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类别名包，XML 中可直接写类名，无需写全限定名
+  type-aliases-package:  app.modules.user.entity
+  configuration:
+    # 开启驼峰命名自动映射（数据库user_name → Java属性userName）
+    map-underscore-to-camel-case: true
+    # 开启日志打印（开发环境调试SQL）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
