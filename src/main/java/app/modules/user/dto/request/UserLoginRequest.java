@@ -10,3 +10,4 @@ public class UserLoginRequest {
   @NotBlank(message = "名称必须填写")
   private String password;
 }
+

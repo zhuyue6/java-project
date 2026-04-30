@@ -1,7 +1,6 @@
 package app.modules.user.service.impl;
 
 import org.springframework.stereotype.Service;
-
 import app.modules.user.dto.request.*;
 import app.modules.user.entity.*;
 import app.modules.user.mapper.UserMapper;
@@ -19,21 +18,35 @@ public class UserServiceImpl implements UserService {
   private UserResponse convertToResponse(User user) {
       return UserResponse.builder()
           .id(user.getId())
-          .name(user.getName())
-          .avatarUrl(user.getAvatarUrl())
+          .nickname(user.getNickname())
+          .age(user.getAge())
           .build();
   }
   // 登录接口
   @Override
   public UserResponse login(UserLoginRequest dto) {
-    User user = userMapper.selectByName(dto.getName());
-    if (user == null) {
-      throw new BusinessException(ExceptionCodeEnum.UserNotFound.getCode(), ExceptionCodeEnum.UserNotFound.getMessage());
-    }
+    // User user = userMapper.selectByName(dto.getName());
+    // if (user == null) {
+    //   throw new BusinessException(ExceptionCodeEnum.UserNotFound.getCode(), ExceptionCodeEnum.UserNotFound.getMessage());
+    // }
 
-    if (user.getPassword().equals(dto.getPassword())) {
-      return convertToResponse(user);
-    }
+    // if (user.getPassword().equals(dto.getPassword())) {
+    //   return convertToResponse(user);
+    // }
+
+    throw new BusinessException(ExceptionCodeEnum.UserNameOrPasswordError.getCode(), ExceptionCodeEnum.UserNameOrPasswordError.getMessage());
+  }
+
+  @Override
+  public UserResponse wxLogin(UserWxLoginRequest dto) {
+    String wxCode = dto.getCode();
+    // if (user == null) {
+    //   throw new BusinessException(ExceptionCodeEnum.UserNotFound.getCode(), ExceptionCodeEnum.UserNotFound.getMessage());
+    // }
+
+    // if (user.getPassword().equals(dto.getPassword())) {
+    //   return convertToResponse(user);
+    // }
 
     throw new BusinessException(ExceptionCodeEnum.UserNameOrPasswordError.getCode(), ExceptionCodeEnum.UserNameOrPasswordError.getMessage());
   }

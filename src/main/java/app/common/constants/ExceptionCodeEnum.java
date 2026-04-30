@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ExceptionCodeEnum {
+  ServiceError(10001, "服务器系统错误"),
   NotFound(10004, "不存在"),
   AlreadyExists(10005, "已存在"),
 
@@ -14,7 +15,6 @@ public enum ExceptionCodeEnum {
   UserNotFound(11000, "用户不存在"),
   UserNameOrPasswordError(11002, "用户名或密码错误"),
   UserAlreadyExists(10005, "用户已存在");
-  
   private int code;
   private String message;
 }

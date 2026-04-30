@@ -19,6 +19,7 @@ import java.lang.annotation.RetentionPolicy;
 @Target(ElementType.TYPE)  // TYPE METHOD FIELD注解分别用于类、方法、属性
 @Retention(RetentionPolicy.RUNTIME) // RUNTIME 运行时, CLASS 保留到class字节中，SOURCE 只在源码中运行
 @interface LogClassName {
+  int value() default 1;
 }
 
 // 2. 属性注解
@@ -38,7 +39,7 @@ public class Annotation {
 
 
 final class AnnotationLog {
-  @Log(level = 2, message = "非常严重的bug")
+  @LogClassName(level = 2, message = "非常严重的bug")
   void log() {}
 }
 
