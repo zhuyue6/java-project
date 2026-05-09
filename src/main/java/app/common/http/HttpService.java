@@ -1,8 +1,5 @@
 package app.common.http;
 import okhttp3.*;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 import app.common.filter.BusinessException;
 import app.common.constants.ExceptionCodeEnum;
@@ -20,14 +17,8 @@ public class HttpService {
     return request(url, HttpMethod.POST, params, data);
   }
   public static Response get(String url, Object params) {
-    String jsonData = params.toString();
-    RequestBody body = RequestBody.create(
-        jsonData, 
-        MediaType.parse("application/json; charset=utf-8")
-    );
-    Request request = new Request.Builder().url(url).get().build();
     // 发送请求
-    return send(request);
+    return request(url, HttpMethod.POST, params, null);
   }
   /**
    * 

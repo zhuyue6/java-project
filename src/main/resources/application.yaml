@@ -1,6 +1,10 @@
 server:
   port: ${SERVER_PORT:9090}
 
+wx:
+  appid: ${WX_APPID}
+  secret: ${WX_SECRET}
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

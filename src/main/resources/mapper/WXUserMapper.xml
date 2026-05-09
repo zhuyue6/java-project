@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须与 Mapper 接口的全限定名完全一致 -->
+<mapper namespace="app.modules.user.mapper.WxUserMapper">
+    <!-- 复用UserMapper 的selectById 、selectByName -->
+    <select id="selectById" resultType="WxUser">
+        <!-- 直接调用本XML的其他查询 ID -->
+        <include refid="app.modules.user.mapper.UserMapper.selectById"/> 
+    </select>
+
+    <select id="selectByName" resultType="WxUser">
+        <!-- 直接调用本XML的其他查询 ID -->
+        <include refid="app.modules.user.mapper.UserMapper.selectByName"/> 
+    </select>
+
+    <!-- 新增 -->
+    <select id="selectByOpenId" resultType="WxUser">
+        SELECT * FROM user WHERE openid = #{id}
+    </select>
+</mapper>

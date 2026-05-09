@@ -6,4 +6,6 @@ import lombok.Data;
 public class UserRegisterRequest {
   private String name;
   private String password;
+  private String openid;
+  private String type;
 }
