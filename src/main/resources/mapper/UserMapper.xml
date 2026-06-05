@@ -12,4 +12,9 @@
     <select id="selectByName" resultType="User">
         SELECT * FROM user WHERE name = #{name}
     </select>
+
+    <!--  -->
+    <select id="createUser" resultType="User">
+        INSERT INTO user(name, password, age, ) VALUES(#{name}, #{password}, #{age})  
+    </select>
 </mapper>

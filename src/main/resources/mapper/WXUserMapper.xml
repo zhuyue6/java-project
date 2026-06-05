@@ -14,8 +14,13 @@
         <include refid="app.modules.user.mapper.UserMapper.selectByName"/> 
     </select>
 
-    <!-- 新增 -->
+    <!-- 按openId进行查询用户 -->
     <select id="selectByOpenId" resultType="WxUser">
         SELECT * FROM user WHERE openid = #{id}
+    </select>
+
+    <!-- 创建微信账号 -->
+    <select id="createWxUser" resultType="WxUser">
+        INSERT INTO user(openid, name, password, age) VALUES(${openid}, #{name}, #{password}, #{age})  
     </select>
 </mapper>

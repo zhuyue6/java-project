@@ -32,10 +32,18 @@ public class UserServiceImpl implements UserService {
   private UserResponse convertToResponse(User user) {
       return UserResponse.builder()
           .id(user.getId())
-          .nickname(user.getNickname())
+          .name(user.getName())
           .age(user.getAge())
           .build();
   }
+  private UserResponse convertToResponse(WxUser user) {
+      return UserResponse.builder()
+          .id(user.getId())
+          .name(user.getName())
+          .age(user.getAge())
+          .build();
+  }
+
   // 登录接口
   @Override
   public UserResponse login(UserLoginRequest dto) {
@@ -54,11 +62,13 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserResponse wxLogin(UserWxLoginRequest dto) {
     String wxCode = dto.getCode();
-    Map<String, Object> params = new HashMap<>();
-    params.put("appid", wxAppId);
-    params.put("secret", wxSecret);
-    params.put("code", wxCode);
-    params.put("grant_type", "authorization_code");
+    // String wxCode = dto.getCode();
+    WxLoginValidateRequest params = WxLoginValidateRequest.builder()
+                                        .appid(wxAppId)
+                                        .secret(wxSecret)
+                                        .code(wxCode)
+                                        .grant_type("authorization_code")
+                                        .build();
 
     Response res = HttpService.post(wxCode, null, params);
     if (res.openid) {
@@ -68,23 +78,36 @@ public class UserServiceImpl implements UserService {
     WxUser wxUser = wxUserMapper.selectByOpenId(res.openid);
     if (wxUser == null) {
       // 如果微信openid不存在的情况下，注册用户保存至用户表中
-      UserRegisterRequest registerParams = new UserRegisterRequest();
       long timestamp = System.currentTimeMillis();
-      registerParams.setName("用户" + timestamp);
-      registerParams.setPassword(null);
-      registerParams.set(null);
-      register((UserRegisterRequest) registerParams);
+      UserRegisterRequest registerParams = UserRegisterRequest.builder()
+                                            .name("用户" + timestamp)
+                                            .password("123456")
+                                            .type("wx")
+                                            .openid(res.openid)
+                                            .build();
+                                            
+      register((UserRegisterRequest) registerParams, LoginModeEnum.WX);
     }
 
-    // if (user.getPassword().equals(dto.getPassword())) {
-    //   return convertToResponse(user);
-    // }
+    return convertToResponse(wxUser);
 
-    throw new BusinessException(ExceptionCodeEnum.UserNameOrPasswordError.getCode(), ExceptionCodeEnum.UserNameOrPasswordError.getMessage());
+    // throw new BusinessException(ExceptionCodeEnum.UserNameOrPasswordError.getCode(), ExceptionCodeEnum.UserNameOrPasswordError.getMessage());
   }
 
   @Override
   public void register(UserRegisterRequest dto) {
 
+  }
+  @Override
+  public void register(UserRegisterRequest dto, LoginModeEnum mode) {
+    if (LoginModeEnum.WX.equals(mode)) {
+      // 如果是微信登录的情况
+      WxUser wxUser = wxUserMapper.selectByOpenId(dto.getOpenid());
+      if (wxUser != null) {
+        // 如果存在微信账号, 直接抛出异常
+        throw new BusinessException(ExceptionCodeEnum.UserAlreadyExists.getCode(), ExceptionCodeEnum.UserAlreadyExists.getMessage());
+      }
+      wxUserMapper
+    }
   }
 }

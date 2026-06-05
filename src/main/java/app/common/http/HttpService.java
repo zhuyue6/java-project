@@ -16,7 +16,7 @@ public class HttpService {
   public static <T, R> Response post(String url, T data, R params) {
     return request(url, HttpMethod.POST, params, data);
   }
-  public static Response get(String url, Object params) {
+  public static <T, R> Response get(String url, T params) {
     // 发送请求
     return request(url, HttpMethod.POST, params, null);
   }

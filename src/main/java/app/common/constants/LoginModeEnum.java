@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum LoginMode {
+public enum LoginModeEnum {
   WX("wx"),
   COMMON("common");
   private String mode;

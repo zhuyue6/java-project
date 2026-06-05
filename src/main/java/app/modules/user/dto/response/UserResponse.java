@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class UserResponse {
   private Long id;
-  private String nickname;
-  private short age;
+  private String name;
+  private int age;
 }
