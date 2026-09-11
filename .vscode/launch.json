@@ -8,8 +8,8 @@
       "type": "java",
       "name": "Main",
       "request": "launch",
-      "mainClass": "app.Main",
-      "projectName": "manage-system",
+      "mainClass": "com.zhuyue.clockin.Application",
+      "projectName": "clock-in-app",
       "envFile": "${workspaceFolder}/.env"
     }
   ]

@@ -1,0 +1,31 @@
+# spring boot 主配置文件
+
+server:
+  port: ${SERVER_PORT:9090}
+
+wx:
+  appid: ${WX_APPID}
+  secret: ${WX_SECRET}
+
+file:
+  uploadPath: ${FILE_UPLOAD_PATH}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: root
+    password: ${DB_PASSWORD}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+
+mybatis:
+  # 指定 Mapper XML 文件的路径
+  mapper-locations: classpath:mapper/*.xml 
+  configuration:
+    # 开启驼峰命名自动映射（数据库user_name → Java属性userName）
+    map-underscore-to-camel-case: true
+    # 开启日志打印（开发环境调试SQL）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
