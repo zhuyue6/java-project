@@ -8,9 +8,9 @@ import lombok.Data;
 @Builder
 public class UserRegisterRequest {
   @NotBlank(message = "名称必须填写")
-  @Size(min = 1, max = 10, message = "名称长度必须在3到20之间")
+  @Size(min = 1, max = 10, message = "名称长度必须在1到10之间")
   @Pattern(
-    regexp = "^[\\u4e00‑\\u9fa5a‑zA‑Z·]+$",
+    regexp = "^[\\u4e00-\\u9fa5a-zA-Z·]+$",
     message = "姓名只能包含中文、字母和间隔号·"
   )
   private String userName;
@@ -18,7 +18,7 @@ public class UserRegisterRequest {
   @NotBlank(message = "密码必须填写")
   @Size(min = 6, max = 20, message = "密码长度必须在6到20之间")
   @Pattern(
-    regexp = "^[a‑zA‑Z0-9_-+]+$",
+    regexp = "^[a-zA-Z0-9_+\\-]+$",
     message = "密码只能包含数字大小写字母_-+"
   )
   private String password;
@@ -27,7 +27,7 @@ public class UserRegisterRequest {
   @Max(value = 3, message = "性别只能传男、女和保密其中一项")
   private Integer sex;
 
-  @Min(value = 0, message = "年龄不能小于0" )
+  @Min(value = 0, message = "年龄不能小于0")
   @Max(value = 150, message = "年龄不能大于150")
   private int age;
 }

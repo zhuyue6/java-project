@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import java.util.Map;
 import io.jsonwebtoken.ExpiredJwtException;
 import com.zhuyue.clockin.common.util.UtilService;
+import com.zhuyue.clockin.common.exception.BusinessException;
 
 // 这里
 
@@ -41,44 +42,27 @@ public class GlobalAuthInterceptor implements HandlerInterceptor {
 
     // 获取请求头中的Authorization字段
     String authHeader = request.getHeader("Authorization");
-
+    BusinessException UnauthorizedException = new BusinessException(ExceptionCodeEnum.Unauthorized.getCode(), ExceptionCodeEnum.Unauthorized.getMessage());
     // 如果未授权，则返回401状态码和错误信息
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-      response.setCharacterEncoding("UTF-8");
-      ApiResponse<Object> failedResponse = ApiResponse.fail(
-          ExceptionCodeEnum.Unauthorized.getMessage(),
-          ExceptionCodeEnum.Unauthorized.getCode());
-      response.getWriter().write(UtilService.objectToString(failedResponse));
-      return false;
+      throw UnauthorizedException;
     }
 
     // 获取token
     String token = jwtService.getToken(authHeader);
-    ApiResponse<Object> failedResponse = ApiResponse.fail(ExceptionCodeEnum.LoginExpired.getMessage(), ExceptionCodeEnum.LoginExpired.getCode());
-    String failedResponseString = UtilService.objectToString(failedResponse);
+    BusinessException LoginExpiredException = new BusinessException(ExceptionCodeEnum.LoginExpired.getCode(), ExceptionCodeEnum.LoginExpired.getMessage());
 
     // 如果token在黑名单中，则返回401状态码和错误信息
     if (blackListService.isTokenInBlacklist(token)) {
-      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      response.getWriter().write(failedResponseString);
-      return false;
+      throw LoginExpiredException;
     }
 
-    try {
-      // 将用户信息存储到请求中
-      Map<String, Object> claims = jwtService.parseToken(token);
-      LoginUser loginUser = new LoginUser((Long) claims.get("id"), (String) claims.get("userName"));
-      request.setAttribute("userInfo", loginUser);
-      return true;
-    } catch (ExpiredJwtException e) {
-      response.getWriter().write(failedResponseString);
-      return false;
-    } catch (Exception e) {
-      response.getWriter().write(failedResponseString);
-      return false;
-    }
+    // 将用户信息存储到请求中
+    Map<String, Object> claims = jwtService.parseToken(token);
+    LoginUser loginUser = new LoginUser((Long) claims.get("id"), (String) claims.get("userName"));
+    request.setAttribute("userInfo", loginUser);
+    return true;
   }
 
   @Override

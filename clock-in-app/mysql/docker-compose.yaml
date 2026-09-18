@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mysql:
+    # 镜像
+    image: mysql:8.0
+    # 容器名称
+    container_name: mysql
+    # 自动重启
+    restart: always
+    # 挂载目录
+    volumes:
+      # 数据持久化卷
+      - mysql-data:/var/lib/mysql
+      # 挂载自定义配置
+      - ./mysql/conf:/etc/mysql/conf.d
+      # 初始化脚本目录
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    # 环境变量
+    environment:
+      # root密码
+      MYSQL_ROOT_PASSWORD: 123456   # root密码，务必修改
+      # 数据库名称
+      MYSQL_DATABASE: clock_in
+      # 时区
+      TZ: Asia/Shanghai
+    # 端口
+    ports:
+      - "3306:3306"
+    # 网络
+    networks:
+      - app-net
+
+volumes:
+  mysql-data:
+
+networks:
+  app-net:

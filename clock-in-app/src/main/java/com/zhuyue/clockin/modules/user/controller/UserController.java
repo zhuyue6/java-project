@@ -6,6 +6,8 @@ import com.zhuyue.clockin.modules.user.service.UserService;
 import com.zhuyue.clockin.common.authentication.IgnoreJwt;
 import jakarta.annotation.Resource;
 import org.springframework.web.multipart.MultipartFile;
+import com.zhuyue.clockin.common.interceptor.LoginUser;
+import jakarta.validation.Valid;
 
 /**
  * 用户
@@ -19,14 +21,14 @@ public class UserController {
 
   @IgnoreJwt
   @PostMapping("/login")  // @RequestMapping(value = "/login", method = RequestMethod.Post)
-  public UserResponse login(@RequestBody UserLoginRequest userLoginRequest) {
+  public UserResponse login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
     UserResponse user = userService.login(userLoginRequest);
     return user;
   }
 
   @IgnoreJwt
   @PostMapping("/register")
-  public void register(@RequestBody UserRegisterRequest userRegisterRequest) {
+  public void register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
     userService.register(userRegisterRequest);
   }
   @PostMapping("/logout")
@@ -35,7 +37,7 @@ public class UserController {
   }
 
   @PostMapping("/uploadAvatar")
-  public void uploadAvatar(@RequestBody(required = true) MultipartFile file) {
-    userService.uploadAvatar(file);
+  public Object uploadAvatar(@RequestParam("file") MultipartFile file, @RequestAttribute("userInfo") LoginUser loginUser) {
+    return userService.uploadAvatar(loginUser.getUserId(), file);
   }
 }

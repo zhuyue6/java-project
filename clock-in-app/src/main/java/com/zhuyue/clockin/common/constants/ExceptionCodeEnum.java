@@ -11,6 +11,7 @@ public enum ExceptionCodeEnum {
   AlreadyExists(10005, "已存在"),
   Unauthorized(10006, "未授权，请先登录"),
   LoginExpired(10007, "登录已过期，请重新登录"),
+  InvalidParameters(10008, "参数错误"),
 
   // 业务错误 (11xxx)
   // 用户错误 (111xx)

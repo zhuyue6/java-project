@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.zhuyue.clockin.common.util.ApiResponse;
+import com.zhuyue.clockin.common.util.UtilService;
 
 @RestControllerAdvice
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object>{
@@ -33,9 +34,22 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object>{
     ServerHttpRequest request,
     ServerHttpResponse response
   ) {
-    if (body == null) {
-      return ApiResponse.success(null);
+    // 运行时已是 ApiResponse，避免异常处理结果再被包一层成功
+    if (body instanceof ApiResponse) {
+      return body;
     }
-    return ApiResponse.success(body);
+
+    ApiResponse<?> apiResponse = body == null
+        ? ApiResponse.success("操作成功")
+        : ApiResponse.success(body);
+
+    // 方法返回 String 时 Spring 已选定 StringHttpMessageConverter，
+    // 直接返回 ApiResponse 会触发 ClassCastException，需手动序列化为 JSON 字符串
+    if (returnType.getParameterType().equals(String.class)) {
+      response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+      return UtilService.objectToString(apiResponse);
+    }
+
+    return apiResponse;
   }
 }

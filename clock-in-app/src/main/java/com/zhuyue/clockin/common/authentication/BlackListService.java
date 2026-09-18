@@ -12,7 +12,7 @@ public class BlackListService {
   private static final String TOKEN_BLACKLIST_PREFIX = "jwt:blacklist:";
 
   public void addTokenToBlacklist(String token, long remainSeconds) {
-    // 将token加入黑名单，并设置过期时间, 并触发TTL
+    // 将token加入黑名单，并设置过期时间, 并触发TTL（time to live）
     redisTemplate.opsForValue().set(TOKEN_BLACKLIST_PREFIX + token, "true", remainSeconds, TimeUnit.SECONDS);
   }
   

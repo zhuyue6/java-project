@@ -16,5 +16,5 @@ public interface UserService {
   // 登出接口
   void logout(String authHeader);
   // 上传头像接口
-  String uploadAvatar(MultipartFile file);
+  String uploadAvatar(Long userId, MultipartFile file);
 }

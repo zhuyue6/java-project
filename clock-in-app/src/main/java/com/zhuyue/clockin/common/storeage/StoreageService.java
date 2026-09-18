@@ -1,8 +1,12 @@
 package com.zhuyue.clockin.common.storeage;
 
 import org.springframework.web.multipart.MultipartFile;
-import java.io.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 import com.zhuyue.clockin.common.exception.BusinessException;
 import com.zhuyue.clockin.common.constants.ExceptionCodeEnum;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,33 +17,34 @@ import org.springframework.stereotype.Service;
 */
 @Service("StoreageService")
 public class StoreageService {
-  @Value("${file.uploadPath}")
-  private String uploadPath;
+  @Value("${file.accessPrefix}")
+  private String ACCESS_PREFIX;
+
 
   public String uploadImage(MultipartFile file) throws IOException, BusinessException {
-    // 获取文件字节数组
-    byte[] bytes = file.getBytes();
-    // 获取文件名
-    String filePath = file.getOriginalFilename();
-    // 文件MIME类型
     String mimeType = file.getContentType();
-
     List<String> mimeTypes = List.of("image/jpeg", "image/png", "image/jpg");
 
     if (!mimeTypes.contains(mimeType)) {
-      // 如果文件类型不支持，则抛出异常
       throw new BusinessException(ExceptionCodeEnum.InvalidMimeType.getCode(), ExceptionCodeEnum.InvalidMimeType.getMessage());
     }
 
-    String storageFilePath = uploadPath + "/images/" + filePath;
+    String originalFilename = file.getOriginalFilename();
+    String ext = "";
 
-    // 写入文件
-    OutputStream fileOutput = new FileOutputStream(storageFilePath);
+    if (originalFilename != null && originalFilename.contains(".")) {
+      ext = originalFilename.substring(originalFilename.lastIndexOf('.'));
+    }
 
-    fileOutput.write(bytes);
-    // 关闭文件输出流
-    fileOutput.close();
+    // 相对路径：入库 / 返回给前端用，不带本地盘符
+    String relativePath = "images/" + UUID.randomUUID() + ext;
 
-    return storageFilePath;
+    // 绝对路径：真正写磁盘
+    Path absolutePath = Paths.get("./" + ACCESS_PREFIX, relativePath).toAbsolutePath().normalize();
+    Files.createDirectories(absolutePath.getParent());
+    Files.write(absolutePath, file.getBytes());
+
+    // 返回可直接访问的相对 URL，例如 /static/images/xxx.png
+    return relativePath;
   }
 }

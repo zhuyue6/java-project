@@ -8,7 +8,7 @@ wx:
   secret: ${WX_SECRET}
 
 file:
-  uploadPath: ${FILE_UPLOAD_PATH}
+  accessPrefix: ${ACCESS_PREFIX}
 
 spring:
   datasource:

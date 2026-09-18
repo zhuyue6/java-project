@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserResponse login(UserLoginRequest dto) throws BusinessException {
     // 根据用户名查询用户
-    User user = userMapper.selectByName(dto.getUserName());
+    User user = userMapper.selectByUserName(dto.getUserName());
     // 如果用户不存在，则抛出异常
     if (user == null) {
       throw new BusinessException(ExceptionCodeEnum.UserNotFound.getCode(), ExceptionCodeEnum.UserNotFound.getMessage());
@@ -63,14 +63,13 @@ public class UserServiceImpl implements UserService {
 
     // 生成令牌
     String token = jwtService.generateToken(user.getId(), user.getUserName());
-
     return convertToResponse(user, token);
   }
 
   @Override
   public void register(UserRegisterRequest dto) throws BusinessException {
     // 根据用户名查询用户
-    User user = userMapper.selectByName(dto.getUserName());
+    User user = userMapper.selectByUserName(dto.getUserName());
     if (user != null) {
       // 如果已经存在账号, 直接抛出异常
       throw new BusinessException(ExceptionCodeEnum.UserAlreadyExists.getCode(), ExceptionCodeEnum.UserAlreadyExists.getMessage());
@@ -100,14 +99,15 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public String uploadAvatar(MultipartFile file) {
+  public String uploadAvatar(Long userId, MultipartFile file) {
     String avatarUrl = null;
     try {
       avatarUrl = storeageService.uploadImage(file);
+      userMapper.updateAvatarByUserId(userId, avatarUrl);
     } catch (BusinessException e) {
       throw new BusinessException(e.getCode(), e.getMessage());
     } catch (IOException e) {
-      throw new BusinessException(ExceptionCodeEnum.FileUploadError.getCode(), ExceptionCodeEnum.FileUploadError.getMessage());
+      throw new BusinessException(ExceptionCodeEnum.FileUploadError.getCode(), e.getMessage());
     }
     return avatarUrl;
   }
