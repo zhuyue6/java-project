@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须与 Mapper 接口的全限定名完全一致 -->
+<mapper namespace="com.zhuyue.clockin.modules.record.mapper.RecordMapper">
+    <select id="selectRecordByUserId" resultType="com.zhuyue.clockin.modules.record.entity.Record">
+        SELECT * from clock_in_record WHERE user_id = #{userId}
+    </select>
+
+    <!-- 多参数时 keyProperty 必须写成 参数名.属性名 -->
+    <!-- 创建打卡记录：useGeneratedKeys 把数据库自增主键回写到 Record.id -->
+    <!-- keyColumn 指定数据库字段名从这个字段中写入 Record.id -->
+    <insert id="insertRecord" useGeneratedKeys="true" keyProperty="record.id" keyColumn="id">
+        INSERT INTO clock_in_record(user_id, label_id, clock_in_time, clock_out_time, remark)
+        VALUES(#{userId}, #{labelId}, #{clockInTime}, #{clockOutTime}, #{remark})
+    </insert>
+</mapper>

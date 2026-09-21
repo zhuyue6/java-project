@@ -16,6 +16,18 @@ spring:
     url: ${DB_URL}
     username: root
     password: ${DB_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:123456}
+      database: 0
+      lettuce:
+        pool:
+          max-active: 8 # 最大连接数
+          max-wait: -1ms # 最大等待时间
+          max-idle: 8 # 最大空闲连接数
+          min-idle: 0 # 最小空闲连接数
 
 jwt:
   secret: ${JWT_SECRET}
@@ -29,3 +41,16 @@ mybatis:
     map-underscore-to-camel-case: true
     # 开启日志打印（开发环境调试SQL）
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: logs/clock-in-app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      total-size-cap: 1GB
+      max-history: 30
+      clean-history-on-start: true

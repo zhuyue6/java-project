@@ -30,7 +30,7 @@ public class JwtService {
     return Jwts.builder()
        // 设置主题
       .subject(userId.toString())
-      .claim("username", username)
+      .claim("userName", username)
       // 设置过期时间
       .expiration(new Date(System.currentTimeMillis() + expiration))
       // 设置签名算法
@@ -50,8 +50,9 @@ public class JwtService {
       .parseSignedClaims(token);
 
       Map<String, Object> claims = new HashMap<>();
-      claims.put("id", jws.getPayload().getSubject());
-      claims.put("username", jws.getPayload().get("username"));
+      // JWT subject 是字符串，这里转成 Long 供鉴权拦截器使用
+      claims.put("id", Long.valueOf(jws.getPayload().getSubject()));
+      claims.put("userName", jws.getPayload().get("userName"));
       claims.put("exp", jws.getPayload().getExpiration());
       return claims;
   }

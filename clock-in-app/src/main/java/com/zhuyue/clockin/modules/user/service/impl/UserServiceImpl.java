@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void register(UserRegisterRequest dto) throws BusinessException {
+  public long register(UserRegisterRequest dto) throws BusinessException {
     // 根据用户名查询用户
     User user = userMapper.selectByUserName(dto.getUserName());
     if (user != null) {
@@ -83,7 +83,8 @@ public class UserServiceImpl implements UserService {
       .age(dto.getAge())
       .build();
 
-    userMapper.createUser(newUser);
+    userMapper.insertUser(newUser);
+    return newUser.getId();
   }
 
   @Override
@@ -99,7 +100,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public String uploadAvatar(Long userId, MultipartFile file) {
+  public String uploadAvatar(long userId, MultipartFile file) {
     String avatarUrl = null;
     try {
       avatarUrl = storeageService.uploadImage(file);

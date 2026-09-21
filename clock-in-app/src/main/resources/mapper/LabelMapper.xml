@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须与 Mapper 接口的全限定名完全一致 -->
+<mapper namespace="com.zhuyue.clockin.modules.label.mapper.LabelMapper">
+    <!-- 根据用户ID查询标签 -->
+    <select id="selectLabelByUserId" resultType="com.zhuyue.clockin.modules.label.entity.Label">
+        SELECT * FROM clock_in_label WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectLabelById" resultType="com.zhuyue.clockin.modules.label.entity.Label">
+        SELECT * FROM clock_in_label WHERE id = #{id}
+    </select>
+
+    <!-- 多参数时 keyProperty 必须写成 参数名.属性名 -->
+    <!-- 创建打卡记录：useGeneratedKeys 把数据库自增主键回写到 Label.id -->
+    <!-- keyColumn 指定数据库字段名从这个字段中写入 Label.id -->
+    <insert id="insertLabel" useGeneratedKeys="true" keyProperty="label.id" keyColumn="id">
+        INSERT INTO clock_in_label(user_id, label_name, label_type)
+        VALUES(#{userId}, #{label.labelName}, #{label.labelType})
+    </insert>
+</mapper>

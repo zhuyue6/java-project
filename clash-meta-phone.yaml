@@ -1,13 +1,11 @@
-# Clash Meta 手机配置
-# 默认用 8888（运营商对 443 常超时）。导入后选节点 vps-8888，开启 TUN/VPN。
+# Clash Meta 手机 — VLESS Reality
+# 导入后节点必须选 vps-reality（类型 VLESS，不是 Socks5）
 
 mixed-port: 7890
 allow-lan: false
 mode: rule
 log-level: info
 ipv6: false
-unified-delay: true
-tcp-concurrent: true
 
 dns:
   enable: true
@@ -37,27 +35,26 @@ tun:
     - 43.135.173.248/32
 
 proxies:
-  - name: vps-8888
-    type: socks5
-    server: 43.135.173.248
-    port: 8888
-    username: clash
-    password: ZySb7890xClash
-    udp: true
-  - name: vps-443
-    type: socks5
+  - name: vps-reality
+    type: vless
     server: 43.135.173.248
     port: 443
-    username: clash
-    password: ZySb7890xClash
+    uuid: 29bad373-6e0f-4c49-aa69-2067451df572
+    network: tcp
+    tls: true
     udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: YEVlP8Qu8L5LlWUiw5YyJ50c32U93AQqcR-VOI0FVzQ
+      short-id: 47a613e1866d6f68
 
 proxy-groups:
   - name: PROXY
     type: select
     proxies:
-      - vps-8888
-      - vps-443
+      - vps-reality
       - DIRECT
 
 rules:

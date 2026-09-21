@@ -20,6 +20,6 @@
 
     <!-- 更新用户头像 -->
     <update id="updateAvatarByUserId">
-        UPDATE user SET avatar = #{avatarUrl} WHERE id = #{id}
+        UPDATE user SET avatar_url = #{avatarUrl} WHERE id = #{id}
     </update>
 </mapper>

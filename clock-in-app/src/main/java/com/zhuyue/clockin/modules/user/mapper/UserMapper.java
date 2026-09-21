@@ -16,6 +16,6 @@ public interface UserMapper {
   // 根据Name查询用户
   User selectByUserName(@Param("userName") String userName);
   // insert 返回影响行数；自增 id 会写回 user.getId()
-  int createUser(User user);
-  String updateAvatarByUserId(@Param("id") Long id, @Param("avatarUrl") String avatarUrl);
+  void insertUser(User user);
+  void updateAvatarByUserId(@Param("id") Long id, @Param("avatarUrl") String avatarUrl);
 }

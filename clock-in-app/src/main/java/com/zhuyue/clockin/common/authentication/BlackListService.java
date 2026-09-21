@@ -1,5 +1,6 @@
 package com.zhuyue.clockin.common.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 // 黑名单服务
 @Service
 public class BlackListService {
+  @Autowired
   private StringRedisTemplate redisTemplate;
   private static final String TOKEN_BLACKLIST_PREFIX = "jwt:blacklist:";
 

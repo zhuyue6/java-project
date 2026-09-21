@@ -28,8 +28,8 @@ public class UserController {
 
   @IgnoreJwt
   @PostMapping("/register")
-  public void register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
-    userService.register(userRegisterRequest);
+  public long register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
+    return userService.register(userRegisterRequest);
   }
   @PostMapping("/logout")
   public void logout(@RequestHeader("Authorization") String authHeader) {
@@ -38,6 +38,7 @@ public class UserController {
 
   @PostMapping("/uploadAvatar")
   public Object uploadAvatar(@RequestParam("file") MultipartFile file, @RequestAttribute("userInfo") LoginUser loginUser) {
-    return userService.uploadAvatar(loginUser.getUserId(), file);
+    long userId = loginUser.getUserId();
+    return userService.uploadAvatar(userId, file);
   }
 }

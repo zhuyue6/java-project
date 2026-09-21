@@ -39,9 +39,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object>{
       return body;
     }
 
-    ApiResponse<?> apiResponse = body == null
-        ? ApiResponse.success("操作成功")
-        : ApiResponse.success(body);
+    ApiResponse<?> apiResponse = ApiResponse.success(body);
 
     // 方法返回 String 时 Spring 已选定 StringHttpMessageConverter，
     // 直接返回 ApiResponse 会触发 ClassCastException，需手动序列化为 JSON 字符串

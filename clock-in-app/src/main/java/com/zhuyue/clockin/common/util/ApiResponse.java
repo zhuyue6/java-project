@@ -10,6 +10,7 @@ public class ApiResponse<T> {
   public static <T> ApiResponse<T> success(T data) {
     ApiResponse<T> result = new ApiResponse<>();
     result.code = 0;
+    result.message = "操作成功";
     result.data = data;
     return result;
   }

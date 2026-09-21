@@ -10,7 +10,7 @@ import lombok.Data;
 @Builder
 public class User {
     /** 用户ID */
-    private Long id;
+    private long id;
     /** 用户名 */
     private String userName;
     /** 密码 */

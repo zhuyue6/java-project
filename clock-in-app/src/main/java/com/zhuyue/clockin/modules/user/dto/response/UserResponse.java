@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 @Builder
 public class UserResponse {
-  private Long id;
+  private long id;
   private String userName;
   private int age;
-  private Integer sex;
+  private int sex;
   private String token;
   private String avatarUrl;
 }

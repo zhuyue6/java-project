@@ -5,13 +5,14 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
 public class DateFormatValidator implements ConstraintValidator<DateFormat, String> {
   private String pattern;
 
   @Override
   public void initialize(DateFormat constraintAnnotation) {
-    // 获取注解中的pattern
-    pattern = constraintAnnotation.pattern();
+    // 获取注解中的value
+    pattern = constraintAnnotation.value();
   }
   
   @Override

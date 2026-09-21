@@ -12,9 +12,9 @@ public interface UserService {
   // 登录接口
   UserResponse login (UserLoginRequest dto);
   // 注册接口
-  void register(UserRegisterRequest dto);
+  long register(UserRegisterRequest dto);
   // 登出接口
   void logout(String authHeader);
   // 上传头像接口
-  String uploadAvatar(Long userId, MultipartFile file);
+  String uploadAvatar(long userId, MultipartFile file);
 }

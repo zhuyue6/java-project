@@ -21,7 +21,11 @@ public enum ExceptionCodeEnum {
 
   // 文件错误 (12xxx)
   InvalidMimeType(12000, "文件类型错误"),
-  FileUploadError(12001, "文件上传失败");
+  FileUploadError(12001, "文件上传失败"),
+
+ // 标签错误 (13xxx)
+ LabelNameAlreadyExists(13000, "该标签分类下名称已存在");
+
 
   private int code;
   private String message;
