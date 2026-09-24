@@ -1,16 +1,16 @@
-package com.zhuyue.clockin.modules.record.entity;
+package com.zhuyue.clockin.modules.goal.entity;
 
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-@Data 
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Record {
-  /** 打卡记录ID */
+public class Goal {
+  /** 目标ID */
   private long id;
   /** 用户ID */
   private long userId;
@@ -22,6 +22,12 @@ public class Record {
   private String clockOutTime;
   /** 标签ID */
   private long labelId;
+  /** 已打卡次数 */
+  private int clockInCount;
+  /** 目标打卡次数 */
+  private int targetClockInCount;
+  /** 打卡周期(天/周/月) */
+  private int clockInCycle;
   /** 创建时间 */
   private String createTime;
   /** 更新时间 */

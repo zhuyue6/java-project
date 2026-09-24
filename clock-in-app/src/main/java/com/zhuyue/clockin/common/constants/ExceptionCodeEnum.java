@@ -24,7 +24,10 @@ public enum ExceptionCodeEnum {
   FileUploadError(12001, "文件上传失败"),
 
  // 标签错误 (13xxx)
- LabelNameAlreadyExists(13000, "该标签分类下名称已存在");
+ LabelNameAlreadyExists(13000, "该标签分类下名称已存在"),
+
+ // 目标错误（14xxx）
+ GoalNotFound(14000, "目标不存在");
 
 
   private int code;

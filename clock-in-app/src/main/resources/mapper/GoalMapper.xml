@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须与 Mapper 接口的全限定名完全一致 -->
+<mapper namespace="com.zhuyue.clockin.modules.goal.mapper.GoalMapper">
+    <select id="selectGoalByUserId" resultType="com.zhuyue.clockin.modules.goal.entity.Goal">
+        SELECT * from goal WHERE user_id = #{userId}
+    </select>
+
+    <!-- 多参数时 keyProperty 必须写成 参数名.属性名 -->
+    <!-- 创建目标：useGeneratedKeys 把数据库自增主键回写到 Goal.id -->
+    <!-- keyColumn 指定数据库字段名从这个字段中写入 Goal.id -->
+    <insert id="insertGoal" useGeneratedKeys="true" keyProperty="goal.id" keyColumn="id">
+        INSERT INTO goal(user_id, label_id, clock_in_time, clock_out_time, clock_in_count, target_clock_in_count, clock_in_cycle, remark)
+        VALUES(#{userId}, #{goal.labelId}, #{goal.clockInTime}, #{goal.clockOutTime}, #{goal.clockInCount}, #{goal.targetClockInCount}, #{goal.clockInCycle}, #{goal.remark})
+    </insert>
+
+    <update id="updateGoal">
+        UPDATE goal SET clock_in_time = #{goal.clockInTime}, clock_out_time = #{goal.clockOutTime}, remark = #{goal.remark}, label_id = #{goal.labelId}, target_clock_in_count = #{goal.targetClockInCount}, clock_in_cycle = #{goal.clockInCycle} WHERE id = #{goal.id} AND user_id = #{userId}
+    </update>
+
+    <select id="selectGoalById" resultType="com.zhuyue.clockin.modules.goal.entity.Goal">
+        SELECT * FROM goal WHERE id = #{id} AND user_id = #{userId}
+    </select>
+
+    <delete id="deleteGoal">
+        DELETE FROM goal WHERE id = #{id} AND user_id = #{userId}
+    </delete>
+</mapper>

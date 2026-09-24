@@ -11,6 +11,7 @@ import com.zhuyue.clockin.modules.label.entity.Label;
 import com.zhuyue.clockin.common.exception.BusinessException;
 import com.zhuyue.clockin.common.constants.*;
 import com.zhuyue.clockin.modules.label.dto.response.LabelResponse;
+import com.zhuyue.clockin.modules.label.dto.request.RemoveLabelRequest;
 import java.util.ArrayList;
 
 @Service("LabelService")
@@ -38,6 +39,11 @@ public class LabelServiceImpl implements LabelService {
     long labelId = label.getId();
 
     return labelId;
+  }
+
+  @Override
+  public void removeLabel(long userId, RemoveLabelRequest dto) {
+    labelMapper.deleteLabel(userId, dto.getId());
   }
 
   @Override

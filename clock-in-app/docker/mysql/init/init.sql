@@ -14,20 +14,23 @@ create table user (
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
 );
 
--- 创建打卡记录表
-create table clock_in_record (
+-- 创建打卡目标表
+create table goal (
     id bigint primary key auto_increment COMMENT '打卡记录ID',
     user_id bigint not null COMMENT '关联用户ID',
     label_id bigint COMMENT '关联标签ID',
     remark TEXT default null COMMENT '备注',
     clock_in_time datetime not null COMMENT '打卡时间',
     clock_out_time datetime default null COMMENT '打卡结束时间',
+    clock_in_count int not null default 0 COMMENT '已打卡次数',
+    target_clock_in_count int not null COMMENT '目标打卡次数',
+    clock_in_cycle int not null COMMENT '打卡周期(天/周/月)',
     create_time datetime not null default current_timestamp COMMENT '创建时间',
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
 );
 
 -- 创建打卡标签表
-create table clock_in_label(
+create table goal_label(
     id bigint primary key auto_increment COMMENT '标签ID',
     label_name varchar(50) not null COMMENT '标签名称',
     label_type varchar(50) not null COMMENT '标签类型',

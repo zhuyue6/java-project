@@ -37,4 +37,19 @@ public class UtilService {
     }
     return sb.toString();
   }
+
+  public static <T> T mergeObject(T objTarget, T objMerge) throws IllegalAccessException {
+    T obj = (T) objTarget.getClass().newInstance();
+    Field[] fields = objTarget.getClass().getDeclaredFields();
+    
+    for (Field field : fields) {
+      field.setAccessible(true);
+      Object value = field.get(objTarget);
+      field.set(obj, value);
+      Object valueMerge = field.get(objMerge);
+      field.set(obj, valueMerge);
+    }
+
+    return obj;
+  }
 }
