@@ -8,8 +8,8 @@ public class UserLoginRequest {
   @NotBlank(message = "名称必须填写")
   @Size(min = 1, max = 10, message = "名称长度必须在1到10之间")
   @Pattern(
-    regexp = "^[\\u4e00-\\u9fa5a-zA-Z·]+$",
-    message = "姓名只能包含中文、字母和间隔号·"
+    regexp = "^[\\u4e00-\\u9fa5a-zA-Z0-9·]+$",
+    message = "姓名只能包含中文、字母、数字和间隔号·"
   )
   private String userName;
 

@@ -54,7 +54,8 @@ public class GoalController {
   }
 
   @PostMapping("/clockIn")
-  public void clockInGoal(@RequestBody RemoveGoalRequest removeGoalRequest, @RequestAttribute("userInfo") LoginUser loginUser) {
-    goalService.clockInGoal(userId, removeGoalRequest);
+  public void clockInGoal(@RequestBody ClockInGoalRequest clockInGoalRequest, @RequestAttribute("userInfo") LoginUser loginUser) {
+    long userId = loginUser.getUserId();
+    goalService.clockInGoal(userId, clockInGoalRequest);
   }
 }
