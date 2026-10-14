@@ -24,24 +24,24 @@ WORKDIR /workspace
 # 先拷父 POM，再拷本模块 POM 和源码。
 # Docker 按指令顺序做缓存：pom 或源码变了才会重新执行后面的 mvn。
 COPY pom.xml pom.xml
-COPY clock-in-app/pom.xml clock-in-app/pom.xml
-COPY clock-in-app/src clock-in-app/src
+COPY clock-my-goal/pom.xml clock-my-goal/pom.xml
+COPY clock-my-goal/src clock-my-goal/src
 
 # -B：批处理模式，不出现交互提示，适合 CI 和镜像构建
-# -pl clock-in-app：只构建这个模块
+# -pl clock-my-goal：只构建这个模块
 # -am：同时构建它依赖的模块（这里会带上父工程）
 # -DskipTests：镜像构建时不跑测试
 # --mount=type=cache：把本机 Maven 本地仓库挂进构建，依赖下载可以复用，
 # 不会写进最终镜像层
 RUN --mount=type=cache,target=/root/.m2 \
-    mvn -B -pl clock-in-app -am clean package -DskipTests
+    mvn -B -pl clock-my-goal -am clean package -DskipTests
 
 # ---------- 运行阶段 ----------
 # 只带 JRE 的 Ubuntu Jammy 镜像，没有 JDK 和 Maven。
 # 新的 FROM 会丢掉上一阶段的层，只保留下面显式 COPY 进来的文件。
 FROM eclipse-temurin:17-jre-jammy
 
-# 应用工作目录。application.yaml 里的日志路径 logs/clock-in-app.log 相对这里。
+# 应用工作目录。application.yaml 里的日志路径 logs/clock-my-goal.log 相对这里。
 WORKDIR /app
 
 # 不用 root 跑进程。
@@ -57,7 +57,7 @@ RUN groupadd --system app \
 # 通配符匹配版本号，升版本后不用改这一行。
 # spring-boot-maven-plugin 打出来的是 fat jar，里面已经包含依赖。
 COPY --from=builder --chown=app:app \
-    /workspace/clock-in-app/target/clock-in-app-*.jar /app/app.jar
+    /workspace/clock-my-goal/target/clock-my-goal-*.jar /app/app.jar
 
 # 从此往后的指令，以及容器启动后的进程，都使用 app 用户。
 USER app

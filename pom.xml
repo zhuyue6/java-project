@@ -23,7 +23,7 @@
 
     <!-- 子项目列表， 在根目录进行mvn clean install 时，会自动编译子项目 -->
     <modules>
-        <module>clock-in-app</module>
+        <module>clock-my-goal</module>
         <!-- <module>java-workbook</module> -->
     </modules>
 

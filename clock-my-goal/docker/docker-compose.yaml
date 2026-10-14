@@ -54,12 +54,12 @@ services:
       timeout: 5s
       retries: 10
 
-  clock-in-app:
+  clock-my-goal:
     build:
       context: ../..
-      dockerfile: clock-in-app/Dockerfile
-    image: clock-in-app:1.0.0
-    container_name: clock-in-app
+      dockerfile: clock-my-goal/Dockerfile
+    image: clock-my-goal:0.1.0
+    container_name: clock-my-goal
     restart: always
     ports:
       - "9090:9090"
@@ -72,7 +72,7 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: "123456"
       # HS256 密钥至少 32 字节，上线前请更换
-      JWT_SECRET: clock-in-app-jwt-secret-change-me
+      JWT_SECRET: zhuyueaiwangyingying520520~!@@!~
       JWT_EXPIRATION: 86400000
       WX_APPID: your-wx-appid
       WX_SECRET: your-wx-secret
