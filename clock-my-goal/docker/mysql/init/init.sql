@@ -1,5 +1,5 @@
 -- 创建业务库
--- CREATE DATABASE IF NOT EXISTS clock_in DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- CREATE DATABASE IF NOT EXISTS clock_my_goal DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- 创建业务表
 create table user (
