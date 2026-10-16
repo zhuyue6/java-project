@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace 必须与 Mapper 接口的全限定名完全一致 -->
-<mapper namespace="com.zhuyue.clockin.modules.label.mapper.LabelMapper">
+<mapper namespace="com.zhuyue.clockMyGoal.modules.label.mapper.LabelMapper">
     <!-- 根据用户ID查询标签 -->
-    <select id="selectLabelByUserId" resultType="com.zhuyue.clockin.modules.label.entity.Label">
+    <select id="selectLabelByUserId" resultType="com.zhuyue.clockMyGoal.modules.label.entity.Label">
         SELECT * FROM goal_label WHERE user_id = #{userId}
     </select>
 
-    <select id="selectLabelById" resultType="com.zhuyue.clockin.modules.label.entity.Label">
+    <select id="selectLabelById" resultType="com.zhuyue.clockMyGoal.modules.label.entity.Label">
         SELECT * FROM goal_label WHERE id = #{id}
     </select>
 

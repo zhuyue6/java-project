@@ -103,7 +103,7 @@
                     <archive>
                         <manifest>
                             <!-- 【修改这里】你的主类全限定名（包名+类名） -->
-                            <mainClass>com.zhuyue.clockin.Application</mainClass>
+                            <mainClass>com.zhuyue.clockMyGoal.Application</mainClass>
                             <!-- 自动添加依赖路径（默认开启） -->
                             <addClasspath>true</addClasspath>
                         </manifest>

@@ -20,8 +20,7 @@ create table goal (
     user_id bigint not null COMMENT '关联用户ID',
     label_id bigint COMMENT '关联标签ID',
     remark TEXT default null COMMENT '备注',
-    clock_in_time datetime not null COMMENT '打卡时间',
-    clock_out_time datetime default null COMMENT '打卡结束时间',
+    expiration_time datetime default null COMMENT '打卡到期时间',
     clock_in_count int not null default 0 COMMENT '已打卡次数',
     target_clock_in_count int not null COMMENT '目标打卡次数',
     clock_in_cycle int not null COMMENT '打卡周期(天/周/月)',
@@ -40,4 +39,4 @@ create table goal_label(
 );
 
 -- 创建管理员
-insert into user (user_name, password, age, sex) values ('admin', '123456', 0, 0);
+insert into user (user_name, password, age, sex) values ('admin', '123456', 0, 3);

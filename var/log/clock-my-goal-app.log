@@ -1,0 +1,702 @@
+2026-10-16T11:13:57.545+08:00  INFO 41212 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 41212 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T11:13:57.550+08:00  INFO 41212 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T11:13:58.055+08:00  INFO 41212 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T11:13:58.057+08:00  INFO 41212 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T11:13:58.077+08:00  INFO 41212 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T11:13:58.541+08:00  INFO 41212 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T11:13:58.550+08:00  INFO 41212 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T11:13:58.551+08:00  INFO 41212 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T11:13:58.598+08:00  INFO 41212 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T11:13:58.598+08:00  INFO 41212 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1016 ms
+2026-10-16T11:13:58.892+08:00  WARN 41212 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+2026-10-16T11:13:58.911+08:00  INFO 41212 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-16T11:13:58.927+08:00  INFO 41212 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-16T11:13:58.949+08:00 ERROR 41212 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:482) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:352) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1295) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1190) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.zhuyue.clockMyGoal.Application.main(Application.java:13) ~[classes/:na]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zhuyue.clockMyGoal.modules.goal.controller.GoalController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:460) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: java.lang.ClassFormatError: Invalid method Code length 0 in class file com/zhuyue/clockMyGoal/modules/goal/dto/request/CreateGoalRequest
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3404) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2506) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.1.jar:6.1.1]
+	... 21 common frames omitted
+
+2026-10-16T11:15:16.418+08:00  INFO 27548 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 27548 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T11:15:16.420+08:00  INFO 27548 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T11:15:16.904+08:00  INFO 27548 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T11:15:16.906+08:00  INFO 27548 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T11:15:16.927+08:00  INFO 27548 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T11:15:17.376+08:00  INFO 27548 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T11:15:17.382+08:00  INFO 27548 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T11:15:17.382+08:00  INFO 27548 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T11:15:17.420+08:00  INFO 27548 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T11:15:17.421+08:00  INFO 27548 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 968 ms
+2026-10-16T11:15:17.678+08:00  WARN 27548 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+2026-10-16T11:15:17.692+08:00  INFO 27548 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-16T11:15:17.709+08:00  INFO 27548 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-16T11:15:17.723+08:00 ERROR 27548 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:482) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:352) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1295) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1190) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.zhuyue.clockMyGoal.Application.main(Application.java:13) ~[classes/:na]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zhuyue.clockMyGoal.modules.goal.controller.GoalController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:460) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: java.lang.ClassFormatError: Invalid method Code length 0 in class file com/zhuyue/clockMyGoal/modules/goal/dto/request/UpdateGoalRequest
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3404) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2506) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.1.jar:6.1.1]
+	... 21 common frames omitted
+
+2026-10-16T16:09:43.027+08:00  INFO 17592 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 17592 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:09:43.029+08:00  INFO 17592 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:09:43.516+08:00  INFO 17592 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:09:43.518+08:00  INFO 17592 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:09:43.539+08:00  INFO 17592 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:09:44.004+08:00  INFO 17592 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:09:44.011+08:00  INFO 17592 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:09:44.011+08:00  INFO 17592 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:09:44.054+08:00  INFO 17592 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:09:44.054+08:00  INFO 17592 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 997 ms
+2026-10-16T16:09:44.333+08:00  WARN 17592 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+2026-10-16T16:09:44.352+08:00  INFO 17592 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-16T16:09:44.370+08:00  INFO 17592 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-16T16:09:44.396+08:00 ERROR 17592 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:482) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:352) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1295) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1190) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.zhuyue.clockMyGoal.Application.main(Application.java:13) ~[classes/:na]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zhuyue.clockMyGoal.modules.goal.controller.GoalController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:460) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: java.lang.ClassFormatError: Invalid method Code length 0 in class file com/zhuyue/clockMyGoal/modules/goal/dto/request/CreateGoalRequest
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3404) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2506) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.1.jar:6.1.1]
+	... 21 common frames omitted
+
+2026-10-16T16:15:55.623+08:00  INFO 26960 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 26960 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:15:55.625+08:00  INFO 26960 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:15:56.128+08:00  INFO 26960 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:15:56.130+08:00  INFO 26960 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:15:56.151+08:00  INFO 26960 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:15:56.633+08:00  INFO 26960 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:15:56.640+08:00  INFO 26960 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:15:56.640+08:00  INFO 26960 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:15:56.679+08:00  INFO 26960 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:15:56.680+08:00  INFO 26960 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1027 ms
+2026-10-16T16:15:56.919+08:00  WARN 26960 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+2026-10-16T16:15:56.931+08:00  INFO 26960 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-16T16:15:56.943+08:00  INFO 26960 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-16T16:15:56.959+08:00 ERROR 26960 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:482) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:352) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1295) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1190) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.zhuyue.clockMyGoal.Application.main(Application.java:13) ~[classes/:na]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zhuyue.clockMyGoal.modules.goal.controller.GoalController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:460) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: java.lang.ClassFormatError: Invalid method Code length 0 in class file com/zhuyue/clockMyGoal/modules/goal/dto/request/CreateGoalRequest
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3404) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2506) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.1.jar:6.1.1]
+	... 21 common frames omitted
+
+2026-10-16T16:18:14.003+08:00  INFO 39684 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 39684 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:18:14.005+08:00  INFO 39684 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:18:14.475+08:00  INFO 39684 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:18:14.477+08:00  INFO 39684 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:18:14.502+08:00  INFO 39684 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:18:14.939+08:00  INFO 39684 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:18:14.945+08:00  INFO 39684 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:18:14.945+08:00  INFO 39684 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:18:14.989+08:00  INFO 39684 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:18:14.989+08:00  INFO 39684 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 954 ms
+2026-10-16T16:18:15.248+08:00  WARN 39684 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+2026-10-16T16:18:15.262+08:00  INFO 39684 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-16T16:18:15.280+08:00  INFO 39684 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-16T16:18:15.303+08:00 ERROR 39684 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'goalController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:482) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:352) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1295) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1190) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.zhuyue.clockMyGoal.Application.main(Application.java:13) ~[classes/:na]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zhuyue.clockMyGoal.modules.goal.controller.GoalController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:460) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: java.lang.ClassFormatError: Invalid method Code length 0 in class file com/zhuyue/clockMyGoal/modules/goal/dto/request/UpdateGoalRequest
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3404) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2506) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.1.jar:6.1.1]
+	... 21 common frames omitted
+
+2026-10-16T16:19:10.819+08:00  INFO 13184 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 13184 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:19:10.821+08:00  INFO 13184 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:19:11.391+08:00  INFO 13184 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:19:11.393+08:00  INFO 13184 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:19:11.414+08:00  INFO 13184 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:19:11.853+08:00  INFO 13184 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:19:11.864+08:00  INFO 13184 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:19:11.865+08:00  INFO 13184 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:19:11.926+08:00  INFO 13184 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:19:11.926+08:00  INFO 13184 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1071 ms
+2026-10-16T16:19:13.192+08:00  INFO 13184 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:19:13.201+08:00  INFO 13184 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.693 seconds (process running for 2.943)
+2026-10-16T16:19:32.948+08:00  INFO 13184 --- [http-nio-9090-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:19:32.949+08:00  INFO 13184 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:19:32.950+08:00  INFO 13184 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:19:33.113+08:00  INFO 13184 --- [http-nio-9090-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:19:33.471+08:00  INFO 13184 --- [http-nio-9090-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4f5ccd58
+2026-10-16T16:19:33.473+08:00  INFO 13184 --- [http-nio-9090-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:31:38.714+08:00  INFO 23204 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 23204 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:31:38.719+08:00  INFO 23204 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:31:39.170+08:00  INFO 23204 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:31:39.172+08:00  INFO 23204 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:31:39.197+08:00  INFO 23204 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:31:39.658+08:00  INFO 23204 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:31:39.663+08:00  INFO 23204 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:31:39.664+08:00  INFO 23204 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:31:39.701+08:00  INFO 23204 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:31:39.702+08:00  INFO 23204 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 955 ms
+2026-10-16T16:31:40.647+08:00  INFO 23204 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:31:40.655+08:00  INFO 23204 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.217 seconds (process running for 2.45)
+2026-10-16T16:31:45.780+08:00  INFO 23204 --- [http-nio-9090-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:31:45.780+08:00  INFO 23204 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:31:45.781+08:00  INFO 23204 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:32:39.417+08:00  INFO 28584 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 28584 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:32:39.419+08:00  INFO 28584 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:32:39.885+08:00  INFO 28584 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:32:39.887+08:00  INFO 28584 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:32:39.909+08:00  INFO 28584 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:32:40.349+08:00  INFO 28584 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:32:40.354+08:00  INFO 28584 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:32:40.355+08:00  INFO 28584 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:32:40.394+08:00  INFO 28584 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:32:40.394+08:00  INFO 28584 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 944 ms
+2026-10-16T16:32:41.417+08:00  INFO 28584 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:32:41.423+08:00  INFO 28584 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.275 seconds (process running for 2.517)
+2026-10-16T16:32:48.369+08:00  INFO 28584 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:32:48.369+08:00  INFO 28584 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:32:48.370+08:00  INFO 28584 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-16T16:34:03.396+08:00  INFO 28584 --- [http-nio-9090-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:34:03.569+08:00  INFO 28584 --- [http-nio-9090-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b0b7ba4
+2026-10-16T16:34:03.570+08:00  INFO 28584 --- [http-nio-9090-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:39:07.153+08:00  WARN 28584 --- [http-nio-9090-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Failure while trying to resolve exception [org.springframework.http.converter.HttpMessageNotReadableException]
+
+java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
+	at org.apache.catalina.connector.ResponseFacade.checkCommitted(ResponseFacade.java:485) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.ResponseFacade.sendError(ResponseFacade.java:337) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMessageNotReadable(DefaultHandlerExceptionResolver.java:587) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:235) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:161) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1357) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1160) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1106) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-10-16T16:39:07.160+08:00 ERROR 28584 --- [http-nio-9090-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "2026/09/11 10:10:10": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2026/09/11 10:10:10' could not be parsed at index 4] with root cause
+
+java.time.format.DateTimeParseException: Text '2026/09/11 10:10:10' could not be parsed at index 4
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052) ~[na:na]
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954) ~[na:na]
+	at java.base/java.time.LocalDateTime.parse(LocalDateTime.java:494) ~[na:na]
+	at com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer._fromString(LocalDateTimeDeserializer.java:177) ~[jackson-datatype-jsr310-2.15.3.jar:2.15.3]
+	at com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer.deserialize(LocalDateTimeDeserializer.java:81) ~[jackson-datatype-jsr310-2.15.3.jar:2.15.3]
+	at com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer.deserialize(LocalDateTimeDeserializer.java:40) ~[jackson-datatype-jsr310-2.15.3.jar:2.15.3]
+	at com.fasterxml.jackson.databind.deser.impl.MethodProperty.deserializeAndSet(MethodProperty.java:129) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserializeFromObject(BeanDeserializer.java:392) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:185) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.readRootValue(DefaultDeserializationContext.java:323) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.ObjectReader._bindAndClose(ObjectReader.java:2105) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.ObjectReader.readValue(ObjectReader.java:1481) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:395) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.read(AbstractJackson2HttpMessageConverter.java:354) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:184) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:159) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:134) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:218) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:171) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-10-16T16:39:09.965+08:00  INFO 28584 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-16T16:39:09.975+08:00  INFO 28584 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-16T16:39:53.170+08:00  INFO 7672 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 7672 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:39:53.172+08:00  INFO 7672 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:39:53.676+08:00  INFO 7672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:39:53.678+08:00  INFO 7672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:39:53.699+08:00  INFO 7672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:39:54.140+08:00  INFO 7672 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:39:54.145+08:00  INFO 7672 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:39:54.145+08:00  INFO 7672 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:39:54.184+08:00  INFO 7672 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:39:54.185+08:00  INFO 7672 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 983 ms
+2026-10-16T16:39:55.149+08:00  INFO 7672 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:39:55.156+08:00  INFO 7672 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.258 seconds (process running for 2.593)
+2026-10-16T16:40:01.901+08:00  INFO 7672 --- [http-nio-9090-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:40:01.901+08:00  INFO 7672 --- [http-nio-9090-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:40:01.903+08:00  INFO 7672 --- [http-nio-9090-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:40:02.376+08:00  INFO 7672 --- [http-nio-9090-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:40:02.549+08:00  INFO 7672 --- [http-nio-9090-exec-3] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61ab8c30
+2026-10-16T16:40:02.550+08:00  INFO 7672 --- [http-nio-9090-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:40:43.550+08:00  INFO 34476 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 34476 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:40:43.553+08:00  INFO 34476 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:40:44.049+08:00  INFO 34476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:40:44.052+08:00  INFO 34476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:40:44.071+08:00  INFO 34476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:40:44.493+08:00  INFO 34476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:40:44.499+08:00  INFO 34476 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:40:44.500+08:00  INFO 34476 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:40:44.544+08:00  INFO 34476 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:40:44.544+08:00  INFO 34476 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 961 ms
+2026-10-16T16:40:45.589+08:00  INFO 34476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:40:45.600+08:00  INFO 34476 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.339 seconds (process running for 2.604)
+2026-10-16T16:40:45.952+08:00  INFO 34476 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:40:45.953+08:00  INFO 34476 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:40:45.954+08:00  INFO 34476 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:40:46.523+08:00  INFO 34476 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:40:46.717+08:00  INFO 34476 --- [http-nio-9090-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@bb92c38
+2026-10-16T16:40:46.718+08:00  INFO 34476 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:41:31.976+08:00  INFO 35844 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 35844 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:41:31.978+08:00  INFO 35844 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:41:32.471+08:00  INFO 35844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:41:32.473+08:00  INFO 35844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:41:32.494+08:00  INFO 35844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:41:32.965+08:00  INFO 35844 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:41:32.979+08:00  INFO 35844 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:41:32.979+08:00  INFO 35844 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:41:33.032+08:00  INFO 35844 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:41:33.033+08:00  INFO 35844 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1027 ms
+2026-10-16T16:41:34.046+08:00  INFO 35844 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:41:34.054+08:00  INFO 35844 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.348 seconds (process running for 2.743)
+2026-10-16T16:41:45.857+08:00  INFO 35844 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:41:45.857+08:00  INFO 35844 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:41:45.858+08:00  INFO 35844 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:41:46.305+08:00  INFO 35844 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:41:46.487+08:00  INFO 35844 --- [http-nio-9090-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61ab8c30
+2026-10-16T16:41:46.489+08:00  INFO 35844 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:44:37.496+08:00  INFO 40084 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 40084 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:44:37.499+08:00  INFO 40084 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:44:37.993+08:00  INFO 40084 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:44:37.995+08:00  INFO 40084 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:44:38.014+08:00  INFO 40084 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:44:38.423+08:00  INFO 40084 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:44:38.428+08:00  INFO 40084 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:44:38.429+08:00  INFO 40084 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:44:38.470+08:00  INFO 40084 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:44:38.470+08:00  INFO 40084 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 941 ms
+2026-10-16T16:44:39.474+08:00  INFO 40084 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:44:39.484+08:00  INFO 40084 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.261 seconds (process running for 2.523)
+2026-10-16T16:44:44.594+08:00  INFO 40084 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:44:44.595+08:00  INFO 40084 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:44:44.596+08:00  INFO 40084 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:44:45.109+08:00  INFO 40084 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:44:45.290+08:00  INFO 40084 --- [http-nio-9090-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61ab8c30
+2026-10-16T16:44:45.291+08:00  INFO 40084 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:46:28.852+08:00  INFO 39148 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 39148 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:46:28.857+08:00  INFO 39148 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:46:29.324+08:00  INFO 39148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:46:29.327+08:00  INFO 39148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:46:29.352+08:00  INFO 39148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:46:29.788+08:00  INFO 39148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:46:29.794+08:00  INFO 39148 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:46:29.794+08:00  INFO 39148 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:46:29.837+08:00  INFO 39148 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:46:29.837+08:00  INFO 39148 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 953 ms
+2026-10-16T16:46:30.853+08:00  INFO 39148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:46:30.861+08:00  INFO 39148 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.296 seconds (process running for 2.534)
+2026-10-16T16:46:41.672+08:00  INFO 39148 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:46:41.673+08:00  INFO 39148 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:46:41.674+08:00  INFO 39148 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:46:42.146+08:00  INFO 39148 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:46:42.320+08:00  INFO 39148 --- [http-nio-9090-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@bb92c38
+2026-10-16T16:46:42.321+08:00  INFO 39148 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T16:52:16.546+08:00  INFO 27412 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 27412 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T16:52:16.551+08:00  INFO 27412 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T16:52:17.018+08:00  INFO 27412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T16:52:17.021+08:00  INFO 27412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T16:52:17.041+08:00  INFO 27412 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T16:52:17.464+08:00  INFO 27412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T16:52:17.471+08:00  INFO 27412 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T16:52:17.471+08:00  INFO 27412 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T16:52:17.510+08:00  INFO 27412 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T16:52:17.511+08:00  INFO 27412 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 930 ms
+2026-10-16T16:52:18.473+08:00  INFO 27412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T16:52:18.481+08:00  INFO 27412 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.208 seconds (process running for 2.448)
+2026-10-16T16:52:20.364+08:00  INFO 27412 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T16:52:20.365+08:00  INFO 27412 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T16:52:20.366+08:00  INFO 27412 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T16:55:11.182+08:00  INFO 27412 --- [http-nio-9090-exec-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T16:55:11.384+08:00  INFO 27412 --- [http-nio-9090-exec-4] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60ae7a51
+2026-10-16T16:55:11.385+08:00  INFO 27412 --- [http-nio-9090-exec-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T17:04:18.929+08:00  INFO 27412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-16T17:04:18.941+08:00  INFO 27412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-16T17:04:26.437+08:00  INFO 41748 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 41748 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:04:26.441+08:00  INFO 41748 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:04:26.921+08:00  INFO 41748 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:04:26.923+08:00  INFO 41748 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:04:26.946+08:00  INFO 41748 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:04:27.407+08:00  INFO 41748 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:04:27.413+08:00  INFO 41748 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:04:27.414+08:00  INFO 41748 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:04:27.450+08:00  INFO 41748 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:04:27.450+08:00  INFO 41748 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 976 ms
+2026-10-16T17:04:28.424+08:00  INFO 41748 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T17:04:28.431+08:00  INFO 41748 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.279 seconds (process running for 2.671)
+2026-10-16T17:04:31.832+08:00  INFO 41748 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T17:04:31.832+08:00  INFO 41748 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T17:04:31.833+08:00  INFO 41748 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-16T17:05:21.097+08:00  INFO 8360 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 8360 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:05:21.099+08:00  INFO 8360 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:05:21.593+08:00  INFO 8360 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:05:21.595+08:00  INFO 8360 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:05:21.618+08:00  INFO 8360 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:05:22.059+08:00  INFO 8360 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:05:22.065+08:00  INFO 8360 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:05:22.066+08:00  INFO 8360 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:05:22.102+08:00  INFO 8360 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:05:22.103+08:00  INFO 8360 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 969 ms
+2026-10-16T17:05:23.134+08:00  INFO 8360 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T17:05:23.146+08:00  INFO 8360 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.357 seconds (process running for 2.595)
+2026-10-16T17:05:44.209+08:00  INFO 8360 --- [http-nio-9090-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T17:05:44.210+08:00  INFO 8360 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T17:05:44.211+08:00  INFO 8360 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T17:29:38.549+08:00  INFO 41300 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 41300 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:29:38.552+08:00  INFO 41300 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:29:39.057+08:00  INFO 41300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:29:39.060+08:00  INFO 41300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:29:39.085+08:00  INFO 41300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:29:39.534+08:00  INFO 41300 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:29:39.540+08:00  INFO 41300 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:29:39.540+08:00  INFO 41300 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:29:39.579+08:00  INFO 41300 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:29:39.580+08:00  INFO 41300 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 997 ms
+2026-10-16T17:29:40.584+08:00  INFO 41300 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T17:29:40.592+08:00  INFO 41300 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.324 seconds (process running for 2.568)
+2026-10-16T17:29:42.076+08:00  INFO 41300 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T17:29:42.076+08:00  INFO 41300 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T17:29:42.077+08:00  INFO 41300 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-16T17:29:42.558+08:00  INFO 41300 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T17:29:42.735+08:00  INFO 41300 --- [http-nio-9090-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4d212ecd
+2026-10-16T17:29:42.736+08:00  INFO 41300 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T17:36:17.700+08:00  INFO 29740 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 29740 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:36:17.705+08:00  INFO 29740 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:36:18.181+08:00  INFO 29740 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:36:18.183+08:00  INFO 29740 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:36:18.207+08:00  INFO 29740 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:36:18.617+08:00  INFO 29740 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:36:18.623+08:00  INFO 29740 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:36:18.624+08:00  INFO 29740 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:36:18.664+08:00  INFO 29740 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:36:18.665+08:00  INFO 29740 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 931 ms
+2026-10-16T17:36:19.772+08:00  INFO 29740 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T17:36:19.784+08:00  INFO 29740 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.356 seconds (process running for 2.583)
+2026-10-16T17:41:02.339+08:00  INFO 38736 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 38736 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:41:02.341+08:00  INFO 38736 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:41:02.792+08:00  INFO 38736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:41:02.795+08:00  INFO 38736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:41:02.818+08:00  INFO 38736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:41:03.300+08:00  INFO 38736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:41:03.308+08:00  INFO 38736 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:41:03.308+08:00  INFO 38736 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:41:03.350+08:00  INFO 38736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:41:03.351+08:00  INFO 38736 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 981 ms
+2026-10-16T17:41:04.437+08:00  INFO 38736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T17:41:04.444+08:00  INFO 38736 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.381 seconds (process running for 2.605)
+2026-10-16T17:41:09.032+08:00  INFO 38736 --- [http-nio-9090-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T17:41:09.033+08:00  INFO 38736 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T17:41:09.034+08:00  INFO 38736 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T17:41:09.533+08:00  INFO 38736 --- [http-nio-9090-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T17:41:09.724+08:00  INFO 38736 --- [http-nio-9090-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@25fc6b1
+2026-10-16T17:41:09.725+08:00  INFO 38736 --- [http-nio-9090-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T17:42:32.915+08:00  INFO 36948 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 36948 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:42:32.917+08:00  INFO 36948 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:42:33.344+08:00  INFO 36948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:42:33.346+08:00  INFO 36948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:42:33.369+08:00  INFO 36948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:42:33.778+08:00  INFO 36948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:42:33.784+08:00  INFO 36948 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:42:33.784+08:00  INFO 36948 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:42:33.821+08:00  INFO 36948 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:42:33.822+08:00  INFO 36948 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 874 ms
+2026-10-16T17:42:34.708+08:00  WARN 36948 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-16T17:42:34.737+08:00  INFO 36948 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-16T17:42:34.754+08:00 ERROR 36948 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 9090 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 9090 or configure this application to listen on another port.
+
+2026-10-16T17:44:05.569+08:00  INFO 21972 --- [main] com.zhuyue.clockMyGoal.Application       : Starting Application using Java 17.0.18 with PID 21972 (E:\libs\java-project\clock-my-goal\target\classes started by zhuyue in E:\libs\java-project)
+2026-10-16T17:44:05.572+08:00  INFO 21972 --- [main] com.zhuyue.clockMyGoal.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T17:44:06.092+08:00  INFO 21972 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T17:44:06.095+08:00  INFO 21972 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T17:44:06.122+08:00  INFO 21972 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-10-16T17:44:06.577+08:00  INFO 21972 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-10-16T17:44:06.583+08:00  INFO 21972 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T17:44:06.584+08:00  INFO 21972 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-10-16T17:44:06.622+08:00  INFO 21972 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T17:44:06.622+08:00  INFO 21972 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1017 ms
+2026-10-16T17:44:07.714+08:00  INFO 21972 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2026-10-16T17:44:07.721+08:00  INFO 21972 --- [main] com.zhuyue.clockMyGoal.Application       : Started Application in 2.435 seconds (process running for 2.685)
+2026-10-16T17:44:09.697+08:00  INFO 21972 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T17:44:09.698+08:00  INFO 21972 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T17:44:09.699+08:00  INFO 21972 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T17:44:10.253+08:00  INFO 21972 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T17:44:10.448+08:00  INFO 21972 --- [http-nio-9090-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@39a78b77
+2026-10-16T17:44:10.449+08:00  INFO 21972 --- [http-nio-9090-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
