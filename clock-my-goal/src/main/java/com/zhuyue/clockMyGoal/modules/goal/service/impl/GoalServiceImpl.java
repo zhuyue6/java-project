@@ -32,8 +32,8 @@ public class GoalServiceImpl implements GoalService {
     Goal goal = Goal.builder()
         .expirationTime(dto.getExpirationTime())
         .remark(dto.getRemark())
-        .labelId(dto.getLabelId())
         .clockInCycle(dto.getClockInCycle())
+        .labelId(dto.getLabelId())
         .build();
 
     // 这里要计算当前时间与截止时间的差值，然后除以打卡周期，得到目标打卡次数
@@ -43,14 +43,7 @@ public class GoalServiceImpl implements GoalService {
     long targetClockInCount = TimeService.getTimeDifference(clockInCycle, currentTime, expirationTime);
     goal.setTargetClockInCount(targetClockInCount);
 
-    LabelResponse matchLabel = labelService.getLabelById(goal.getLabelId());
-    if (matchLabel == null) {
-      throw new BusinessException(ExceptionCodeEnum.LabelNotFound);
-
-    }
-
     goalMapper.insertGoal(userId, goal);
-
     return goal.getId();
   }
 
@@ -61,7 +54,7 @@ public class GoalServiceImpl implements GoalService {
     String expirationTimeString = TimeService.getTimeStringByTime(goal.getExpirationTime());
     String createTimeString = TimeService.getTimeStringByTime(goal.getCreateTime());
     String updateTimeString = TimeService.getTimeStringByTime(goal.getUpdateTime());
-
+    int status = getGoalStatus(goal);
 
     double completionRate = calculateCompletionRate(goal.getClockInCount(), goal.getTargetClockInCount());
     return GoalResponse.builder()
@@ -76,6 +69,7 @@ public class GoalServiceImpl implements GoalService {
       .clockInCount(goal.getClockInCount())
       .targetClockInCount(goal.getTargetClockInCount())
       .completionRate(completionRate)
+      .status(status)
       .build();
   }
 
@@ -86,11 +80,14 @@ public class GoalServiceImpl implements GoalService {
     List<GoalResponse> responseList = new ArrayList<>();
 
     for (Goal goal : goalList) {
-      LabelResponse matchLabel = labelList.stream().filter(r -> r.getId() == goal.getLabelId()).findFirst().orElse(null);
+      Long labelId = goal.getLabelId();
+      LabelResponse matchLabel = labelId == null ? null
+          : labelList.stream().filter(r -> r.getId() == labelId).findFirst().orElse(null);
 
       double completionRate = calculateCompletionRate(goal.getClockInCount(), goal.getTargetClockInCount());
       String expirationTimeString = TimeService.getTimeStringByTime(goal.getExpirationTime());
       String createTimeString = TimeService.getTimeStringByTime(goal.getCreateTime());
+      int status = getGoalStatus(goal);
       GoalResponse response = GoalResponse.builder()
         .id(goal.getId())
         .expirationTime(expirationTimeString)
@@ -102,6 +99,7 @@ public class GoalServiceImpl implements GoalService {
         .clockInCycle(goal.getClockInCycle())
         .completionRate(completionRate)
         .createTime(createTimeString)
+        .status(status)
         .build();
         responseList.add(response);
     }
@@ -135,7 +133,28 @@ public class GoalServiceImpl implements GoalService {
 
     goalMapper.updateGoal(userId, goal);
   }
+  
+  /**
+   * 获取目标状态，实时计算
+   * @param goal
+   * @return
+   */
+  public int getGoalStatus(Goal goal) {
+    int clockInCount =goal.getClockInCount();
+    long targetClockInCount = goal.getTargetClockInCount();
+    
+    if (clockInCount >= targetClockInCount) {
+      return 2;
+    }
 
+    LocalDateTime expirationTime = goal.getExpirationTime();
+    LocalDateTime currentTime = LocalDateTime.now();
+    if (currentTime.isAfter(expirationTime)) {
+      return 3;
+    }
+
+    return 1;
+  }
 
   public double calculateCompletionRate(long clockInCount, long targetClockInCount) {
     double completionRate = 0.0;

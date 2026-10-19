@@ -27,4 +27,6 @@ public class GoalResponse {
   private double completionRate;
   /** 打卡周期(1天/2周/3月) */
   private int clockInCycle;
+  /** 状态(1进行中/2已完成/3已过期) */
+  private int status;
 }

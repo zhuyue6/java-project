@@ -10,5 +10,5 @@ public interface LabelService {
   public long createLabel(long userId, CreateLabelRequest dto);
   public void removeLabel(long userId, RemoveLabelRequest dto);
   public List<LabelResponse> getLabelListByUserId(long userId);
-  public LabelResponse getLabelById(long id);
+  public LabelResponse getLabelById(Long id);
 }

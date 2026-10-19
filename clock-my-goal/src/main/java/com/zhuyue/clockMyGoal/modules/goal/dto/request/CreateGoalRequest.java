@@ -11,7 +11,7 @@ public class CreateGoalRequest {
   private String remark;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   private LocalDateTime expirationTime;
-  private long labelId;
+  private Long labelId;
   // @Min(value = 1, message = "目标打卡次数不能小于1")
   // private int targetClockInCount;
   @Min(value = 1, message = "打卡周期不能小于1")

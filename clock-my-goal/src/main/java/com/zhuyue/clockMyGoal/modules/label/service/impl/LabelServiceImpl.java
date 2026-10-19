@@ -65,9 +65,11 @@ public class LabelServiceImpl implements LabelService {
   }
 
   @Override
-  public LabelResponse getLabelById(long id) {
+  public LabelResponse getLabelById(Long id) {
+    if (id == null) {
+      return null;
+    }
     Label label = labelMapper.selectLabelById(id);
-
     LabelResponse response = LabelResponse.builder()
       .id(label.getId())
       .labelName(label.getLabelName())

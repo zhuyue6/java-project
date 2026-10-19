@@ -20,7 +20,7 @@ public class Goal {
   /** 打卡到期时间 */
   private LocalDateTime expirationTime;
   /** 标签ID */
-  private long labelId;
+  private Long labelId;
   /** 已打卡次数 */
   private int clockInCount;
   /** 目标打卡次数 */

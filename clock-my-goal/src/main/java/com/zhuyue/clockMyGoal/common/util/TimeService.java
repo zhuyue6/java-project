@@ -58,14 +58,16 @@ public class TimeService {
    * @return 差值
    */
   public static long getTimeDifference(int cycle, LocalDateTime startTime, LocalDateTime endTime) {
-    if (cycle == 1) {
-      return ChronoUnit.DAYS.between(endTime, startTime);
-    } else if (cycle == 2) {
-      return ChronoUnit.WEEKS.between(endTime, startTime);
-    } else if (cycle == 3) {
-      return ChronoUnit.MONTHS.between(endTime, startTime);
+    switch (cycle) {
+      case 1:
+        return ChronoUnit.DAYS.between(startTime, endTime);
+      case 2:
+        return ChronoUnit.WEEKS.between(startTime, endTime);
+      case 3:
+        return ChronoUnit.MONTHS.between(startTime, endTime);
+      default:
+        return ChronoUnit.DAYS.between(startTime, endTime);
     }
-    return ChronoUnit.DAYS.between(endTime, startTime);
   }
   
 }
