@@ -58,9 +58,6 @@ public class UserServiceImpl implements UserService {
         .build();
   }
 
-  // 登录接口
-  @Override
-  public UserLoginReponse login(UserLoginRequest dto) throws BusinessException {
     // 根据用户名查询用户
     User user = userMapper.selectByUserName(dto.getUserName());
     // 如果用户不存在，则抛出异常
@@ -92,36 +89,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public long register(UserRegisterRequest dto) throws BusinessException {
-    // 根据用户名查询用户
-    User user = userMapper.selectByUserName(dto.getUserName());
-    if (user != null) {
-      // 如果已经存在账号, 直接抛出异常
-      throw new BusinessException(ExceptionCodeEnum.UserAlreadyExists);
-    } 
-
-    int sex = Objects.requireNonNullElse(dto.getSex(), 3);
-    User newUser = User.builder()
-      .userName(dto.getUserName())
-      .password(dto.getPassword())
-      .sex(sex)
-      .age(dto.getAge())
-      .build();
-
-    userMapper.insertUser(newUser);
-    return newUser.getId();
-  }
-
-  @Override
-  public void logout(String authHeader) {
-    String token = jwtService.getToken(authHeader);
-    // 计算token剩余过期秒数
-    long remainSeconds = jwtService.getTokenRemainSeconds(token);
-
-    if (remainSeconds > 0) {
-      // 如果还有剩余时间，则将token加入黑名单
-      blackListService.addTokenToBlacklist(token, remainSeconds);
+  public UserCredentialDto getUserCredentialByUserName(String userName) {
+    User user = userMapper.selectByUserName(userName);
+    if (user == null) {
+      return null;
     }
+    return UserCredentialDto.builder().id(user.getId()).userName(user.getUserName()).password(user.getPassword()).status(user.getStatus()).build();
   }
 
   @Override
