@@ -12,6 +12,33 @@
     <select id="selectByUserName" resultType="com.zhuyue.clockMyGoal.modules.user.entity.User">
         SELECT * FROM user WHERE user_name = #{userName}
     </select>
+    <!-- 查询所有用户 -->
+    <select id="selectAllUsers" resultType="com.zhuyue.clockMyGoal.modules.user.entity.User">
+        SELECT * FROM user
+    </select>
+
+    <sql id="UserWhere">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND user_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectCountUsers" resultType="long">
+        SELECT COUNT(*) FROM user
+        <include refid="UserWhere"/>
+    </select>
+
+    <select id="selectUserList" resultType="com.zhuyue.clockMyGoal.modules.user.entity.User">
+        SELECT * FROM user
+        <include refid="UserWhere"/>
+        ORDER BY update_time DESC, id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
 
     <!-- 创建用户：useGeneratedKeys 把数据库自增主键回写到 User.id -->
     <insert id="createUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -21,5 +48,10 @@
     <!-- 更新用户头像 -->
     <update id="updateAvatarByUserId">
         UPDATE user SET avatar_url = #{avatarUrl} WHERE id = #{id}
+    </update>
+
+    <!-- 更新用户状态 -->
+    <update id="updateUserStatus">
+        UPDATE user SET status = #{status} WHERE id = #{id}
     </update>
 </mapper>

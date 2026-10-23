@@ -51,6 +51,9 @@ public class LabelServiceImpl implements LabelService {
   public List<LabelResponse> getLabelListByUserId(long userId) {
     List<Label> labelList = labelMapper.selectLabelByUserId(userId);
     List<LabelResponse> responseList = new ArrayList<>();
+    if (labelList == null) {
+      return responseList;
+    }
 
     for (Label label : labelList) {
       LabelResponse response = LabelResponse.builder()

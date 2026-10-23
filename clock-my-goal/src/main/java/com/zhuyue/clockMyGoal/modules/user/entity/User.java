@@ -21,6 +21,8 @@ public class User {
     private Integer sex;
     /** 年龄 */
     private int age;
+    /** 状态 0:禁用 1:正常 */
+    private Integer status;
     /** 创建时间 */
     private LocalDateTime createTime;
     /** 更新时间 */

@@ -1,9 +1,10 @@
-package com.zhuyue.clockMyGoal;
+package com.zhuyue.clockMyGoal.common.config;
 
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,11 +26,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private String ACCESS_PREFIX;
 
     @Override
+    public void addCorsMappings(@NonNull CorsRegistry registry) {
+        registry.addMapping("/admin/**")
+                .allowedOriginPatterns("http://localhost:*", "http://127.0.0.1:*")
+                .allowedMethods("GET", "POST", "OPTIONS")
+                .allowedHeaders("*");
+    }
+
+    @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         // 必须注入 Spring 容器里的拦截器实例，new 出来的 @Autowired 字段全是 null
         registry.addInterceptor(globalAuthInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/user/login", "/user/register", "/static/**", "/error");
+                .excludePathPatterns(
+                    "/static/**",  // 静态资源
+                    "/error"  // 错误
+                );
     }
 
     /**

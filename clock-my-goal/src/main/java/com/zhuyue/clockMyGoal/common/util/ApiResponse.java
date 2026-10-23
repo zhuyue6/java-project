@@ -1,5 +1,7 @@
 package com.zhuyue.clockMyGoal.common.util;
 
+import com.zhuyue.clockMyGoal.common.constants.ExceptionCodeEnum;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,13 @@ public class ApiResponse<T> {
     result.code = 0;
     result.message = "操作成功";
     result.data = data;
+    return result;
+  }
+  public static <T> ApiResponse<T> fail(ExceptionCodeEnum exceptionCodeEnum) {
+    ApiResponse<T> result = new ApiResponse<>();
+    result.code = exceptionCodeEnum.getCode();
+    result.message = exceptionCodeEnum.getMessage();
+    result.data = null;
     return result;
   }
   public static <T> ApiResponse<T> fail(String message) {

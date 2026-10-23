@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.zhuyue.clockMyGoal.modules.user.entity.User;
+import java.util.List;
 
 /**
  * 用户Mapper接口
@@ -16,7 +17,18 @@ public interface UserMapper {
   User selectByUserId(@Param("id") Long id);
   // 根据Name查询用户
   User selectByUserName(@Param("userName") String userName);
+  // 查询所有用户
+  List<User> selectAllUsers();
+  long selectCountUsers(@Param("keyword") String keyword, @Param("status") Integer status);
+  List<User> selectUserList(
+    @Param("keyword") String keyword,
+    @Param("status") Integer status,
+    @Param("offset") int offset,
+    @Param("pageSize") int pageSize
+  );
   // insert 返回影响行数；自增 id 会写回 user.getId()
   void insertUser(User user);
   void updateAvatarByUserId(@Param("id") Long id, @Param("avatarUrl") String avatarUrl);
+  // 更新用户状态
+  void updateUserStatus(@Param("id") Long id, @Param("status") Integer status);
 }

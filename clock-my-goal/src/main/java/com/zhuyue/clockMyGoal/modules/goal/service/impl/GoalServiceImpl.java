@@ -78,6 +78,9 @@ public class GoalServiceImpl implements GoalService {
     List<Goal> goalList = goalMapper.selectGoalByUserId(userId);
     List<LabelResponse> labelList = labelService.getLabelListByUserId(userId);
     List<GoalResponse> responseList = new ArrayList<>();
+    if (goalList == null) {
+      return responseList;
+    }
 
     for (Goal goal : goalList) {
       Long labelId = goal.getLabelId();

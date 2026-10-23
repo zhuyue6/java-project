@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.*;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
@@ -24,23 +25,24 @@ public class JwtService {
     return Keys.hmacShaKeyFor(secret.getBytes());
   }
 
-  // 生成令牌
+  // 生成小程序用户令牌
   public String generateToken(Long userId, String username) {
+    return generateToken(userId, username, "user");
+  }
 
+  // accountType：user 小程序用户，admin 管理员
+  public String generateToken(Long userId, String username, String accountType) {
     return Jwts.builder()
-       // 设置主题
       .subject(userId.toString())
       .claim("userName", username)
-      // 设置过期时间
+      .claim("accountType", accountType)
       .expiration(new Date(System.currentTimeMillis() + expiration))
-      // 设置签名算法
       .signWith(createSecretKey(), Jwts.SIG.HS256)
-      // 生成令牌
       .compact();
   }
 
   // 解析令牌
-  public Map<String, Object> parseToken(String token) {
+  public Map<String, Object> parseToken(String token) throws ExpiredJwtException {
     Jws<Claims> jws = Jwts.parser()
       // 验签密钥
       .verifyWith(createSecretKey())
@@ -51,8 +53,10 @@ public class JwtService {
 
       Map<String, Object> claims = new HashMap<>();
       // JWT subject 是字符串，这里转成 Long 供鉴权拦截器使用
+      Object accountType = jws.getPayload().get("accountType");
       claims.put("id", Long.valueOf(jws.getPayload().getSubject()));
       claims.put("userName", jws.getPayload().get("userName"));
+      claims.put("accountType", accountType == null ? "user" : accountType.toString());
       claims.put("exp", jws.getPayload().getExpiration());
       return claims;
   }

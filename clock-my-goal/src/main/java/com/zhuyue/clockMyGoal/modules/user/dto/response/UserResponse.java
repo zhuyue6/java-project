@@ -10,7 +10,9 @@ public class UserResponse {
   private String userName;
   private int age;
   private int sex;
-  private String token;
   private String avatarUrl;
+  private Integer status;
+  private String createTime;
+  private String updateTime;
 }
 

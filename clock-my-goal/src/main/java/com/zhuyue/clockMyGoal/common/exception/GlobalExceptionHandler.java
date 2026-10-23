@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.zhuyue.clockMyGoal.common.constants.ExceptionCodeEnum;
+import io.jsonwebtoken.ExpiredJwtException;
 import com.zhuyue.clockMyGoal.common.util.ApiResponse;
 
 import java.lang.Exception;

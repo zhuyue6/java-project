@@ -9,8 +9,10 @@ import com.zhuyue.clockMyGoal.common.interceptor.LoginUser;
 import com.zhuyue.clockMyGoal.modules.user.dto.request.*;
 import com.zhuyue.clockMyGoal.modules.user.dto.response.*;
 import com.zhuyue.clockMyGoal.modules.user.service.UserService;
-
+import com.zhuyue.clockMyGoal.modules.user.dto.response.PageResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 用户
@@ -18,14 +20,15 @@ import jakarta.validation.Valid;
  */
 @RestController // @Controller + @ResponseBody 标注为控制器，并返回JSON数据
 @RequestMapping("/user") // 映射请求路径
+@Validated
 public class UserController {
   @Resource(name = "UserService") // Autowired + Qualifier('UserServiceImpl')
   private UserService userService;
 
   @IgnoreJwt
   @PostMapping("/login")  // @RequestMapping(value = "/login", method = RequestMethod.Post)
-  public UserResponse login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
-    UserResponse user = userService.login(userLoginRequest);
+  public UserLoginReponse login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
+    UserLoginReponse user = userService.login(userLoginRequest);
     return user;
   }
 
@@ -34,6 +37,18 @@ public class UserController {
   public long register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
     return userService.register(userRegisterRequest);
   }
+
+  @GetMapping("/getUserById")
+  public UserResponse getUserByUserId(@RequestParam ("id") @NotNull Long userId) {
+    return userService.getUserByUserId(userId);
+  }
+  
+  @PostMapping("/getUserList")
+  public PageResponse<UserResponse> getUserList(@Valid @RequestBody UserListRequest userListRequest) {
+    return userService.getUserList(userListRequest);
+  }
+
+
   @PostMapping("/logout")
   public void logout(@RequestHeader("Authorization") String authHeader) {
     userService.logout(authHeader);

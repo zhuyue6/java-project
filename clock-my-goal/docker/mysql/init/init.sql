@@ -1,5 +1,5 @@
 -- 创建业务库
--- CREATE DATABASE IF NOT EXISTS clock_my_goal DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS clock_my_goal DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- 创建业务表
 create table user (
@@ -9,6 +9,7 @@ create table user (
     phone varchar(11) default null COMMENT '手机号',
     age int default null COMMENT '年龄',
     sex int default 0 COMMENT '性别',
+    status int not null default 1 COMMENT '状态 0:禁用 1:正常',
     avatar_url varchar(100) default null COMMENT '头像URL',
     create_time datetime not null default current_timestamp COMMENT '创建时间',
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
@@ -39,5 +40,16 @@ create table goal_label(
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
 );
 
+-- 创建管理员用户表
+create table admin_user(
+    id bigint primary key auto_increment COMMENT '管理员ID',
+    user_name varchar(50) not null unique COMMENT '管理员用户名',
+    password varchar(100) not null COMMENT '管理员密码',
+    role int not null default 2 COMMENT '管理员角色 1:超级管理员 2:管理员',
+    status int not null default 1 COMMENT '管理员状态 0:禁用 1:正常 ',
+    create_time datetime not null default current_timestamp COMMENT '创建时间',
+    update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
+);
+
 -- 创建管理员
-insert into user (user_name, password, age, sex) values ('admin', '123456', 0, 3);
+insert into admin_user (user_name, password, role, status) values ('admin', '123456', 1, 1);
