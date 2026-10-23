@@ -1,5 +1,7 @@
 target/
 static/
 logs/
+log/
 .tar
 .class
+var/
