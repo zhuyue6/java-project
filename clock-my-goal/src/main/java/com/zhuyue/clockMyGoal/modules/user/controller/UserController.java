@@ -20,18 +20,23 @@ import com.zhuyue.clockMyGoal.modules.user.dto.response.PageResponse;
  */
 @RestController // @Controller + @ResponseBody 标注为控制器，并返回JSON数据
 @RequestMapping("/users") // 映射请求路径
-@Validated
+@Validated // 校验get 里面的PathVariable，RequestParam 的方法，而不是
 public class UserController {
   @Resource(name = "UserService") // Autowired + Qualifier('UserServiceImpl')
   private UserService userService;
 
-  @GetMapping("/getUserById")
-  public UserResponse getUserByUserId(@RequestParam ("id") @NotNull Long userId) {
-    return userService.getUserByUserId(userId);
+  @GetMapping("/{id}")
+  public UserResponse getUserByUserId(@PathVariable @NotNull long id) {
+    return userService.getUserByUserId(id);
   }
   
-  @PostMapping("/getUserList")
-  public PageResponse<UserResponse> getUserList(@Valid @RequestBody UserListRequest userListRequest) {
+  @GetMapping
+  public PageResponse<UserResponse> getUserList(
+    @RequestParam("keyword") String keyword,
+    @RequestParam("status") int status,
+    @RequestParam("pageNum") int pageNum, 
+    @RequestParam("pageSize") int pageSize
+  ) {
     return userService.getUserList(userListRequest);
   }
 
