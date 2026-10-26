@@ -1,9 +1,9 @@
-package com.zhuyue.clockMyGoal.modules.user.dto;
+package com.zhuyue.clockMyGoal.modules.user.dto.request;
 
 import lombok.Data;
 
 @Data
-public class UserCredentialDto {
+public class UserCredentialRequest {
   private Long id;
   private String userName;
   private String password;

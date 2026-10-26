@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ public class GoalServiceImpl implements GoalService {
   private LabelService labelService;
 
   private GoalResponse convertToGoalResponse(Goal goal, LabelResponse labelResponse) {
+    if (goal == null) {
+      return null;
+    }
+
     GoalResponse goalResponse = new GoalResponse();
 
     String expirationTimeString = TimeService.getTimeStringByTime(goal.getExpirationTime());
@@ -38,8 +43,8 @@ public class GoalServiceImpl implements GoalService {
     goalResponse.setId(goal.getId());
     goalResponse.setExpirationTime(expirationTimeString);
     goalResponse.setRemark(goal.getRemark());
-    goalResponse.setLabelName(labelResponse.getLabelName());
-    goalResponse.setLabelType(labelResponse.getLabelType());
+    goalResponse.setLabelName(labelResponse == null ? null : labelResponse.getLabelName());
+    goalResponse.setLabelType(labelResponse == null ? null : labelResponse.getLabelType());
     goalResponse.setCreateTime(createTimeString);
     goalResponse.setUpdateTime(updateTimeString);
     goalResponse.setClockInCount(goal.getClockInCount());
@@ -73,6 +78,9 @@ public class GoalServiceImpl implements GoalService {
   @Override
   public GoalResponse getGoal(long userId, long id) {
     Goal goal = goalMapper.selectGoalById(userId, id);
+    if (goal == null) {
+      return null;
+    }
     LabelResponse matchLabel = labelService.getLabelById(goal.getLabelId());
     GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel);
     return goalResponse;
@@ -101,13 +109,13 @@ public class GoalServiceImpl implements GoalService {
 
   @Override
   public void removeGoal(long userId, long id) {
+    requireGoal(userId, id);
     goalMapper.deleteGoal(userId, id);
   }
 
   @Override
   public void updateGoal(long userId, long id, UpdateGoalRequest dto) {
-
-    Goal lastGoal = goalMapper.selectGoalById(userId, id);
+    Goal lastGoal = requireGoal(userId, id);;
     int clockInCycle = dto.getClockInCycle();
     LocalDateTime expirationTime = dto.getExpirationTime();
     LocalDateTime createTime = lastGoal.getCreateTime();
@@ -158,12 +166,17 @@ public class GoalServiceImpl implements GoalService {
     return completionRate;
   }
 
-  @Override 
-  public void clockInGoal(long userId, long id) {
+  private Goal requireGoal(long userId, long id) {
     Goal goal = goalMapper.selectGoalById(userId, id);
     if (goal == null) {
-      throw new BusinessException(ExceptionCodeEnum.GoalNotFound.getCode(), ExceptionCodeEnum.GoalNotFound.getMessage());
+      throw new BusinessException(ExceptionCodeEnum.GoalNotFound);
     }
+    return goal;
+  }
+
+  @Override 
+  public void clockInGoal(long userId, long id) {
+    Goal goal = requireGoal(userId, id);
     goal.setClockInCount(goal.getClockInCount() + 1);
 
     goalMapper.updateGoal(userId, goal);

@@ -41,8 +41,8 @@
     </select>
 
     <!-- 创建用户：useGeneratedKeys 把数据库自增主键回写到 User.id -->
-    <insert id="createUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO user(user_name, password, sex, age) VALUES(#{userName}, #{password}, #{sex}, #{age})
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO user(user_name, password, sex, age, status) VALUES(#{userName}, #{password}, #{sex}, #{age}, #{status})
     </insert>
 
     <!-- 更新用户头像 -->

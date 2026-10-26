@@ -44,6 +44,7 @@ mybatis:
 
 
 logging:
+  charset: UTF-8
   level:
     root: INFO
   file:

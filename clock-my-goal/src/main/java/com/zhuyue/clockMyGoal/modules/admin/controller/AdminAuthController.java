@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import com.zhuyue.clockMyGoal.modules.admin.dto.request.AdminUserLoginRequest;
 import com.zhuyue.clockMyGoal.modules.admin.dto.response.AdminUserLoginResponse;
 import com.zhuyue.clockMyGoal.modules.admin.service.AdminAuthService;
+import com.zhuyue.clockMyGoal.common.authentication.IgnoreJwt;
 
 @RestController
 @RequestMapping("/admin/auth") 
@@ -22,11 +23,13 @@ public class AdminAuthController {
   AdminAuthService adminAuthService;
 
   @PostMapping("/login")
+  @IgnoreJwt
   public AdminUserLoginResponse login(@Valid @RequestBody AdminUserLoginRequest request) {
     return adminAuthService.login(request);
   }
 
   @PostMapping("/logout")
+  @IgnoreJwt
   public void logout(@RequestHeader("Authorization") String authHeader) {
     adminAuthService.logout(authHeader);
   }

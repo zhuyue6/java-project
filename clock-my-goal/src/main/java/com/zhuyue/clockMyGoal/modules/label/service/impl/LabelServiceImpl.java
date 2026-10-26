@@ -20,6 +20,9 @@ public class LabelServiceImpl implements LabelService {
   private LabelMapper labelMapper;
 
   private LabelResponse convertToLabelResponse(Label label) {
+    if (label == null) {
+      return null;
+    }
     LabelResponse response = new LabelResponse();
     response.setId(label.getId());
     response.setLabelName(label.getLabelName());
@@ -77,4 +80,5 @@ public class LabelServiceImpl implements LabelService {
 
     return response;
   }
+
 }
