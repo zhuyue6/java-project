@@ -1,10 +1,12 @@
 package com.zhuyue.clockMyGoal.modules.user.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.zhuyue.clockMyGoal.modules.user.entity.User;
-import java.util.List;
+
 
 /**
  * 用户Mapper接口
@@ -21,10 +23,10 @@ public interface UserMapper {
   List<User> selectAllUsers();
   long selectCountUsers(@Param("keyword") String keyword, @Param("status") Integer status);
   List<User> selectUserList(
+    @Param("offset") int offset, 
+    @Param("pageSize") int pageSize,
     @Param("keyword") String keyword,
-    @Param("status") Integer status,
-    @Param("offset") int offset,
-    @Param("pageSize") int pageSize
+    @Param("status") Integer status
   );
   // insert 返回影响行数；自增 id 会写回 user.getId()
   void insertUser(User user);

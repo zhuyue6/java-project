@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.zhuyue.clockMyGoal.common.constants.ExceptionCodeEnum;
-import io.jsonwebtoken.ExpiredJwtException;
 import com.zhuyue.clockMyGoal.common.util.ApiResponse;
 
 import java.lang.Exception;
@@ -20,7 +19,7 @@ public class GlobalExceptionHandler {
     return ApiResponse.fail(e.getMessage(), e.getCode());
   }
 
-  // @Valid @RequestBody 校验失败
+  //controller @Valided @Valid @RequestBody 校验失败
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ApiResponse<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
     // 获取第一个错误信息

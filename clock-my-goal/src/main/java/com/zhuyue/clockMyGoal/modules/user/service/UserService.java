@@ -2,9 +2,10 @@ package com.zhuyue.clockMyGoal.modules.user.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.zhuyue.clockMyGoal.modules.user.dto.request.*;
 import com.zhuyue.clockMyGoal.modules.user.dto.response.*;
-import com.zhuyue.clockMyGoal.modules.user.dto.*;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.CreateUserRequest;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.UserCredentialRequest;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.UserListRequest;
 
 /**
  * 用户服务接口
@@ -12,11 +13,11 @@ import com.zhuyue.clockMyGoal.modules.user.dto.*;
  */
 public interface UserService {
   // 根据用户名查询用户
-  UserCredentialDto getUserCredentialByUserName(String userName);
+  UserCredentialRequest getUserCredentialByUserName(String userName);
   // 获取用户详细
   UserResponse getUserByUserId(Long userId);
   // 上传头像接口
-  String uploadAvatar(long userId, MultipartFile file);
+  String uploadUserAvatar(long userId, MultipartFile file);
   // 更新用户状态
   void updateUserStatus(Long userId, Integer status);
   // 更新用户状态到redis
@@ -25,7 +26,6 @@ public interface UserService {
   PageResponse<UserResponse> getUserList(UserListRequest userListRequest);
   // 获取用户列表总数
   long getUserListTotal(String keyword, Integer status);
-
   // 注册用户
-  Long createUser(CreateUserDto dto);
+  long createUser(CreateUserRequest dto);
 }

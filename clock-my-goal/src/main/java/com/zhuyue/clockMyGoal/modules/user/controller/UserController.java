@@ -1,15 +1,14 @@
 package com.zhuyue.clockMyGoal.modules.user.controller;
+
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.validation.annotation.Validated;
 
-import jakarta.validation.Valid;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import com.zhuyue.clockMyGoal.common.interceptor.LoginUser;
-import com.zhuyue.clockMyGoal.modules.user.dto.request.*;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.UserListRequest;
 import com.zhuyue.clockMyGoal.modules.user.dto.response.*;
 import com.zhuyue.clockMyGoal.modules.user.service.UserService;
 import com.zhuyue.clockMyGoal.modules.user.dto.response.PageResponse;
@@ -20,7 +19,6 @@ import com.zhuyue.clockMyGoal.modules.user.dto.response.PageResponse;
  */
 @RestController // @Controller + @ResponseBody 标注为控制器，并返回JSON数据
 @RequestMapping("/users") // 映射请求路径
-@Validated // 校验get 里面的PathVariable，RequestParam 的方法，而不是
 public class UserController {
   @Resource(name = "UserService") // Autowired + Qualifier('UserServiceImpl')
   private UserService userService;
@@ -32,17 +30,17 @@ public class UserController {
   
   @GetMapping
   public PageResponse<UserResponse> getUserList(
-    @RequestParam("keyword") String keyword,
-    @RequestParam("status") int status,
-    @RequestParam("pageNum") int pageNum, 
-    @RequestParam("pageSize") int pageSize
+    @Valid @ModelAttribute UserListRequest userListRequest
   ) {
     return userService.getUserList(userListRequest);
   }
 
-  @PostMapping("/uploadAvatar")
-  public Object uploadAvatar(@RequestParam("file") MultipartFile file, @RequestAttribute("userInfo") LoginUser loginUser) {
+  @PostMapping("/{id}/avatar")
+  public Object uploadUserAvatar(
+    @RequestParam("file") MultipartFile file,
+    @RequestAttribute("userInfo") LoginUser loginUser
+  ) {
     long userId = loginUser.getUserId();
-    return userService.uploadAvatar(userId, file);
+    return userService.uploadUserAvatar(userId, file);
   }
 }
