@@ -9,11 +9,13 @@ import lombok.Data;
 @Data
 public class CreateGoalRequest {
   private String remark;
+
+  @NotNull(message = "过期时间不能为空")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   private LocalDateTime expirationTime;
+
   private Long labelId;
-  // @Min(value = 1, message = "目标打卡次数不能小于1")
-  // private int targetClockInCount;
+
   @Min(value = 1, message = "打卡周期不能小于1")
   @Max(value = 3, message = "打卡周期不能大于3")
   private int clockInCycle;

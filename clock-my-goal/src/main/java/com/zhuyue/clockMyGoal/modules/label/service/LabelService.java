@@ -3,12 +3,35 @@ package com.zhuyue.clockMyGoal.modules.label.service;
 import java.util.List;
 
 import com.zhuyue.clockMyGoal.modules.label.dto.request.CreateLabelRequest;
-import com.zhuyue.clockMyGoal.modules.label.dto.request.RemoveLabelRequest;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
 
 public interface LabelService {
+  /**
+   * 创建标签
+   * @param userId 用户ID
+   * @param dto 创建标签请求DTO
+   * @return 标签ID
+   */
   public long createLabel(long userId, CreateLabelRequest dto);
-  public void removeLabel(long userId, RemoveLabelRequest dto);
+
+  /**
+   * 删除标签
+   * @param userId 用户ID
+   * @param id 标签ID
+   */
+  public void removeLabel(long userId, long id);
+
+  /**
+   * 获取用户所有标签
+   * @param userId 用户ID
+   * @return 标签列表
+   */
   public List<LabelResponse> getLabelListByUserId(long userId);
+
+  /**
+   * 获取标签
+   * @param id 标签ID
+   * @return 标签响应DTO
+   */
   public LabelResponse getLabelById(Long id);
 }

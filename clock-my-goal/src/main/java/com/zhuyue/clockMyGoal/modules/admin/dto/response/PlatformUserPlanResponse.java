@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserPlanResponse {
+public class PlatformUserPlanResponse {
   /** 计划ID */
   private long id;
   /** 计划名称 */

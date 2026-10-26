@@ -3,7 +3,6 @@ package com.zhuyue.clockMyGoal.modules.goal.dto.response;
 import lombok.*;
 
 @Data
-@Builder
 public class GoalResponse {
   /** 目标ID */
   private long id;

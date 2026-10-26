@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.zhuyue.clockMyGoal.common.constants.*;
 import com.zhuyue.clockMyGoal.common.exception.BusinessException;
 import com.zhuyue.clockMyGoal.modules.label.dto.request.CreateLabelRequest;
-import com.zhuyue.clockMyGoal.modules.label.dto.request.RemoveLabelRequest;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
 import com.zhuyue.clockMyGoal.modules.label.entity.Label;
 import com.zhuyue.clockMyGoal.modules.label.mapper.LabelMapper;
@@ -20,6 +19,14 @@ public class LabelServiceImpl implements LabelService {
   @Resource
   private LabelMapper labelMapper;
 
+  private LabelResponse convertToLabelResponse(Label label) {
+    LabelResponse response = new LabelResponse();
+    response.setId(label.getId());
+    response.setLabelName(label.getLabelName());
+    response.setLabelType(label.getLabelType());
+    return response;
+  }
+
   @Override
   public long createLabel(long userId, CreateLabelRequest dto) {
     // 查询相同用户下同一个分类下名称不能重复
@@ -30,12 +37,9 @@ public class LabelServiceImpl implements LabelService {
       }
     }
 
-    Label label = Label.builder()
-      .labelName(dto.getLabelName())
-      .labelType(dto.getLabelType())
-      .build();
-
-
+    Label label = new Label();
+    label.setLabelName(dto.getLabelName());
+    label.setLabelType(dto.getLabelType());
     labelMapper.insertLabel(userId, label);
     long labelId = label.getId();
 
@@ -43,8 +47,8 @@ public class LabelServiceImpl implements LabelService {
   }
 
   @Override
-  public void removeLabel(long userId, RemoveLabelRequest dto) {
-    labelMapper.deleteLabel(userId, dto.getId());
+  public void removeLabel(long userId, long id) {
+    labelMapper.deleteLabelById(userId, id);
   }
 
   @Override
@@ -56,11 +60,7 @@ public class LabelServiceImpl implements LabelService {
     }
 
     for (Label label : labelList) {
-      LabelResponse response = LabelResponse.builder()
-        .id(label.getId())
-        .labelName(label.getLabelName())
-        .labelType(label.getLabelType())
-        .build();
+      LabelResponse response = convertToLabelResponse(label);
         responseList.add(response);
     }
 
@@ -73,11 +73,7 @@ public class LabelServiceImpl implements LabelService {
       return null;
     }
     Label label = labelMapper.selectLabelById(id);
-    LabelResponse response = LabelResponse.builder()
-      .id(label.getId())
-      .labelName(label.getLabelName())
-      .labelType(label.getLabelType())
-      .build();
+    LabelResponse response = convertToLabelResponse(label);
 
     return response;
   }

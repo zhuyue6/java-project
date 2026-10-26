@@ -12,7 +12,7 @@
         SELECT * FROM goal_label WHERE id = #{id}
     </select>
 
-    <delete id="deleteLabel">
+    <delete id="deleteLabelById">
         DELETE FROM goal_label WHERE id = #{id} AND user_id = #{userId}
     </delete>
 

@@ -15,7 +15,7 @@ public class AdminUserResponse {
   /**
    * 角色
    */
-  private String role;
+  private Integer role;
   /**
    * 状态 1:正常 2:禁用
    */

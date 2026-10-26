@@ -1,4 +1,4 @@
-package com.zhuyue.clockMyGoal.modules.user.dto;
+package com.zhuyue.clockMyGoal.modules.user.dto.request;
 
 import lombok.Data;
 

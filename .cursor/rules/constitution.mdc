@@ -1,0 +1,57 @@
+---
+description: 项目宪法：Java 编码规范（含 import 分组）与 RESTful API 定义
+alwaysApply: true
+---
+
+# 项目宪法
+
+业务代码在 `clock-my-goal`。新代码按本节写；`goal`、`label`、`admin` 里 `/createXxx`、`/getXxx` 这类动词路径是旧写法，不要再复制。
+
+## 编码规范
+
+Java 文件第一行是 `package`，前面不要空行、不要注释。`package` 与 `import` 之间空一行，最后一个 `import` 与类型声明之间空一行。
+
+`import` 只保留用到的类，按下面四组排列。组与组之间空一行，组内按全限定名升序、不空行。同包已经用 `*` 时，不要再写该包里的具体类。`static import` 单独放在最后一组。
+
+1. 第三方：`lombok.*`、`org.*`，以及本项目以外的 `com.*`
+2. `jakarta.*`
+3. `java.*`、`javax.*`
+4. 本项目：`com.zhuyue.clockMyGoal.*`
+
+```java
+package com.zhuyue.clockMyGoal.modules.user.controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
+import com.zhuyue.clockMyGoal.common.interceptor.LoginUser;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.UserListRequest;
+import com.zhuyue.clockMyGoal.modules.user.dto.response.PageResponse;
+import com.zhuyue.clockMyGoal.modules.user.dto.response.UserResponse;
+import com.zhuyue.clockMyGoal.modules.user.service.UserService;
+```
+
+分层固定为 `controller`、`service`、`service.impl`、`mapper`、`entity`、`dto.request`、`dto.response`。请求类以 `Request` 结尾，响应类以 `Response` 结尾。Service 用 `@Resource(name = "XxxService")` 注入。入参校验用 `@Valid`；字段约束写在请求 DTO 上。
+
+## RESTful API
+
+路径用复数名词，小写，多词用连字符：`/users`、`/goals`、`/labels`。资源 id 放在路径里。子资源继续往下挂，例如 `POST /users/{id}/avatar`。路径里不写 `create`、`get`、`update`、`remove`。
+
+| 动作 | 方法 | 路径 | 入参 |
+| --- | --- | --- | --- |
+| 列表 | GET | `/users` | `@ModelAttribute`，分页字段为 `pageNum`、`pageSize` |
+| 详情 | GET | `/users/{id}` | `@PathVariable` |
+| 创建 | POST | `/users` | `@RequestBody` |
+| 全量更新 | PUT | `/users/{id}` | `@RequestBody` |
+| 部分更新 | PATCH | `/users/{id}` | `@RequestBody` |
+| 删除 | DELETE | `/users/{id}` | `@PathVariable` |
+
+当前登录用户从 `@RequestAttribute("userInfo") LoginUser` 取，不要让客户端传 `userId`。
+
+登录、登出、注册不是资源，放在 `/auth` 下，用 POST：`/auth/login`、`/auth/register`、`/auth/logout`。类似打卡这种动作，做成子资源创建，例如 `POST /goals/{id}/clock-ins`。
+
+Controller 直接返回业务对象或 `PageResponse<T>`（`pageNum`、`pageSize`、`total`、`data`）。`GlobalResponseHandler` 会包成 `{ code, message, data }`，方法里不要再包 `ApiResponse`。失败抛 `BusinessException`，由 `GlobalExceptionHandler` 转成失败响应。列表走 GET query，不要用 POST 传查询体。

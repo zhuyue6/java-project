@@ -1,5 +1,12 @@
 package com.zhuyue.clockMyGoal.modules.goal.service.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import java.util.List;
+import java.util.ArrayList;
+import jakarta.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.zhuyue.clockMyGoal.common.constants.*;
@@ -11,13 +18,6 @@ import com.zhuyue.clockMyGoal.modules.goal.mapper.GoalMapper;
 import com.zhuyue.clockMyGoal.modules.goal.service.GoalService;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
 import com.zhuyue.clockMyGoal.modules.label.service.LabelService;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import java.util.List;
-import jakarta.annotation.Resource;
-import java.util.ArrayList;
 import com.zhuyue.clockMyGoal.common.util.TimeService;
 
 @Service("GoalService")
@@ -26,6 +26,29 @@ public class GoalServiceImpl implements GoalService {
   private GoalMapper goalMapper;
   @Resource
   private LabelService labelService;
+
+  private GoalResponse convertToGoalResponse(Goal goal, LabelResponse labelResponse) {
+    GoalResponse goalResponse = new GoalResponse();
+
+    String expirationTimeString = TimeService.getTimeStringByTime(goal.getExpirationTime());
+    String createTimeString = TimeService.getTimeStringByTime(goal.getCreateTime());
+    String updateTimeString = TimeService.getTimeStringByTime(goal.getUpdateTime());
+    double completionRate = calculateCompletionRate(goal.getClockInCount(), goal.getTargetClockInCount());
+    int status = getGoalStatus(goal);
+    goalResponse.setId(goal.getId());
+    goalResponse.setExpirationTime(expirationTimeString);
+    goalResponse.setRemark(goal.getRemark());
+    goalResponse.setLabelName(labelResponse.getLabelName());
+    goalResponse.setLabelType(labelResponse.getLabelType());
+    goalResponse.setCreateTime(createTimeString);
+    goalResponse.setUpdateTime(updateTimeString);
+    goalResponse.setClockInCount(goal.getClockInCount());
+    goalResponse.setTargetClockInCount(goal.getTargetClockInCount());
+    goalResponse.setCompletionRate(completionRate);
+    goalResponse.setStatus(status);
+    return goalResponse;
+  }
+
 
   @Override
   public long createGoal(long userId, CreateGoalRequest dto) {
@@ -48,29 +71,11 @@ public class GoalServiceImpl implements GoalService {
   }
 
   @Override
-  public GoalResponse getGoal(long userId, GetGoalRequest dto) {
-    Goal goal = goalMapper.selectGoalById(userId, dto.getId());
+  public GoalResponse getGoal(long userId, long id) {
+    Goal goal = goalMapper.selectGoalById(userId, id);
     LabelResponse matchLabel = labelService.getLabelById(goal.getLabelId());
-    String expirationTimeString = TimeService.getTimeStringByTime(goal.getExpirationTime());
-    String createTimeString = TimeService.getTimeStringByTime(goal.getCreateTime());
-    String updateTimeString = TimeService.getTimeStringByTime(goal.getUpdateTime());
-    int status = getGoalStatus(goal);
-
-    double completionRate = calculateCompletionRate(goal.getClockInCount(), goal.getTargetClockInCount());
-    return GoalResponse.builder()
-      .id(goal.getId())
-      .expirationTime(expirationTimeString)
-      .remark(goal.getRemark())
-      .labelName(matchLabel != null ? matchLabel.getLabelName() : null)
-      .labelType(matchLabel != null ? matchLabel.getLabelType() : null)
-      .createTime(createTimeString)
-      .updateTime(updateTimeString)
-      .clockInCycle(goal.getClockInCycle())
-      .clockInCount(goal.getClockInCount())
-      .targetClockInCount(goal.getTargetClockInCount())
-      .completionRate(completionRate)
-      .status(status)
-      .build();
+    GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel);
+    return goalResponse;
   }
 
   @Override
@@ -87,44 +92,28 @@ public class GoalServiceImpl implements GoalService {
       LabelResponse matchLabel = labelId == null ? null
           : labelList.stream().filter(r -> r.getId() == labelId).findFirst().orElse(null);
 
-      double completionRate = calculateCompletionRate(goal.getClockInCount(), goal.getTargetClockInCount());
-      String expirationTimeString = TimeService.getTimeStringByTime(goal.getExpirationTime());
-      String createTimeString = TimeService.getTimeStringByTime(goal.getCreateTime());
-      int status = getGoalStatus(goal);
-      GoalResponse response = GoalResponse.builder()
-        .id(goal.getId())
-        .expirationTime(expirationTimeString)
-        .remark(goal.getRemark())
-        .labelName(matchLabel != null ? matchLabel.getLabelName() : null)
-        .labelType(matchLabel != null ? matchLabel.getLabelType() : null)
-        .clockInCount(goal.getClockInCount())
-        .targetClockInCount(goal.getTargetClockInCount())
-        .clockInCycle(goal.getClockInCycle())
-        .completionRate(completionRate)
-        .createTime(createTimeString)
-        .status(status)
-        .build();
-        responseList.add(response);
+      GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel);
+      responseList.add(goalResponse);
     }
 
     return responseList;
   }
 
   @Override
-  public void removeGoal(long userId, RemoveGoalRequest dto) {
-    goalMapper.deleteGoal(userId, dto.getId());
+  public void removeGoal(long userId, long id) {
+    goalMapper.deleteGoal(userId, id);
   }
 
   @Override
-  public void updateGoal(long userId, UpdateGoalRequest dto) {
+  public void updateGoal(long userId, long id, UpdateGoalRequest dto) {
 
-    Goal lastGoal = goalMapper.selectGoalById(userId, dto.getId());
+    Goal lastGoal = goalMapper.selectGoalById(userId, id);
     int clockInCycle = dto.getClockInCycle();
     LocalDateTime expirationTime = dto.getExpirationTime();
     LocalDateTime createTime = lastGoal.getCreateTime();
 
     Goal goal = Goal.builder()
-      .id(dto.getId())
+      .id(id)
       .expirationTime(expirationTime)
       .remark(dto.getRemark())
       .labelId(dto.getLabelId())
@@ -170,8 +159,8 @@ public class GoalServiceImpl implements GoalService {
   }
 
   @Override 
-  public void clockInGoal(long userId, ClockInGoalRequest dto) {
-    Goal goal = goalMapper.selectGoalById(userId, dto.getId());
+  public void clockInGoal(long userId, long id) {
+    Goal goal = goalMapper.selectGoalById(userId, id);
     if (goal == null) {
       throw new BusinessException(ExceptionCodeEnum.GoalNotFound.getCode(), ExceptionCodeEnum.GoalNotFound.getMessage());
     }

@@ -3,7 +3,6 @@ package com.zhuyue.clockMyGoal.modules.label.dto.response;
 import lombok.*;
 
 @Data
-@Builder
 public class LabelResponse {
   /** 打卡记录ID */
   private long id;

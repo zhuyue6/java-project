@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.zhuyue.clockMyGoal.modules.auth.dto.request.*;
 import com.zhuyue.clockMyGoal.modules.auth.dto.response.*;
 import com.zhuyue.clockMyGoal.modules.user.dto.response.*;
-import com.zhuyue.clockMyGoal.modules.user.dto.*;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.CreateUserRequest;
+import com.zhuyue.clockMyGoal.modules.user.dto.request.UserCredentialRequest;
 import com.zhuyue.clockMyGoal.modules.auth.service.AuthService;
 import com.zhuyue.clockMyGoal.modules.user.service.UserService;
 import com.zhuyue.clockMyGoal.common.authentication.JwtService;
@@ -26,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public LoginResponse login(LoginDto dto) {
     // 根据用户名查询用户
-    UserCredentialDto userCredentialDto = userService.getUserCredentialByUserName(dto.getUserName());
+    UserCredentialRequest userCredentialDto = userService.getUserCredentialByUserName(dto.getUserName());
 
     // 如果用户不存在，则抛出异常
     if (userCredentialDto == null) {
@@ -86,13 +87,13 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public Long register(RegisterDto dto) {
     // 根据用户名查询用户
-    UserCredentialDto userCredential = userService.getUserCredentialByUserName(dto.getUserName());
+    UserCredentialRequest userCredential = userService.getUserCredentialByUserName(dto.getUserName());
     if (userCredential != null) {
       // 如果已经存在账号, 直接抛出异常
       throw new BusinessException(ExceptionCodeEnum.UserAlreadyExists);
     }
 
-    CreateUserDto createUserDto = new CreateUserDto();
+    CreateUserRequest createUserDto = new CreateUserRequest();
     createUserDto.setUserName(dto.getUserName());
     createUserDto.setPassword(dto.getPassword());
     createUserDto.setSex(dto.getSex());

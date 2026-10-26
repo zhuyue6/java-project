@@ -6,13 +6,14 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserInfoResponse {
+public class PlatformUserResponse {
   /** 用户ID */
   private long id;
   /** 用户名 */
   private String userName;
   /** 性别 */
   private Integer sex;
+  /** 年龄 */
   private int age;
   /** 头像 */
   private String avatarUrl;
@@ -29,5 +30,5 @@ public class UserInfoResponse {
   /** 标签数量 */
   private int labelCount;
   /** 计划列表 */
-  private List<UserPlanResponse> plans;
+  private List<PlatformUserPlanResponse> plans;
 }

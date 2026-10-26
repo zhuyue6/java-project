@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.Valid;
 
-
 import com.zhuyue.clockMyGoal.common.authentication.BlackListService;
 import com.zhuyue.clockMyGoal.common.constants.*;
 import com.zhuyue.clockMyGoal.common.exception.*;
@@ -20,7 +19,6 @@ import com.zhuyue.clockMyGoal.modules.user.dto.response.*;
 import com.zhuyue.clockMyGoal.modules.user.entity.*;
 import com.zhuyue.clockMyGoal.modules.user.mapper.*;
 import com.zhuyue.clockMyGoal.modules.user.service.UserService;
-
 
 /**
  * 用户服务实现类
@@ -36,7 +34,7 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private StoreageService storeageService;
 
-  private UserResponse convertToResponse(User user) {
+  private UserResponse convertToUserResponse(User user) {
     // 使用Builder模式将用户信息转换为响应对象
     String createTime = TimeService.getTimeStringByTime(user.getCreateTime());
     String updateTime = TimeService.getTimeStringByTime(user.getUpdateTime());
@@ -96,11 +94,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserResponse getUserByUserId(Long userId) {
-    User user = userMapper.selectByUserId(userId);
-    if (user == null) {
-      return null;
-    }
-    return convertToResponse(user);
+    User user = requireUser(userId);
+    return convertToUserResponse(user);
   }
 
   @Override 
@@ -116,7 +111,7 @@ public class UserServiceImpl implements UserService {
     PageResponse<UserResponse> userListResponse = PageResponse.<UserResponse>builder()
       .pageSize(pageSize)
       .pageNum(pageNum)
-      .data(users.stream().map(this::convertToResponse).collect(Collectors.toList()))
+      .data(users.stream().map(this::convertToUserResponse).collect(Collectors.toList()))
       .total(total)
       .build();
 
@@ -131,6 +126,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void updateUserStatus(Long userId, Integer status) {
+    User user = requireUser(userId);
+
     userMapper.updateUserStatus(userId, status);
     updateUserStatusInRedis(userId, status);
   }
@@ -138,5 +135,13 @@ public class UserServiceImpl implements UserService {
   @Override
   public void updateUserStatusInRedis(Long userId, Integer status) {
     blackListService.addUserStatusToRecord(userId, status);
+  }
+
+  private User requireUser(Long userId) {
+    User user = userMapper.selectByUserId(userId);
+    if (user == null) {
+      throw new BusinessException(ExceptionCodeEnum.UserNotFound);
+    }
+    return user;
   }
 }
