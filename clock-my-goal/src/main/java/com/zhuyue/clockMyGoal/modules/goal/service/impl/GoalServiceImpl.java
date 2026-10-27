@@ -177,8 +177,45 @@ public class GoalServiceImpl implements GoalService {
   @Override 
   public void clockInGoal(long userId, long id) {
     Goal goal = requireGoal(userId, id);
+    // 当前时间
+    LocalDateTime currentTime = LocalDateTime.now();
+    
+    // 上次打卡时间
+    LocalDateTime clockInTime = goal.getClockInTime();
+    
+    if (isInClockInTime(clockInTime, currentTime, goal.getClockInCycle())) {
+      throw new BusinessException(ExceptionCodeEnum.GoalAlreadyClockedIn);
+    }
+
     goal.setClockInCount(goal.getClockInCount() + 1);
 
-    goalMapper.updateGoal(userId, goal);
+    goalMapper.updateGoalClockInTime(userId, goal, currentTime);
+  }
+
+  /**
+   * 判断是否在打卡周期内
+   * @param clockInTime
+   * @param currentTime
+   * @return
+   */
+  private boolean isInClockInTime(LocalDateTime clockInTime, LocalDateTime currentTime, int clockInCycle) {
+    if (clockInTime == null) {
+      return false;
+    }
+
+    if (clockInCycle == 1) {
+      // 如果周期是天，对比当天是否打卡，并且时间是否晚于上次打卡时间
+      boolean isSameDay = clockInTime.toLocalDate().equals(currentTime.toLocalDate());
+      return isSameDay || clockInTime.isAfter(currentTime);
+    } else if (clockInCycle == 2) {
+      // 如果周期是周，对比本周是否打卡，并且时间是否晚于上次打卡时间
+      boolean isSameWeek = TimeService.isSameWeek(clockInTime, currentTime);
+      return isSameWeek || clockInTime.isAfter(currentTime);
+    } else if (clockInCycle == 3) {
+      // 如果周期是月，对比本月是否打卡，并且时间是否晚于上次打卡时间
+      boolean isSameMonth = clockInTime.getMonth().equals(currentTime.getMonth());
+      return isSameMonth || clockInTime.isAfter(currentTime);
+    }
+    return false;
   }
 }

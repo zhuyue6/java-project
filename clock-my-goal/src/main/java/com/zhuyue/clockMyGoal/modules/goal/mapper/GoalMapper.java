@@ -6,12 +6,14 @@ import org.apache.ibatis.annotations.Param;
 import com.zhuyue.clockMyGoal.modules.goal.entity.Goal;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 @Mapper
 public interface GoalMapper {
   // insert 返回影响行数；自增 id 回写到 goal.id
   void insertGoal(@Param("userId") long userId, @Param("goal") Goal goal);
   void updateGoal(@Param("userId") long userId, @Param("goal") Goal goal);
+  void updateGoalClockInTime(@Param("userId") long userId, @Param("goal") Goal goal, @Param("clockInTime") LocalDateTime clockInTime);
   void deleteGoal(@Param("userId") long userId, @Param("id") long id);
   Goal selectGoalById(@Param("userId") long userId, @Param("id") long id);
   List<Goal> selectGoalByUserId(@Param("userId") long userId);

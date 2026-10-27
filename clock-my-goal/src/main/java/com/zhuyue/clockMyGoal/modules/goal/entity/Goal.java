@@ -27,6 +27,8 @@ public class Goal {
   private long targetClockInCount;
   /** 打卡周期(天/周/月) */
   private int clockInCycle;
+  /** 上次打卡时间 */
+  private LocalDateTime clockInTime;
   /** 创建时间 */
   private LocalDateTime createTime;
   /** 更新时间 */

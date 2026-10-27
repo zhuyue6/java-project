@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
 
 /**
  * 时间工具类
@@ -70,4 +71,18 @@ public class TimeService {
     }
   }
   
+  /**
+   * 判断是否是同一周
+   * @param date1
+   * @param date2
+   * @return
+   */
+  public static boolean isSameWeek(LocalDateTime date1, LocalDateTime date2) {
+    WeekFields ISO_WEEK = WeekFields.ISO;
+    int week1 = date1.get(ISO_WEEK.weekOfWeekBasedYear());
+    int week2 = date2.get(ISO_WEEK.weekOfWeekBasedYear());
+    int year1 = date1.get(ISO_WEEK.weekBasedYear());
+    int year2 = date2.get(ISO_WEEK.weekBasedYear());
+    return week1 == week2 && year1 == year2;
+  }
 }

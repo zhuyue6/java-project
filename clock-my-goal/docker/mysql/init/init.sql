@@ -26,6 +26,7 @@ create table goal (
     target_clock_in_count int not null COMMENT '目标打卡次数',
     clock_in_cycle int not null COMMENT '打卡周期(天/周/月)',
     status int not null default 1 COMMENT '状态(1进行中/2已完成/3已过期)',
+    clock_in_time datetime default null COMMENT '上次打卡时间',
     create_time datetime not null default current_timestamp COMMENT '创建时间',
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
 );

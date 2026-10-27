@@ -19,6 +19,10 @@
         UPDATE goal SET  expiration_time = #{goal.expirationTime}, clock_in_count = #{goal.clockInCount}, remark = #{goal.remark}, label_id = #{goal.labelId}, target_clock_in_count = #{goal.targetClockInCount}, clock_in_cycle = #{goal.clockInCycle} WHERE id = #{goal.id} AND user_id = #{userId}
     </update>
 
+    <update id="updateGoalClockInTime">
+        UPDATE goal SET clock_in_time = #{clockInTime}, clock_in_count = #{goal.clockInCount} WHERE id = #{goal.id} AND user_id = #{userId}
+    </update>
+
     <select id="selectGoalById" resultType="com.zhuyue.clockMyGoal.modules.goal.entity.Goal">
         SELECT * FROM goal WHERE id = #{id} AND user_id = #{userId}
     </select>
