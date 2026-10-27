@@ -48,7 +48,7 @@ logging:
   level:
     root: INFO
   file:
-    name: var/log/clock-my-goal-app.log
+    name: /var/logs/clock-my-goal/clock-my-goal-app.log
   logback:
     rollingpolicy:
       max-file-size: 10MB
