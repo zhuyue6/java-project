@@ -2,7 +2,7 @@ target/
 static/
 logs/
 log/
-.tar
+**/*.tar
 .class
 var/
 dist/

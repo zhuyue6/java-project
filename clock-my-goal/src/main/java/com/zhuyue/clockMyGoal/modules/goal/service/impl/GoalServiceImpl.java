@@ -50,6 +50,7 @@ public class GoalServiceImpl implements GoalService {
     goalResponse.setUpdateTime(updateTimeString);
     goalResponse.setClockInCount(goal.getClockInCount());
     goalResponse.setTargetClockInCount(goal.getTargetClockInCount());
+    goalResponse.setClockInCycle(goal.getClockInCycle());
     goalResponse.setCompletionRate(completionRate);
     goalResponse.setStatus(status);
     return goalResponse;
