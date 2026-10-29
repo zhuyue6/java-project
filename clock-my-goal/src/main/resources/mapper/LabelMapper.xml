@@ -12,6 +12,10 @@
         SELECT * FROM goal_label WHERE id = #{id}
     </select>
 
+    <update id="updateLabelById">
+        UPDATE goal_label SET label_name = #{label.labelName}, label_type = #{label.labelType} WHERE id = #{id} AND user_id = #{userId}
+    </update>
+
     <delete id="deleteLabelById">
         DELETE FROM goal_label WHERE id = #{id} AND user_id = #{userId}
     </delete>

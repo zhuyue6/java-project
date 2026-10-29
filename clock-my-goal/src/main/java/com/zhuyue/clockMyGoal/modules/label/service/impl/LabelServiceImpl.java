@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.zhuyue.clockMyGoal.common.constants.*;
 import com.zhuyue.clockMyGoal.common.exception.BusinessException;
-import com.zhuyue.clockMyGoal.modules.label.dto.request.CreateLabelRequest;
+import com.zhuyue.clockMyGoal.modules.label.dto.request.*;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
 import com.zhuyue.clockMyGoal.modules.label.entity.Label;
 import com.zhuyue.clockMyGoal.modules.label.mapper.LabelMapper;
@@ -52,6 +52,15 @@ public class LabelServiceImpl implements LabelService {
   @Override
   public void removeLabel(long userId, long id) {
     labelMapper.deleteLabelById(userId, id);
+  }
+
+  @Override
+  public void updateLabelById(long userId, long id, UpdateLabelRequest dto) {
+    Label label = Label.builder()
+                    .labelType(dto.getLabelType())
+                    .labelName(dto.getLabelName())
+                    .build();
+    labelMapper.updateLabelById(userId, id, label);
   }
 
   @Override

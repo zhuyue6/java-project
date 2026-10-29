@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    本文件是 Maven 项目的根 POM 文件，用于管理子项目。
+    子项目需要继承此 POM 文件，并配置自己的 GAV 坐标。
+    子项目需要继承此 POM 文件，并配置自己的 GAV 坐标。
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

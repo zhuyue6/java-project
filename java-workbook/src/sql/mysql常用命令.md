@@ -75,6 +75,9 @@
 
   -- 更新
   update admin_user set age=21 where id=1;
+
+  -- 更新一列替换另一列
+  update admin_use set age=password;
   
   -- 删除
   delete from admin_user where id=1;

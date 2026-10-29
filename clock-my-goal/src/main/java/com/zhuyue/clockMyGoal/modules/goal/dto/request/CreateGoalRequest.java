@@ -8,6 +8,9 @@ import lombok.Data;
 
 @Data
 public class CreateGoalRequest {
+  @NotBlank(message = "目标名称不能为空")
+  private String goalName;
+
   private String remark;
 
   @NotNull(message = "过期时间不能为空")

@@ -11,12 +11,13 @@
     <!-- 创建目标：useGeneratedKeys 把数据库自增主键回写到 Goal.id -->
     <!-- keyColumn 指定数据库字段名从这个字段中写入 Goal.id -->
     <insert id="insertGoal" useGeneratedKeys="true" keyProperty="goal.id" keyColumn="id">
-        INSERT INTO goal(user_id, label_id, expiration_time, clock_in_count, target_clock_in_count, clock_in_cycle, remark)
-        VALUES(#{userId}, #{goal.labelId}, #{goal.expirationTime}, #{goal.clockInCount}, #{goal.targetClockInCount}, #{goal.clockInCycle}, #{goal.remark})
+        INSERT INTO goal(goal_name, user_id, label_id, expiration_time, clock_in_count, target_clock_in_count, clock_in_cycle, remark)
+        VALUES(#{goal.goalName}, #{userId}, #{goal.labelId}, #{goal.expirationTime}, #{goal.clockInCount}, #{goal.targetClockInCount}, #{goal.clockInCycle}, #{goal.remark})
     </insert>
 
     <update id="updateGoal">
-        UPDATE goal SET  expiration_time = #{goal.expirationTime}, clock_in_count = #{goal.clockInCount}, remark = #{goal.remark}, label_id = #{goal.labelId}, target_clock_in_count = #{goal.targetClockInCount}, clock_in_cycle = #{goal.clockInCycle} WHERE id = #{goal.id} AND user_id = #{userId}
+        UPDATE goal SET goal_name = #{goal.goalName}, expiration_time = #{goal.expirationTime}, 
+        clock_in_count = #{goal.clockInCount},  remark = #{goal.remark}, label_id = #{goal.labelId}, target_clock_in_count = #{goal.targetClockInCount}, clock_in_cycle = #{goal.clockInCycle} WHERE id = #{goal.id} AND user_id = #{userId}
     </update>
 
     <update id="updateGoalClockInTime">

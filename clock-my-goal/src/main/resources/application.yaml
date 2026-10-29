@@ -8,7 +8,8 @@ wx:
   secret: ${WX_SECRET}
 
 file:
-  accessPrefix: ${ACCESS_PREFIX}
+  accessPrefix: ${FILE_ACCESS_PREFIX}
+  accessPath: ${FILE_ACCESS_PATH}
 
 spring:
   datasource:

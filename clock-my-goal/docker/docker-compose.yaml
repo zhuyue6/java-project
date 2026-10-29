@@ -57,7 +57,7 @@ services:
       retries: 10
 
   clock-my-goal:
-    image: clock-my-goal:0.1.1
+    image: clock-my-goal:0.1.6
     container_name: clock-my-goal
     restart: always
     ports:
@@ -75,9 +75,11 @@ services:
       JWT_EXPIRATION: 86400000
       WX_APPID: your-wx-appid
       WX_SECRET: your-wx-secret
-      ACCESS_PREFIX: http://localhost:9090
+      FILE_ACCESS_PREFIX: /resources
+      FILE_ACCESS_PATH: /opt/clock-my-goal
     volumes:
-      - ./app/logs/clock-my-goal:/app/logs/clock-my-goal
+      - ./app/resources:/opt/clock-my-goal/resources:rw
+      - ./app/logs/:/var/logs/clock-my-goal/:rw
     depends_on:
       mysql:
         condition: service_healthy
@@ -101,24 +103,24 @@ services:
       - app-net
     depends_on:
       - clock-my-goal
-  jenkins:
-    image: jenkins/jenkins:lts-jdk17
-    container_name: jenkins
-    restart: always
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      TZ: Asia/Shanghai
+  # jenkins:
+  #   image: jenkins/jenkins:lts-jdk17
+  #   container_name: jenkins
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+  #     - "50000:50000"
+  #   volumes:
+  #     - jenkins_home:/var/jenkins_home
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     TZ: Asia/Shanghai
       
 volumes:
   mysql-data:
   redis-data:
   app-logs:
-  jenkins_home:
+  # jenkins_home:
 
 networks:
   app-net:

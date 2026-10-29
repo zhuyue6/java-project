@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhuyue.clockMyGoal.common.constants.ExceptionCodeEnum;
 import com.zhuyue.clockMyGoal.common.exception.BusinessException;
+import java.util.HashMap;
 
 public class UtilService {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -11,7 +12,7 @@ public class UtilService {
     try {
       return OBJECT_MAPPER.writeValueAsString(obj);
     } catch (Exception e) {
-      throw new BusinessException(ExceptionCodeEnum.ServiceError.getCode(), ExceptionCodeEnum.ServiceError.getMessage());
+      throw new BusinessException(ExceptionCodeEnum.ServiceError);
     }
   }
   public static <T> String ToQueryString(String url, T obj) {
@@ -20,7 +21,7 @@ public class UtilService {
       String finalUrl = url.contains("?") ? url + "&" + queryStr : url + "?" + queryStr;
       return finalUrl;
     } catch (Exception e) {
-      throw new BusinessException(ExceptionCodeEnum.ServiceError.getCode(), ExceptionCodeEnum.ServiceError.getMessage());
+      throw new BusinessException(ExceptionCodeEnum.ServiceError);
     }
   }
   private static String objectToQueryString(Object obj) throws IllegalAccessException {
@@ -51,5 +52,23 @@ public class UtilService {
     }
 
     return obj;
+  }
+
+  public static HashMap<String, Object> ObjectToHashMap(Object obj) {
+    HashMap<String, Object> map = new HashMap<>();
+    // obj.getClass() === Class.class,  获取类的字面量
+    Field[] fields = obj.getClass().getDeclaredFields();
+    for (Field field : fields) {
+      field.setAccessible(true);
+
+      try {
+        Object value = field.get(obj);
+        map.put(field.getName(), value);
+      } catch (Exception e) {
+        continue;
+      }
+    }
+    return map;
+
   }
 }

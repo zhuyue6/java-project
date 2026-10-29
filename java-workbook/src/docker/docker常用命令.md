@@ -40,7 +40,7 @@
 ```sh
     ## 进入容器执行 -i标准输入打开 -t分配一个伪终端界面
     docker exec -it nginx nginx -s restart
-    ## 查看日志
+    ## 查看日志 -t 流式跟踪
     docker logs CONTAINER_ID        
 ```
 

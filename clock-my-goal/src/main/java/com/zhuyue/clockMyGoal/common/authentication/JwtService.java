@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Service("JwtService")
 public class JwtService {
-  // jwt秘钥
+  // jwt秘钥, @value 读取配置文件
   @Value("${jwt.secret}")
   private String secret;
   // jwt过期时间

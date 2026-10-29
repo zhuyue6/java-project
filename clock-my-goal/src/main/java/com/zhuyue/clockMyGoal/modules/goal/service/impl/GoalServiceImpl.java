@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Objects;
 import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -41,6 +40,7 @@ public class GoalServiceImpl implements GoalService {
     double completionRate = calculateCompletionRate(goal.getClockInCount(), goal.getTargetClockInCount());
     int status = getGoalStatus(goal);
     goalResponse.setId(goal.getId());
+    goalResponse.setGoalName(goal.getGoalName());
     goalResponse.setExpirationTime(expirationTimeString);
     goalResponse.setRemark(goal.getRemark());
     goalResponse.setLabelName(labelResponse == null ? null : labelResponse.getLabelName());
@@ -58,6 +58,7 @@ public class GoalServiceImpl implements GoalService {
   @Override
   public long createGoal(long userId, CreateGoalRequest dto) {
     Goal goal = Goal.builder()
+        .goalName(dto.getGoalName())
         .expirationTime(dto.getExpirationTime())
         .remark(dto.getRemark())
         .clockInCycle(dto.getClockInCycle())
@@ -122,6 +123,7 @@ public class GoalServiceImpl implements GoalService {
 
     Goal goal = Goal.builder()
       .id(id)
+      .goalName(dto.getGoalName())
       .expirationTime(expirationTime)
       .remark(dto.getRemark())
       .labelId(dto.getLabelId())

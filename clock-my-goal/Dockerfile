@@ -41,26 +41,27 @@ RUN --mount=type=cache,target=/root/.m2 \
 # 新的 FROM 会丢掉上一阶段的层，只保留下面显式 COPY 进来的文件。
 FROM eclipse-temurin:17-jre-jammy
 
-# 应用工作目录。application.yaml 里的日志路径 logs/clock-my-goal.log 相对这里。
+# 应用工作目录。日志和上传文件不写在这里，路径见下面两个目录。
 WORKDIR /app
 
-# 不用 root 跑进程。
+# 不用 root 跑 Java 进程。
 # groupadd/useradd --system：创建系统用户，没有登录密码
 # --shell /usr/sbin/nologin：禁止交互登录
-# /app/logs 提前建好并交给 app，否则非 root 用户写不了日志
+# 目录与运行配置对齐：
+#   application.yaml  logging.file.name = /var/logs/clock-my-goal/clock-my-goal-app.log
+#   docker-compose    FILE_ACCESS_PATH=/opt/clock-my-goal，文件写到 /opt/clock-my-goal/resources
+# compose 会把宿主机目录挂到这两个路径上，挂载后的属主是宿主机用户（一般是 root）。
+# 镜像构建时的 chown 会被挂载盖掉，所以这里只先建好目录；真正改属主放在启动命令里。
 RUN groupadd --system app \
     && useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app \
-    && mkdir -p /app/logs \
-    && chown -R app:app /app
+    && mkdir -p /opt/clock-my-goal/resources /var/logs/clock-my-goal \
+    && chown -R app:app /app /opt/clock-my-goal /var/logs/clock-my-goal
 
 # 从编译阶段拷出 Spring Boot 可执行 jar，并改属主为 app。
 # 通配符匹配版本号，升版本后不用改这一行。
 # spring-boot-maven-plugin 打出来的是 fat jar，里面已经包含依赖。
 COPY --from=builder --chown=app:app \
     /workspace/clock-my-goal/target/clock-my-goal-*.jar /app/app.jar
-
-# 从此往后的指令，以及容器启动后的进程，都使用 app 用户。
-USER app
 
 # 声明容器监听 9090。这只是文档，真正端口由 SERVER_PORT 和 application.yaml 决定。
 # 映射到宿主机要在 docker run -p 或 compose 的 ports 里配置。
@@ -75,6 +76,7 @@ ENV TZ=Asia/Shanghai \
     SERVER_PORT=9090 \
     JAVA_TOOL_OPTIONS="-Duser.timezone=Asia/Shanghai -XX:+UseContainerSupport"
 
-# exec 形式（JSON 数组）：java 是 1 号进程，docker stop 能直接把 SIGTERM 传给它，正常退出。
+# 启动时仍是 root，才能 chown 被挂载盖住的目录。
+# chown 之后 runuser 会 exec 到 java，java 以 app 运行，并且是 1 号进程，docker stop 能把 SIGTERM 传给它。
 # 数据库、Redis、JWT、微信相关变量没有默认值，启动前必须从外部传入，见 docker-compose.yaml。
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["sh", "-c", "chown -R app:app /opt/clock-my-goal /var/logs/clock-my-goal && exec /usr/sbin/runuser -u app -- java -jar /app/app.jar"]

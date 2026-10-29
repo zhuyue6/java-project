@@ -9,6 +9,14 @@
   mvn clean package
 ```
 
+## 发版
+1. 更新项目版本
+2. 更新docker image版本
+3. 更新docker-compose.yaml 版本
+
+## 数据库
+1. 数据库字段变更的话一定同步初始脚本
+
 ## 启动docker 
 1. 需要 docker docker-compose 先安装
 2. 安装 mysql 8.0 redis 7-alpine image

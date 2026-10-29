@@ -2,7 +2,7 @@ package com.zhuyue.clockMyGoal.modules.label.service;
 
 import java.util.List;
 
-import com.zhuyue.clockMyGoal.modules.label.dto.request.CreateLabelRequest;
+import com.zhuyue.clockMyGoal.modules.label.dto.request.*;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
 
 public interface LabelService {
@@ -20,6 +20,14 @@ public interface LabelService {
    * @param id 标签ID
    */
   public void removeLabel(long userId, long id);
+
+  /**
+   * 更新标签
+   * @param userId 用户ID
+   * @param id 标签ID
+   * @param dto 更新标签请求DTO
+   */
+  public void updateLabelById(long userId, long id, UpdateLabelRequest dto);
 
   /**
    * 获取用户所有标签

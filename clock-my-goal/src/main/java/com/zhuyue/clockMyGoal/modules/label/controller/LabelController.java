@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
 import com.zhuyue.clockMyGoal.common.interceptor.LoginUser;
-import com.zhuyue.clockMyGoal.modules.label.dto.request.CreateLabelRequest;
+import com.zhuyue.clockMyGoal.modules.label.dto.request.*;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
 import com.zhuyue.clockMyGoal.modules.label.service.LabelService;
 
@@ -37,6 +38,12 @@ public class LabelController {
   public void removeLabel(@PathVariable("id") long id, @RequestAttribute("userInfo") LoginUser loginUser) {
     long userId = loginUser.getUserId();
     labelService.removeLabel(userId, id);
+  }
+
+  @PatchMapping("/{id}")
+  public void updateLabel(@PathVariable("id") long id, @RequestBody UpdateLabelRequest label, @RequestAttribute("userInfo") LoginUser loginUser) {
+    long userId = loginUser.getUserId();
+    labelService.updateLabelById(userId, id, label);
   }
 
   @GetMapping

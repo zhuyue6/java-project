@@ -6,6 +6,8 @@ import lombok.*;
 public class GoalResponse {
   /** 目标ID */
   private long id;
+  /** 目标名称 */
+  private String goalName;
   /** 打卡到期时间 */
   private String expirationTime;
   /** 备注 */

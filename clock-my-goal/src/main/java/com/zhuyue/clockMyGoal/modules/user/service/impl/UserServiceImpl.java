@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
   public String uploadUserAvatar(long userId, MultipartFile file) {
     String avatarUrl = null;
     try {
-      avatarUrl = storeageService.uploadImage(file);
+      avatarUrl = storeageService.uploadImage(file, "avatar");
       userMapper.updateAvatarByUserId(userId, avatarUrl);
     } catch (BusinessException e) {
       throw new BusinessException(e.getCode(), e.getMessage());

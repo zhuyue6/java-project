@@ -21,18 +21,20 @@ import org.springframework.stereotype.Service;
 @Service("StoreageService")
 public class StoreageService {
   @Value("${file.accessPrefix}")
-  private String ACCESS_PREFIX;
+  private String FILE_ACCESS_PREFIX;
+  @Value("${file.accessPath}")
+  private String FILE_ACCESS_PATH;
 
-
-  public String uploadImage(MultipartFile file) throws IOException, BusinessException {
+  public String uploadImage(MultipartFile file, String pathPrefix) throws IOException, BusinessException {
     String mimeType = file.getContentType();
     List<String> mimeTypes = List.of("image/jpeg", "image/png", "image/jpg");
 
     if (!mimeTypes.contains(mimeType)) {
-      throw new BusinessException(ExceptionCodeEnum.InvalidMimeType.getCode(), ExceptionCodeEnum.InvalidMimeType.getMessage());
+      throw new BusinessException(ExceptionCodeEnum.InvalidMimeType);
     }
 
     String originalFilename = file.getOriginalFilename();
+    // 文件扩展名
     String ext = "";
 
     if (originalFilename != null && originalFilename.contains(".")) {
@@ -40,10 +42,10 @@ public class StoreageService {
     }
 
     // 相对路径：入库 / 返回给前端用，不带本地盘符
-    String relativePath = "images/" + UUID.randomUUID() + ext;
+    String relativePath = FILE_ACCESS_PREFIX + '/' + pathPrefix + '/' + UUID.randomUUID() + ext;
 
     // 绝对路径：真正写磁盘
-    Path absolutePath = Paths.get("./" + ACCESS_PREFIX, relativePath).toAbsolutePath().normalize();
+    Path absolutePath = Paths.get(FILE_ACCESS_PATH, relativePath).toAbsolutePath().normalize();
     Files.createDirectories(absolutePath.getParent());
     Files.write(absolutePath, file.getBytes());
 

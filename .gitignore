@@ -6,3 +6,5 @@ log/
 .class
 var/
 dist/
+
+upload/

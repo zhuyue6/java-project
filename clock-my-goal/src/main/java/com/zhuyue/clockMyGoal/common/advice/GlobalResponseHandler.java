@@ -34,16 +34,12 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object>{
     ServerHttpRequest request,
     ServerHttpResponse response
   ) {
-    // 运行时已是 ApiResponse，避免异常处理结果再被包一层成功
-    if (body instanceof ApiResponse) {
-      return body;
-    }
 
     ApiResponse<?> apiResponse = ApiResponse.success(body);
 
     // 方法返回 String 时 Spring 已选定 StringHttpMessageConverter，
     // 直接返回 ApiResponse 会触发 ClassCastException，需手动序列化为 JSON 字符串
-    if (returnType.getParameterType().equals(String.class)) {
+    if (body instanceof String) {
       response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
       return UtilService.objectToString(apiResponse);
     }

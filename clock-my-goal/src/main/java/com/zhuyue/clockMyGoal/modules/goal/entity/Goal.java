@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 public class Goal {
   /** 目标ID */
   private long id;
+  /** 目标名称 */
+  private String goalName;
   /** 用户ID */
   private long userId;
   /** 备注 */

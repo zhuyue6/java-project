@@ -18,6 +18,7 @@ create table user (
 -- 创建打卡目标表
 create table goal (
     id bigint primary key auto_increment COMMENT '打卡记录ID',
+    goal_name varchar(50) not null COMMENT '打卡目标名称',
     user_id bigint not null COMMENT '关联用户ID',
     label_id bigint COMMENT '关联标签ID',
     remark TEXT default null COMMENT '备注',
