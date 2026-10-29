@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>clock-my-goal</artifactId>
-    <version>0.1.6</version>
+    <version>0.1.7</version>
     <description>目标打卡APP</description>
     <packaging>jar</packaging>
 

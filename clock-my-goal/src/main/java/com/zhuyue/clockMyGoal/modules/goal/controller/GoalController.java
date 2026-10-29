@@ -37,7 +37,7 @@ public class GoalController {
   }
 
   @PatchMapping("/{id}")
-  public void updateGoal(@PathVariable("id") long id, @RequestBody UpdateGoalRequest updateGoalRequest, @RequestAttribute("userInfo") LoginUser loginUser) {
+  public void updateGoal(@PathVariable("id") long id, @Valid @RequestBody UpdateGoalRequest updateGoalRequest, @RequestAttribute("userInfo") LoginUser loginUser) {
     long userId = loginUser.getUserId();
     goalService.updateGoal(userId, id, updateGoalRequest);
   }

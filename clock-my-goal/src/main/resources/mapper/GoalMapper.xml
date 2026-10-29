@@ -20,6 +20,22 @@
         clock_in_count = #{goal.clockInCount},  remark = #{goal.remark}, label_id = #{goal.labelId}, target_clock_in_count = #{goal.targetClockInCount}, clock_in_cycle = #{goal.clockInCycle} WHERE id = #{goal.id} AND user_id = #{userId}
     </update>
 
+    <update id="updateGoalNonNull">
+        UPDATE goal 
+        <set>
+          <if test="goal.goalName != null">goal_name = #{goal.goalName},</if>
+          <if test="goal.expirationTime != null">expiration_time = #{goal.expirationTime},</if>
+          <if test="goal.clockInCount != null">clock_in_count = #{goal.clockInCount},</if>
+          <if test="goal.remark != null">remark = #{goal.remark},</if>
+          <if test="goal.labelId != null">label_id = #{goal.labelId},</if>
+          <if test="goal.targetClockInCount != null">target_clock_in_count = #{goal.targetClockInCount},</if>
+          <if test="goal.clockInCycle != null">clock_in_cycle = #{goal.clockInCycle},</if>
+        </set>
+        where id = #{goal.id} and user_id = #{userId}
+    </update>
+
+
+
     <update id="updateGoalClockInTime">
         UPDATE goal SET clock_in_time = #{clockInTime}, clock_in_count = #{goal.clockInCount} WHERE id = #{goal.id} AND user_id = #{userId}
     </update>

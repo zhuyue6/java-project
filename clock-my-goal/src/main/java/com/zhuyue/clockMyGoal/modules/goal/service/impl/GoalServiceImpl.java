@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.ArrayList;
 import jakarta.annotation.Resource;
 
@@ -117,7 +118,7 @@ public class GoalServiceImpl implements GoalService {
   @Override
   public void updateGoal(long userId, long id, UpdateGoalRequest dto) {
     Goal lastGoal = requireGoal(userId, id);;
-    int clockInCycle = dto.getClockInCycle();
+    Integer clockInCycle = Objects.requireNonNullElse(dto.getClockInCycle(), lastGoal.getClockInCycle());
     LocalDateTime expirationTime = dto.getExpirationTime();
     LocalDateTime createTime = lastGoal.getCreateTime();
 
@@ -130,10 +131,13 @@ public class GoalServiceImpl implements GoalService {
       .clockInCycle(clockInCycle)
       .build();
 
-    long targetClockInCount = TimeService.getTimeDifference(clockInCycle, createTime, expirationTime);
-    goal.setTargetClockInCount(targetClockInCount);
+    // 如果截止时间不变，则目标打卡次数不变
+    if (clockInCycle != null && expirationTime != null && !expirationTime.equals(lastGoal.getExpirationTime())) {
+      long targetClockInCount = TimeService.getTimeDifference(clockInCycle, createTime, expirationTime);
+      goal.setTargetClockInCount(targetClockInCount);
+    }
 
-    goalMapper.updateGoal(userId, goal);
+    goalMapper.updateGoalNonNull(userId, goal);
   }
   
   /**

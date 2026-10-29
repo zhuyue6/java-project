@@ -10,7 +10,10 @@ import com.zhuyue.clockMyGoal.common.constants.ExceptionCodeEnum;
 import com.zhuyue.clockMyGoal.common.util.ApiResponse;
 
 import java.lang.Exception;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
   // 捕获业务异常
@@ -55,6 +58,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(Exception.class)
   public ApiResponse<Object> handleException(Exception e) {
     // 捕获全部异常，返回服务错误
+    log.error("系统未知异常: ", e.getMessage(), e);
     return ApiResponse.fail(e.getMessage(), ExceptionCodeEnum.ServiceError.getCode());
   }
 }
