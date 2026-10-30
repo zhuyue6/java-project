@@ -58,20 +58,26 @@ public class GoalServiceImpl implements GoalService {
 
 
   @Override
-  public long createGoal(long userId, CreateGoalRequest dto) {
-    Goal goal = Goal.builder()
-        .goalName(dto.getGoalName())
-        .expirationTime(dto.getExpirationTime())
-        .remark(dto.getRemark())
-        .clockInCycle(dto.getClockInCycle())
-        .labelId(dto.getLabelId())
-        .build();
-
+  public long createGoal(long userId, CreateGoalRequest dto) throws BusinessException {
     // 这里要计算当前时间与截止时间的差值，然后除以打卡周期，得到目标打卡次数
     int clockInCycle = dto.getClockInCycle();
     LocalDateTime expirationTime = dto.getExpirationTime();
     LocalDateTime currentTime = LocalDateTime.now();
     long targetClockInCount = TimeService.getTimeDifference(clockInCycle, currentTime, expirationTime);
+
+    if (currentTime.isAfter(expirationTime)) {
+      throw new BusinessException(ExceptionCodeEnum.GoalExpirationTimeInvalid);
+    }
+
+    Goal goal = Goal.builder()
+        .goalName(dto.getGoalName())
+        .expirationTime(expirationTime)
+        .clockInCount(0)
+        .remark(dto.getRemark())
+        .clockInCycle(clockInCycle)
+        .labelId(dto.getLabelId())
+        .build();
+
     goal.setTargetClockInCount(targetClockInCount);
 
     goalMapper.insertGoal(userId, goal);
@@ -119,10 +125,9 @@ public class GoalServiceImpl implements GoalService {
   @Override
   public void updateGoal(long userId, long id, UpdateGoalRequest dto) {
     Goal lastGoal = requireGoal(userId, id);;
-    Integer clockInCycle = Objects.requireNonNullElse(dto.getClockInCycle(), lastGoal.getClockInCycle());
-    LocalDateTime expirationTime = dto.getExpirationTime();
-    LocalDateTime createTime = lastGoal.getCreateTime();
-
+    int clockInCycle = Objects.requireNonNullElse(dto.getClockInCycle(), lastGoal.getClockInCycle());
+    LocalDateTime expirationTime = Objects.requireNonNullElse(dto.getExpirationTime(), lastGoal.getExpirationTime());
+    
     Goal goal = Goal.builder()
       .id(id)
       .goalName(dto.getGoalName())
@@ -132,13 +137,16 @@ public class GoalServiceImpl implements GoalService {
       .clockInCycle(clockInCycle)
       .build();
 
-    // 如果截止时间不变，则目标打卡次数不变
-    if (clockInCycle != null && expirationTime != null && !expirationTime.equals(lastGoal.getExpirationTime())) {
+    // 如果周期或截止时间发生变化，则目标打卡次数需要重新计算
+    if (clockInCycle != lastGoal.getClockInCycle() && !expirationTime.equals(lastGoal.getExpirationTime())) {
+      LocalDateTime createTime = lastGoal.getCreateTime();
       long targetClockInCount = TimeService.getTimeDifference(clockInCycle, createTime, expirationTime);
       goal.setTargetClockInCount(targetClockInCount);
     }
 
-    goalMapper.updateGoalNonNull(userId, goal);
+    Goal mergeGoal = mergeGoalWithDirty(lastGoal, goal);
+
+    goalMapper.updateGoalNonNull(userId, mergeGoal);
   }
   
   /**
@@ -181,8 +189,29 @@ public class GoalServiceImpl implements GoalService {
     return goal;
   }
 
+  /**
+   * 合并目标，脏数据处理
+   * @param goal
+   * @param targetGoal
+   * @return
+   */
+  private Goal mergeGoalWithDirty(Goal goal, Goal targetGoal) {
+    Goal mergeGoal = new Goal();
+    mergeGoal.setGoalName(Objects.requireNonNullElse(targetGoal.getGoalName(), goal.getGoalName()));
+    mergeGoal.setExpirationTime(Objects.requireNonNullElse(targetGoal.getExpirationTime(), goal.getExpirationTime()));
+    mergeGoal.setRemark(Objects.requireNonNullElse(targetGoal.getRemark(), goal.getRemark()));
+    mergeGoal.setLabelId(Objects.requireNonNullElse(targetGoal.getLabelId(), goal.getLabelId()));
+    mergeGoal.setClockInCount(Objects.requireNonNullElse(targetGoal.getClockInCount(), goal.getClockInCount()));
+    mergeGoal.setClockInCycle(Objects.requireNonNullElse(targetGoal.getClockInCycle(), goal.getClockInCycle()));
+    mergeGoal.setTargetClockInCount(Objects.requireNonNullElse(targetGoal.getTargetClockInCount(), goal.getTargetClockInCount()));
+    mergeGoal.setClockInTime(Objects.requireNonNullElse(targetGoal.getClockInTime(), goal.getClockInTime()));
+    mergeGoal.setCreateTime(Objects.requireNonNullElse(targetGoal.getCreateTime(), goal.getCreateTime()));
+    mergeGoal.setUpdateTime(Objects.requireNonNullElse(targetGoal.getUpdateTime(), goal.getUpdateTime()));
+    return mergeGoal;
+  }
+
   @Override 
-  public void clockInGoal(long userId, long id) {
+  public void clockInGoal(long userId, long id) throws BusinessException{
     Goal goal = requireGoal(userId, id);
     // 当前时间
     LocalDateTime currentTime = LocalDateTime.now();

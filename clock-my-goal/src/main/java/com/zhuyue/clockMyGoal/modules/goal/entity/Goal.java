@@ -24,11 +24,11 @@ public class Goal {
   /** 标签ID */
   private Long labelId;
   /** 已打卡次数 */
-  private Integer clockInCount;
+  private int clockInCount;
   /** 目标打卡次数 */
-  private Long targetClockInCount;
+  private long targetClockInCount;
   /** 打卡周期(天/周/月) */
-  private Integer clockInCycle;
+  private int clockInCycle;
   /** 上次打卡时间 */
   private LocalDateTime clockInTime;
   /** 创建时间 */
