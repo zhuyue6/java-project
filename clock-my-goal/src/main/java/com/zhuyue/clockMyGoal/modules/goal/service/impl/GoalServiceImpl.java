@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.ArrayList;
 import jakarta.annotation.Resource;
 
@@ -124,29 +123,23 @@ public class GoalServiceImpl implements GoalService {
 
   @Override
   public void updateGoal(long userId, long id, UpdateGoalRequest dto) {
-    Goal lastGoal = requireGoal(userId, id);;
-    int clockInCycle = Objects.requireNonNullElse(dto.getClockInCycle(), lastGoal.getClockInCycle());
-    LocalDateTime expirationTime = Objects.requireNonNullElse(dto.getExpirationTime(), lastGoal.getExpirationTime());
+    Goal lastGoal = requireGoal(userId, id);
     
-    Goal goal = Goal.builder()
-      .id(id)
-      .goalName(dto.getGoalName())
-      .expirationTime(expirationTime)
-      .remark(dto.getRemark())
-      .labelId(dto.getLabelId())
-      .clockInCycle(clockInCycle)
-      .build();
-
+    // 合并dto 与 goal 的非空属性
+    Goal goal = mergeGoalWithDirty(lastGoal, dto);
+    
     // 如果周期或截止时间发生变化，则目标打卡次数需要重新计算
-    if (clockInCycle != lastGoal.getClockInCycle() && !expirationTime.equals(lastGoal.getExpirationTime())) {
+    int clockInCycle = goal.getClockInCycle();
+    LocalDateTime expirationTime = goal.getExpirationTime();
+    long targetClockInCount = goal.getTargetClockInCount();
+    if (clockInCycle != lastGoal.getClockInCycle() || !expirationTime.equals(lastGoal.getExpirationTime())) {
       LocalDateTime createTime = lastGoal.getCreateTime();
-      long targetClockInCount = TimeService.getTimeDifference(clockInCycle, createTime, expirationTime);
+      targetClockInCount = TimeService.getTimeDifference(clockInCycle, createTime, expirationTime);
       goal.setTargetClockInCount(targetClockInCount);
+      goal.setClockInCount(0);
     }
 
-    Goal mergeGoal = mergeGoalWithDirty(lastGoal, goal);
-
-    goalMapper.updateGoalNonNull(userId, mergeGoal);
+    goalMapper.updateGoal(userId, goal);
   }
   
   /**
@@ -195,18 +188,21 @@ public class GoalServiceImpl implements GoalService {
    * @param targetGoal
    * @return
    */
-  private Goal mergeGoalWithDirty(Goal goal, Goal targetGoal) {
+  private Goal mergeGoalWithDirty(Goal goal, UpdateGoalRequest dto) {
     Goal mergeGoal = new Goal();
-    mergeGoal.setGoalName(Objects.requireNonNullElse(targetGoal.getGoalName(), goal.getGoalName()));
-    mergeGoal.setExpirationTime(Objects.requireNonNullElse(targetGoal.getExpirationTime(), goal.getExpirationTime()));
-    mergeGoal.setRemark(Objects.requireNonNullElse(targetGoal.getRemark(), goal.getRemark()));
-    mergeGoal.setLabelId(Objects.requireNonNullElse(targetGoal.getLabelId(), goal.getLabelId()));
-    mergeGoal.setClockInCount(Objects.requireNonNullElse(targetGoal.getClockInCount(), goal.getClockInCount()));
-    mergeGoal.setClockInCycle(Objects.requireNonNullElse(targetGoal.getClockInCycle(), goal.getClockInCycle()));
-    mergeGoal.setTargetClockInCount(Objects.requireNonNullElse(targetGoal.getTargetClockInCount(), goal.getTargetClockInCount()));
-    mergeGoal.setClockInTime(Objects.requireNonNullElse(targetGoal.getClockInTime(), goal.getClockInTime()));
-    mergeGoal.setCreateTime(Objects.requireNonNullElse(targetGoal.getCreateTime(), goal.getCreateTime()));
-    mergeGoal.setUpdateTime(Objects.requireNonNullElse(targetGoal.getUpdateTime(), goal.getUpdateTime()));
+    // 合并dto 与 goal 的非空属性
+    mergeGoal.setGoalName(dto.getGoalName() != null ? dto.getGoalName() : goal.getGoalName());
+    mergeGoal.setExpirationTime(dto.getExpirationTime() != null ? dto.getExpirationTime() : goal.getExpirationTime());
+    mergeGoal.setRemark(dto.getRemark() != null ? dto.getRemark() : goal.getRemark());
+    mergeGoal.setLabelId(dto.getLabelId() != null ? dto.getLabelId() : goal.getLabelId());
+    mergeGoal.setClockInCycle(dto.getClockInCycle() != null ? dto.getClockInCycle() : goal.getClockInCycle());
+    mergeGoal.setClockInCount(goal.getClockInCount());
+    mergeGoal.setTargetClockInCount(goal.getTargetClockInCount());
+    mergeGoal.setClockInTime(goal.getClockInTime());
+    mergeGoal.setCreateTime(goal.getCreateTime());
+    mergeGoal.setUpdateTime(goal.getUpdateTime());
+    mergeGoal.setId(goal.getId());
+    mergeGoal.setUserId(goal.getUserId());
     return mergeGoal;
   }
 
