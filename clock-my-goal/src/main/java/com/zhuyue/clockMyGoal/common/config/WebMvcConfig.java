@@ -1,19 +1,16 @@
 package com.zhuyue.clockMyGoal.common.config;
 
-import java.nio.file.Paths;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.file.Paths;
+
 import com.zhuyue.clockMyGoal.common.interceptor.GlobalAuthInterceptor;
-
-import org.springframework.lang.NonNull;
-
-import lombok.RequiredArgsConstructor;
 
 /* 全局拦截器配置，自定义 Spring MVC 的配置，只做增量定制，与 `@EnableWebMvc` 有很大区别 */
 @Configuration
@@ -26,15 +23,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private String ACCESS_PREFIX;
     @Value("${file.accessPath}")
     private String ACCESS_PATH;
-
-    @Override
-    // 跨域配置
-    public void addCorsMappings(@NonNull CorsRegistry registry) {
-        registry.addMapping("/admin/**")
-                .allowedOriginPatterns("http://localhost:*", "http://127.0.0.1:*")
-                .allowedMethods("GET", "POST", "OPTIONS")
-                .allowedHeaders("*");
-    }
 
     @Override
     // 注册拦截器
