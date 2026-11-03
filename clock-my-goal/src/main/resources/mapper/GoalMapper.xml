@@ -42,9 +42,18 @@
 
     <update id="updateGoal">
         UPDATE goal SET 
-        goal_name = #{goal.goalName}, expiration_time = #{goal.expirationTime}, 
-        clock_in_count = #{goal.clockInCount},  remark = #{goal.remark}, label_id = #{goal.labelId}, 
-        target_clock_in_count = #{goal.targetClockInCount}, clock_in_cycle = #{goal.clockInCycle} WHERE id = #{goal.id} AND user_id = #{userId}
+            goal_name = #{goal.goalName}, 
+            expiration_time = #{goal.expirationTime}, 
+            clock_in_count = #{goal.clockInCount}, 
+            remark = #{goal.remark}, 
+            label_id = #{goal.labelId}, 
+            target_clock_in_count = #{goal.targetClockInCount},
+            clock_in_cycle = #{goal.clockInCycle},
+            start_check_time = #{goal.startCheckTime},
+            end_check_time = #{goal.endCheckTime},
+            clock_in_cycle_count = #{goal.clockInCycleCount},
+            target_clock_in_cycle_count = #{goal.targetClockInCycleCount}
+        WHERE id = #{goal.id} AND user_id = #{userId}
     </update>
 
     <update id="updateGoalNonNull">

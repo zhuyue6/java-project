@@ -3,7 +3,7 @@ package com.zhuyue.clockMyGoal.modules.goal.dto.request;
 import lombok.*;
 import jakarta.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDateTime;
+import java.time.*;
 
 @Data
 public class UpdateGoalRequest {
@@ -14,6 +14,14 @@ public class UpdateGoalRequest {
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   private LocalDateTime expirationTime;
+
+  @JsonFormat(pattern = "HH:mm:ss", timezone = "GMT+8")
+  private LocalTime startCheckTime;
+
+  @JsonFormat(pattern = "HH:mm:ss", timezone = "GMT+8")
+  private LocalTime endCheckTime;
+
+  private Integer targetClockInCycleCount;
 
   private Long labelId;
 

@@ -160,19 +160,32 @@ public class GoalServiceImpl implements GoalService {
   @Override
   public void updateGoal(long userId, long id, UpdateGoalRequest dto) {
     Goal lastGoal = requireGoal(userId, id);
-    
+
+    String newGoalName = dto.getGoalName();
+    String lastGoalName = lastGoal.getGoalName();
+    if (newGoalName != null && !newGoalName.equals(lastGoalName)) {
+      // 如果目标名称发生变化，则需要检查是否存在相同目标名称，同一个用户只能创建一个相同目标名称的目标
+      Goal existGoal = goalMapper.selectGoalByGoalName(userId, dto.getGoalName());
+      if (existGoal != null) {
+        throw new BusinessException(ExceptionCodeEnum.GoalNameAlreadyExists);
+      }
+    }
+
     // 合并dto 与 goal 的非空属性
     Goal goal = mergeGoalWithDirty(lastGoal, dto);
     
-    // 如果周期或截止时间发生变化，则目标打卡次数需要重新计算
+    // 如果周期/截止时间/目标打卡周期计数发生变化，则目标打卡次数需要重新计算
     int clockInCycle = goal.getClockInCycle();
     LocalDateTime expirationTime = goal.getExpirationTime();
     long targetClockInCount = goal.getTargetClockInCount();
-    if (clockInCycle != lastGoal.getClockInCycle() || !expirationTime.equals(lastGoal.getExpirationTime())) {
+    int targetClockInCycleCount = goal.getTargetClockInCycleCount();
+
+    if (clockInCycle != lastGoal.getClockInCycle() || !expirationTime.equals(lastGoal.getExpirationTime()) || targetClockInCycleCount != lastGoal.getTargetClockInCycleCount()) {
       LocalDateTime createTime = lastGoal.getCreateTime();
       targetClockInCount = TimeService.getTimeDifference(clockInCycle, createTime, expirationTime);
       goal.setTargetClockInCount(targetClockInCount);
       goal.setClockInCount(0);
+      goal.setClockInCycleCount(0);
     }
 
     goalMapper.updateGoal(userId, goal);
@@ -232,6 +245,11 @@ public class GoalServiceImpl implements GoalService {
     mergeGoal.setRemark(dto.getRemark() != null ? dto.getRemark() : goal.getRemark());
     mergeGoal.setLabelId(dto.getLabelId() != null ? dto.getLabelId() : goal.getLabelId());
     mergeGoal.setClockInCycle(dto.getClockInCycle() != null ? dto.getClockInCycle() : goal.getClockInCycle());
+    mergeGoal.setStartCheckTime(dto.getStartCheckTime() != null ? dto.getStartCheckTime() : goal.getStartCheckTime());
+    mergeGoal.setEndCheckTime(dto.getEndCheckTime() != null ? dto.getEndCheckTime() : goal.getEndCheckTime());
+    mergeGoal.setTargetClockInCycleCount(dto.getTargetClockInCycleCount() != null ? dto.getTargetClockInCycleCount() : goal.getTargetClockInCycleCount());
+    mergeGoal.setClockInCycleCount(goal.getClockInCycleCount());
+
     mergeGoal.setClockInCount(goal.getClockInCount());
     mergeGoal.setTargetClockInCount(goal.getTargetClockInCount());
     mergeGoal.setClockInTime(goal.getClockInTime());
