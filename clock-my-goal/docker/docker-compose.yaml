@@ -57,7 +57,7 @@ services:
       retries: 10
 
   clock-my-goal:
-    image: clock-my-goal:0.1.7
+    image: clock-my-goal:0.1.8
     container_name: clock-my-goal
     restart: always
     ports:
