@@ -17,8 +17,8 @@ public class AdminUserServiceImpl implements AdminUserService {
   private AdminUserMapper adminUserMapper;
 
   AdminUserResponse converToAdminUserResponse(AdminUser adminUser) {
-    String createTime = TimeService.getTimeStringByTime(adminUser.getCreateTime());
-    String updateTime = TimeService.getTimeStringByTime(adminUser.getUpdateTime());
+    String createTime = TimeService.getDateTimeStringByDateTime(adminUser.getCreateTime());
+    String updateTime = TimeService.getDateTimeStringByDateTime(adminUser.getUpdateTime());
 
     AdminUserResponse adminUserResponse = new AdminUserResponse();
     adminUserResponse.setId(adminUser.getId());

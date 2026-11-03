@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -23,6 +24,14 @@ public class Goal {
   private LocalDateTime expirationTime;
   /** 标签ID */
   private Long labelId;
+  /** 目标打卡时间周期总计数 */
+  private int targetClockInCycleCount;
+  /** 已打卡时间周期计数 */
+  private int clockInCycleCount;
+  /** 可打卡段开始时间 */
+  private LocalTime startCheckTime;
+  /** 可打卡段结束时间 */
+  private LocalTime endCheckTime;
   /** 已打卡次数 */
   private int clockInCount;
   /** 目标打卡次数 */

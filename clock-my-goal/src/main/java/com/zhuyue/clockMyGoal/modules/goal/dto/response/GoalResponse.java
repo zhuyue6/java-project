@@ -20,6 +20,14 @@ public class GoalResponse {
   private String createTime;
   /** 更新时间 */
   private String updateTime;
+  /** 可打卡段开始时间 */
+  private String startCheckTime;
+  /** 可打卡段结束时间 */
+  private String endCheckTime;
+  /** 目标打卡时间周期总计数 */
+  private int targetClockInCycleCount;
+  /** 时间周期已打卡计数 */
+  private int clockInCycleCount;
   /** 已打卡次数 */
   private int clockInCount;
   /** 目标打卡次数 */

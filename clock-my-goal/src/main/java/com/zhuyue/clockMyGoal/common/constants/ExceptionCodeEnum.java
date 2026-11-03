@@ -30,8 +30,11 @@ public enum ExceptionCodeEnum {
 
   // 目标错误（14xxx）
   GoalNotFound(14001, "目标不存在"),
-  GoalAlreadyClockedIn(14002, "目标本打卡周期已打卡，请勿重复打卡"),
+  GoalAlreadyClockedIn(14002, "目标本打卡周期已完成打卡，请勿重复打卡"),
+  GoalNameAlreadyExists(14003, "目标名称已存在"),
   GoalExpirationTimeInvalid(14003, "目标到期时间已过期"),
+  GoalCheckTimeStartTimeAfterEndTime(14004, "开始打卡时间不能大于结束打卡时间"),
+  GoalNotInClockInTime(14005, "不在可打卡段内"),
 
   // 管理员错误 (15xxx)
   AdminUserNotFound(15001, "用户不存在"),

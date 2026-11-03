@@ -11,8 +11,33 @@
     <!-- 创建目标：useGeneratedKeys 把数据库自增主键回写到 Goal.id -->
     <!-- keyColumn 指定数据库字段名从这个字段中写入 Goal.id -->
     <insert id="insertGoal" useGeneratedKeys="true" keyProperty="goal.id" keyColumn="id">
-        INSERT INTO goal(goal_name, user_id, label_id, expiration_time, clock_in_count, target_clock_in_count, clock_in_cycle, remark)
-        VALUES(#{goal.goalName}, #{userId}, #{goal.labelId}, #{goal.expirationTime}, #{goal.clockInCount}, #{goal.targetClockInCount}, #{goal.clockInCycle}, #{goal.remark})
+        INSERT INTO goal(
+            goal_name, 
+            user_id, label_id, 
+            expiration_time, 
+            clock_in_count, 
+            target_clock_in_count, 
+            clock_in_cycle, 
+            remark,
+            start_check_time,
+            end_check_time,
+            clock_in_cycle_count,
+            target_clock_in_cycle_count
+        )
+        VALUES(
+            #{goal.goalName},
+            #{userId}, 
+            #{goal.labelId}, 
+            #{goal.expirationTime}, 
+            #{goal.clockInCount}, 
+            #{goal.targetClockInCount}, 
+            #{goal.clockInCycle}, 
+            #{goal.remark},
+            #{goal.startCheckTime},
+            #{goal.endCheckTime},
+            #{goal.clockInCycleCount},
+            #{goal.targetClockInCycleCount}
+        )
     </insert>
 
     <update id="updateGoal">
@@ -39,8 +64,12 @@
 
 
     <update id="updateGoalClockInTime">
-        UPDATE goal SET clock_in_time = #{clockInTime}, clock_in_count = #{goal.clockInCount} WHERE id = #{goal.id} AND user_id = #{userId}
+        UPDATE goal SET clock_in_time = #{clockInTime}, clock_in_cycle_count = #{goal.clockInCycleCount}, clock_in_count = #{goal.clockInCount} WHERE id = #{goal.id} AND user_id = #{userId}
     </update>
+
+    <select id="selectGoalByGoalName" resultType="com.zhuyue.clockMyGoal.modules.goal.entity.Goal">
+        SELECT * FROM goal WHERE goal_name = #{goalName} AND user_id = #{userId}
+    </select>
 
     <select id="selectGoalById" resultType="com.zhuyue.clockMyGoal.modules.goal.entity.Goal">
         SELECT * FROM goal WHERE id = #{id} AND user_id = #{userId}

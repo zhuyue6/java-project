@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
 
   private UserResponse convertToUserResponse(User user) {
     // 使用Builder模式将用户信息转换为响应对象
-    String createTime = TimeService.getTimeStringByTime(user.getCreateTime());
-    String updateTime = TimeService.getTimeStringByTime(user.getUpdateTime());
+    String createTime = TimeService.getDateTimeStringByDateTime(user.getCreateTime());
+    String updateTime = TimeService.getDateTimeStringByDateTime(user.getUpdateTime());
     
     UserResponse userResponse = new UserResponse();
     userResponse.setId(user.getId());

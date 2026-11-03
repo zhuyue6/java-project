@@ -21,15 +21,20 @@ create table goal (
     goal_name varchar(50) not null COMMENT '打卡目标名称',
     user_id bigint not null COMMENT '关联用户ID',
     label_id bigint COMMENT '关联标签ID',
+    status int not null default 1 COMMENT '状态(1进行中/2已完成/3已过期)',
     remark TEXT default null COMMENT '备注',
     expiration_time datetime default null COMMENT '打卡到期时间',
     clock_in_count int not null default 0 COMMENT '已打卡次数',
     target_clock_in_count int not null COMMENT '目标打卡次数',
     clock_in_cycle int not null COMMENT '打卡周期(天/周/月)',
-    status int not null default 1 COMMENT '状态(1进行中/2已完成/3已过期)',
+    clock_in_cycle_count int not null default 0 COMMENT '打卡时间周期计数',
+    target_clock_in_cycle_count int not null COMMENT '目标打卡时间周期总计数',
+    start_check_time time default null default '00:00:00' COMMENT '可打卡段开始时间',
+    end_check_time time default null default '23:59:59' COMMENT '可打卡段结束时间',
     clock_in_time datetime default null COMMENT '上次打卡时间',
     create_time datetime not null default current_timestamp COMMENT '创建时间',
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
+    UNIQUE KEY `uk_userid_goalname` (`user_id`, `goal_name`)
 );
 
 -- 创建打卡标签表

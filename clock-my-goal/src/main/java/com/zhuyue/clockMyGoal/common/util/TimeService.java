@@ -1,6 +1,7 @@
 package com.zhuyue.clockMyGoal.common.util;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -12,11 +13,11 @@ import java.time.temporal.WeekFields;
  */
 public class TimeService {
   /**
-   * 获取当前时间字符串
-   * @return 当前时间字符串
+   * 获取当前日期时间字符串
+   * @return 当前日期时间字符串
    */
-  public static String getCurrentTimeString() {
-    String nowDateTimeString = getTimeStringByTime(LocalDateTime.now());
+  public static String getCurrentDateTimeString() {
+    String nowDateTimeString = getDateTimeStringByDateTime(LocalDateTime.now());
     return nowDateTimeString;
   }
 
@@ -31,27 +32,49 @@ public class TimeService {
   }
 
   /**
-   * 按格式化时间字符串转换为LocalDateTime
-   * @param timeString 时间字符串
+   * 按格式化日期时间字符串转换为LocalDateTime
+   * @param dateTimeString 日期时间字符串
    * @return LocalDateTime
    */
-  public static LocalDateTime getTimeByTimeString(String timeString) {
+  public static LocalDateTime getDateTimeByDateTimeString(String dateTimeString) {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    LocalDateTime time = LocalDateTime.parse(timeString, dtf);
-    return time;
+    LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, dtf);
+    return dateTime;
   }
 
   /**
-   * 按LocalDateTime转换为时间字符串
-   * @param timeString 时间字符串
-   * @return LocalDateTime
+   * 按LocalDateTime转换为日期时间字符串
+   * @param dateTime 日期时间
+   * @return 日期时间字符串
    */
-  public static String getTimeStringByTime(LocalDateTime time) {
+  public static String getDateTimeStringByDateTime(LocalDateTime dateTime) {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String dateTimeString = dtf.format(dateTime);
+    return dateTimeString;
+  }
+
+  /**
+   * 按LocalTime转换为时间字符串
+   * @param time 时间
+   * @return 时间字符串
+   */
+  public static String getTimeStringByTime(LocalTime time) {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
     String timeString = dtf.format(time);
     return timeString;
   }
 
+  /**
+   * 按时间字符串转换为LocalTime
+   * @param timeString 时间字符串
+   * @return LocalTime
+   */
+  public static LocalTime getTimeByTimeString(String timeString) {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+    LocalTime time = LocalTime.parse(timeString, dtf);
+    return time;
+  }
+  
   /**
    * 计算两个时间之间的差值
    * @param startTime 开始时间
