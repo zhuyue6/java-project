@@ -186,6 +186,7 @@ public class GoalServiceImpl implements GoalService {
       goal.setTargetClockInCount(targetClockInCount);
       goal.setClockInCount(0);
       goal.setClockInCycleCount(0);
+      goal.setClockInTime(null);
     }
 
     goalMapper.updateGoal(userId, goal);
@@ -275,11 +276,14 @@ public class GoalServiceImpl implements GoalService {
     // 当前时间
     LocalDateTime currentTime = LocalDateTime.now();
 
+    // 检查是否在打卡时间段内，继续往下
+    // 如果不在打卡时间段内，则抛出异常
+    // 如果本周期已打卡，则抛出异常，如何判断本周期已打卡？
     checkClockInTime(goal);
 
     int clockInCycleCount = goal.getClockInCycleCount();
     int targetClockInCycleCount = goal.getTargetClockInCycleCount();
-    if (clockInCycleCount >= targetClockInCycleCount) {
+    if (clockInCycleCount + 1 >= targetClockInCycleCount) {
       goal.setClockInCount(goal.getClockInCount() + 1);
       goal.setClockInCycleCount(0);
     } else {
@@ -331,8 +335,7 @@ public class GoalServiceImpl implements GoalService {
 
     // 如果是同一周期，并且周期计数大于等于目标周期计数，则抛出异常
     int clockInCycleCount = goal.getClockInCycleCount();
-    int targetClockInCycleCount = goal.getTargetClockInCycleCount();
-    if (isSameCycle && clockInCycleCount >= targetClockInCycleCount) {
+    if (isSameCycle && clockInCycleCount == 0) {
       throw new BusinessException(ExceptionCodeEnum.GoalAlreadyClockedIn);
     }
   }
