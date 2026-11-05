@@ -49,6 +49,7 @@
             label_id = #{goal.labelId}, 
             target_clock_in_count = #{goal.targetClockInCount},
             clock_in_cycle = #{goal.clockInCycle},
+            clock_in_time = #{goal.clockInTime},
             start_check_time = #{goal.startCheckTime},
             end_check_time = #{goal.endCheckTime},
             clock_in_cycle_count = #{goal.clockInCycleCount},
