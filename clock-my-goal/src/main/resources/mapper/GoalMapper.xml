@@ -88,4 +88,20 @@
     <delete id="deleteGoal">
         DELETE FROM goal WHERE id = #{id} AND user_id = #{userId}
     </delete>
+
+    <insert id="insertGoalClockIn">
+        INSERT INTO goal_clock_in(
+            goal_id,
+            clock_in_time
+        )
+        VALUES(
+            #{goalId},
+            #{clockInTime}
+        )
+    </insert>
+    
+    <select id="selectGoalClockInByGoalId" resultType="com.zhuyue.clockMyGoal.modules.goal.dto.response.GoalClockInResponse">
+        SELECT * FROM goal_clock_in 
+        WHERE goal_id = #{goalId} AND clock_in_time BETWEEN #{cycleStartTime} AND #{cycleEndTime}
+    </select>
 </mapper>

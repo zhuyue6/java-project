@@ -7,14 +7,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.annotation.Resource;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.zhuyue.clockMyGoal.common.constants.*;
 import com.zhuyue.clockMyGoal.common.exception.BusinessException;
 import com.zhuyue.clockMyGoal.modules.goal.dto.request.*;
-import com.zhuyue.clockMyGoal.modules.goal.dto.response.GoalResponse;
-import com.zhuyue.clockMyGoal.modules.goal.entity.Goal;
+import com.zhuyue.clockMyGoal.modules.goal.dto.response.*;
+import com.zhuyue.clockMyGoal.modules.goal.entity.*;
 import com.zhuyue.clockMyGoal.modules.goal.mapper.GoalMapper;
 import com.zhuyue.clockMyGoal.modules.goal.service.GoalService;
 import com.zhuyue.clockMyGoal.modules.label.dto.response.LabelResponse;
@@ -28,7 +29,7 @@ public class GoalServiceImpl implements GoalService {
   @Resource
   private LabelService labelService;
 
-  private GoalResponse convertToGoalResponse(Goal goal, LabelResponse labelResponse) {
+  private GoalResponse convertToGoalResponse(Goal goal, LabelResponse labelResponse, List<GoalClockInResponse> clockInList) {
     if (goal == null) {
       return null;
     }
@@ -57,6 +58,7 @@ public class GoalServiceImpl implements GoalService {
     goalResponse.setClockInCycle(goal.getClockInCycle());
     goalResponse.setCompletionRate(completionRate);
     goalResponse.setStatus(status);
+    goalResponse.setClockInList(clockInList);
     return goalResponse;
   }
 
@@ -126,7 +128,14 @@ public class GoalServiceImpl implements GoalService {
       return null;
     }
     LabelResponse matchLabel = labelService.getLabelById(goal.getLabelId());
-    GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel);
+
+    LocalDateTime[] cycleTimeList = getGoalClockCycleTimeList(goal);
+
+    List<GoalClockIn> clockInList = goalMapper.selectGoalClockInByGoalId(userId, id, cycleTimeList[0], cycleTimeList[1]);
+
+    List<GoalClockInResponse> clockInResponseList = clockInList.stream().map((goalClockIn) -> {}).collect(Collectors.toList());
+
+    GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel, clockInList);
     return goalResponse;
   }
 
@@ -149,6 +158,13 @@ public class GoalServiceImpl implements GoalService {
     }
 
     return responseList;
+  }
+
+  private LocalDateTime[] getGoalClockCycleTimeList(Goal goal) {
+    LocalDateTime[] cycleTimeList = new LocalDateTime[2];
+    cycleTimeList[0] = goal.getClockInTime();
+    cycleTimeList[1] = goal.getClockInTime().plusDays(1);
+    return cycleTimeList;
   }
 
   @Override
@@ -291,6 +307,9 @@ public class GoalServiceImpl implements GoalService {
     }
 
     goalMapper.updateGoalClockInTime(userId, goal, currentTime);
+
+    // 插入打卡记录
+    goalMapper.insertGoalClockIn(userId, id, currentTime);
   }
 
   /**

@@ -21,6 +21,8 @@ public class UpdateGoalRequest {
   @JsonFormat(pattern = "HH:mm:ss", timezone = "GMT+8")
   private LocalTime endCheckTime;
 
+  @Min(value = 1, message = "打卡时间周期计数不能小于1")
+  @Max(value = 30, message = "打卡时间周期计数不能大于30")
   private Integer targetClockInCycleCount;
 
   private Long labelId;

@@ -3,7 +3,7 @@ package com.zhuyue.clockMyGoal.modules.goal.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.zhuyue.clockMyGoal.modules.goal.entity.Goal;
+import com.zhuyue.clockMyGoal.modules.goal.entity.*;
 
 import java.util.List;
 import java.time.LocalDateTime;
@@ -19,4 +19,7 @@ public interface GoalMapper {
   void deleteGoal(@Param("userId") long userId, @Param("id") long id);
   Goal selectGoalById(@Param("userId") long userId, @Param("id") long id);
   List<Goal> selectGoalByUserId(@Param("userId") long userId);
+
+  void insertGoalClockIn(@Param("userId") long userId, @Param("goalId") long goalId, @Param("clockInTime") LocalDateTime clockInTime);
+  List<GoalClockIn> selectGoalClockInByGoalId(@Param("userId") long userId, @Param("goalId") long goalId, @Param("cycleStartTime") LocalDateTime cycleStartTime, @Param("cycleEndTime") LocalDateTime cycleEndTime);
 }

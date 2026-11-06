@@ -47,6 +47,15 @@ create table goal_label(
     update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
 );
 
+-- 创建打卡记录表
+create table goal_clock_in(
+    id bigint primary key auto_increment COMMENT '打卡记录ID',
+    goal_id bigint not null COMMENT '关联打卡目标ID',
+    clock_in_time datetime not null COMMENT '打卡时间',
+    create_time datetime not null default current_timestamp COMMENT '创建时间',
+    update_time datetime not null default current_timestamp on update current_timestamp COMMENT '更新时间'
+);
+
 -- 创建管理员用户表
 create table admin_user(
     id bigint primary key auto_increment COMMENT '管理员ID',

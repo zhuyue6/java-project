@@ -69,6 +69,9 @@
   
   -- 排序 desc 降序，asc 升序
   select * from admin_user order by age desc;
+
+  -- 区间 between and 等于 > 18 and < 30 
+  select * from admin_user between 18 and 30; 
   
   -- 分页 limit offset, size
   select * from admin_user limit 10, 20; 

@@ -1,5 +1,6 @@
 package com.zhuyue.clockMyGoal.modules.goal.dto.response;
 
+import java.util.List;
 import lombok.*;
 
 @Data
@@ -34,6 +35,8 @@ public class GoalResponse {
   private long targetClockInCount;
   /** 完成率 */
   private double completionRate;
+  /** 打卡流水 */
+  private List<GoalClockInResponse> clockInList;
   /** 打卡周期(1天/2周/3月) */
   private int clockInCycle;
   /** 状态(1进行中/2已完成/3已过期) */
