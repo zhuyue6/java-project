@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.ArrayList;
+
 import jakarta.annotation.Resource;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,12 @@ public class GoalServiceImpl implements GoalService {
     return goalResponse;
   }
 
+  private GoalClockInResponse convertToGoalClockInResponse(GoalClockIn goalClockIn) {
+    GoalClockInResponse goalClockInResponse = new GoalClockInResponse();
+    goalClockInResponse.setId(goalClockIn.getId());
+    goalClockInResponse.setClockInTime(TimeService.getDateTimeStringByDateTime(goalClockIn.getClockInTime()));
+    return goalClockInResponse;
+  }
 
   @Override
   public long createGoal(long userId, CreateGoalRequest dto) throws BusinessException {
@@ -120,22 +127,40 @@ public class GoalServiceImpl implements GoalService {
     return checkTimeList;
   }
 
+  private List<GoalClockInResponse> getGoalClockInResponseList(long userId, long id, int cycle, int targetClockInCycleCount) {
+    // 获取周期起止时间数组
+    LocalDateTime[] cycleTimeList = getGoalClockCycleTimeList(cycle);
 
+    // 获取打卡记录
+    List<GoalClockIn> clockInList = goalMapper.selectGoalClockInByGoalId(userId, id, cycleTimeList[0], cycleTimeList[1]);
+
+    // 转换为响应GoalClockInResponse对象
+    List<GoalClockInResponse> clockInResponseList = clockInList
+                                          .stream()
+                                          .map(this::convertToGoalClockInResponse)
+                                          .limit(targetClockInCycleCount)
+                                          .collect(Collectors.toList());
+    return clockInResponseList;
+  }
+  
   @Override
   public GoalResponse getGoal(long userId, long id) {
     Goal goal = goalMapper.selectGoalById(userId, id);
     if (goal == null) {
       return null;
     }
+    // 匹配标签
     LabelResponse matchLabel = labelService.getLabelById(goal.getLabelId());
+    
+    int cycle = goal.getClockInCycle();
 
-    LocalDateTime[] cycleTimeList = getGoalClockCycleTimeList(goal);
 
-    List<GoalClockIn> clockInList = goalMapper.selectGoalClockInByGoalId(userId, id, cycleTimeList[0], cycleTimeList[1]);
+    // 转换为响应GoalClockInResponse对象
+    List<GoalClockInResponse> clockInResponseList = getGoalClockInResponseList(userId, id, cycle, goal.getTargetClockInCycleCount());
 
-    List<GoalClockInResponse> clockInResponseList = clockInList.stream().map((goalClockIn) -> {}).collect(Collectors.toList());
+    // 转换为响应goalResponse对象
+    GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel, clockInResponseList);
 
-    GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel, clockInList);
     return goalResponse;
   }
 
@@ -153,17 +178,29 @@ public class GoalServiceImpl implements GoalService {
       LabelResponse matchLabel = labelId == null ? null
           : labelList.stream().filter(r -> r.getId() == labelId).findFirst().orElse(null);
 
-      GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel);
+      // 转换为响应GoalClockInResponse对象
+      List<GoalClockInResponse> clockInResponseList = getGoalClockInResponseList(userId, goal.getId(), goal.getClockInCycle(), goal.getTargetClockInCycleCount());
+
+      GoalResponse goalResponse = convertToGoalResponse(goal, matchLabel, clockInResponseList);
       responseList.add(goalResponse);
     }
 
     return responseList;
   }
+  
+  /**
+   * 获取目标打卡周期起止时间
+   * @param goal
+   * @return
+   */
+  private LocalDateTime[] getGoalClockCycleTimeList(int cycle) {
+    // 如何计算周期起止时间？ 
+    // 创建时间 + 已打卡次数 * 周期 = 周期结束时间
+    // 创建时间 + 已打卡次数 * (周期 + 1) = 周期开始时间
+    // 以上逻辑有问题，使用当前时间 + 周期来计时
 
-  private LocalDateTime[] getGoalClockCycleTimeList(Goal goal) {
-    LocalDateTime[] cycleTimeList = new LocalDateTime[2];
-    cycleTimeList[0] = goal.getClockInTime();
-    cycleTimeList[1] = goal.getClockInTime().plusDays(1);
+    LocalDateTime[] cycleTimeList = TimeService.getCycleCurrentTimeDuration(cycle);
+
     return cycleTimeList;
   }
 
@@ -289,27 +326,53 @@ public class GoalServiceImpl implements GoalService {
   public void clockInGoal(long userId, long id) throws BusinessException{
     Goal goal = requireGoal(userId, id);
     
-    // 当前时间
-    LocalDateTime currentTime = LocalDateTime.now();
+    // 当前时间年月日时分秒
+    LocalDateTime currentDataTime = LocalDateTime.now();
+    // 当前时间小时分钟秒
+    LocalTime currentTime = currentDataTime.toLocalTime();
+    // 打卡开始时间
+    LocalTime startCheckTime = goal.getStartCheckTime();
+    // 打卡结束时间
+    LocalTime endCheckTime = goal.getEndCheckTime();
+    // 打卡时间
+    LocalDateTime clockInTime = goal.getClockInTime();
+    // 打卡周期
+    int clockInCycle = goal.getClockInCycle();
+    // 周期打卡次数
+    int clockInCycleCount = goal.getClockInCycleCount();
+    // 目标周期打卡次数
+    int targetClockInCycleCount = goal.getTargetClockInCycleCount();
+
 
     // 检查是否在打卡时间段内，继续往下
     // 如果不在打卡时间段内，则抛出异常
     // 如果本周期已打卡，则抛出异常，如何判断本周期已打卡？
-    checkClockInTime(goal);
 
-    int clockInCycleCount = goal.getClockInCycleCount();
-    int targetClockInCycleCount = goal.getTargetClockInCycleCount();
-    if (clockInCycleCount + 1 >= targetClockInCycleCount) {
-      goal.setClockInCount(goal.getClockInCount() + 1);
-      goal.setClockInCycleCount(0);
-    } else {
-      goal.setClockInCycleCount(clockInCycleCount + 1);
+    // 时间段检查：如果不在可打卡段内
+    if (!(startCheckTime.isBefore(currentTime) && endCheckTime.isAfter(currentTime))) {
+      throw new BusinessException(ExceptionCodeEnum.GoalNotInClockInTime);
     }
 
-    goalMapper.updateGoalClockInTime(userId, goal, currentTime);
+    // 如果是同一周期，并且周期打卡次数已经满了，则抛出异常
+    if (checkIsSameCycle(clockInCycle, clockInTime, currentDataTime) && clockInCycleCount >= targetClockInCycleCount) {
+      throw new BusinessException(ExceptionCodeEnum.GoalAlreadyClockedIn);
+    }
+
+    // 如果周期计数小于目标周期计数，则累加周期计数
+    if (clockInCycleCount < targetClockInCycleCount) {
+      goal.setClockInCycleCount(clockInCycleCount + 1);
+      // 如果添加完周期计数后，大于等于目标周期计数，则累加打卡次数
+      if (goal.getClockInCycleCount() >= targetClockInCycleCount) {
+        goal.setClockInCount(goal.getClockInCount() + 1);
+      }
+    } else {
+      goal.setClockInCycleCount(1);
+    }
+
+    goalMapper.updateGoalClockInTime(userId, goal, currentDataTime);
 
     // 插入打卡记录
-    goalMapper.insertGoalClockIn(userId, id, currentTime);
+    goalMapper.insertGoalClockIn(userId, id, currentDataTime);
   }
 
   /**
@@ -318,24 +381,7 @@ public class GoalServiceImpl implements GoalService {
    * @param currentTime
    * @return
    */
-  private void checkClockInTime(Goal goal) {
-    LocalDateTime currentDataTime = LocalDateTime.now();
-    LocalTime currentTime = currentDataTime.toLocalTime();
-    LocalTime startCheckTime = goal.getStartCheckTime();
-    LocalTime endCheckTime = goal.getEndCheckTime();
-    LocalDateTime clockInTime = goal.getClockInTime();
-    int clockInCycle = goal.getClockInCycle();
-
-    // 时间段检查：如果不在可打卡段内
-    if (!(startCheckTime.isBefore(currentTime) && endCheckTime.isAfter(currentTime))) {
-      throw new BusinessException(ExceptionCodeEnum.GoalNotInClockInTime);
-    }
-    
-    // 没有打卡时间，则直接返回
-    if (clockInTime == null) {
-      return;
-    }
-
+  private boolean checkIsSameCycle(int clockInCycle, LocalDateTime clockInTime, LocalDateTime currentDataTime) {
     // 不同周期重复打卡检查：只检查周期是否已完成的打卡，如果已经打卡，则抛出异常
     boolean isSameCycle = false;
     if (clockInCycle == 1) {
@@ -351,11 +397,6 @@ public class GoalServiceImpl implements GoalService {
       boolean isSameMonth = clockInTime.getMonth().equals(currentDataTime.getMonth());
       isSameCycle = isSameMonth || clockInTime.isAfter(currentDataTime);
     }
-
-    // 如果是同一周期，并且周期计数大于等于目标周期计数，则抛出异常
-    int clockInCycleCount = goal.getClockInCycleCount();
-    if (isSameCycle && clockInCycleCount == 0) {
-      throw new BusinessException(ExceptionCodeEnum.GoalAlreadyClockedIn);
-    }
+    return isSameCycle;
   }
 }

@@ -56,6 +56,8 @@
   insert into admin_user(name, age) values ('小米', 10);
   -- 批量插入
   insert into admin_user(name, age) values ('李四',19),('王五',20);
+  -- 从查询结果中注入
+  insert into admin_user(name, age) select name, age from goal where id=1;
 
   -- 查询
   -- 查询全部
@@ -102,3 +104,6 @@
   -- 右连接：右边表全部保留，左边匹配不到填 NULL
   select * from admin_user right join user on admin_user.id == user.admin_id;
 ```
+
+
+# 事务

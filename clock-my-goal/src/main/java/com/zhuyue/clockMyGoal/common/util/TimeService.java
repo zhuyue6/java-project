@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
+import java.time.temporal.TemporalAdjusters;
+import java.time.DayOfWeek;
 
 /**
  * 时间工具类
@@ -107,5 +109,56 @@ public class TimeService {
     int year1 = date1.get(ISO_WEEK.weekBasedYear());
     int year2 = date2.get(ISO_WEEK.weekBasedYear());
     return week1 == week2 && year1 == year2;
+  }
+
+  public static LocalDateTime addCycleTime(LocalDateTime createTime, int cycle, int cycleCount) {
+    if (createTime == null) {
+      return createTime;
+    }
+
+    switch (cycle) {
+      case 1:
+        return createTime.plusDays(cycleCount * 1);
+      case 2:
+        return createTime.plusDays(cycleCount * 7);
+      case 3:
+        return createTime.plusDays(cycleCount * 30);
+      default:
+        return createTime;
+    }
+  }
+
+  /**
+   * 获取当前时间 + 周期的时间段
+   * @param cycle
+   * @return
+   */
+  public static LocalDateTime[] getCycleCurrentTimeDuration (int cycle) {
+    LocalDateTime[] cycleTimeList = new LocalDateTime[2];
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    
+
+    switch (cycle) {
+      case 1:
+        // 获取当天时间范围
+        int year = currentDateTime.getYear();
+        int month = currentDateTime.getMonthValue();
+        int day = currentDateTime.getDayOfMonth();
+        cycleTimeList[0] = LocalDateTime.of(year, month, day, 0, 0, 0);
+        cycleTimeList[1] = LocalDateTime.of(year, month, day, 23, 59, 59);
+        break;
+      case 2:
+        // 获取当周时间范围
+        cycleTimeList[0] = currentDateTime.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).with(LocalTime.MIN);
+        cycleTimeList[1] = currentDateTime.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).with(LocalTime.MAX);
+        break;
+      case 3:
+        // 获取当月时间范围
+        cycleTimeList[0] = currentDateTime.with(TemporalAdjusters.firstDayOfMonth()).with(LocalTime.MIN);
+        cycleTimeList[1] = currentDateTime.with(TemporalAdjusters.lastDayOfMonth()).with(LocalTime.MAX);
+        break;
+    }
+
+    return cycleTimeList;
   }
 }

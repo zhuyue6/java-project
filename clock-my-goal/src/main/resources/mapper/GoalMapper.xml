@@ -71,8 +71,6 @@
         where id = #{goal.id} and user_id = #{userId}
     </update>
 
-
-
     <update id="updateGoalClockInTime">
         UPDATE goal SET clock_in_time = #{clockInTime}, clock_in_cycle_count = #{goal.clockInCycleCount}, clock_in_count = #{goal.clockInCount} WHERE id = #{goal.id} AND user_id = #{userId}
     </update>
@@ -100,8 +98,9 @@
         )
     </insert>
     
-    <select id="selectGoalClockInByGoalId" resultType="com.zhuyue.clockMyGoal.modules.goal.dto.response.GoalClockInResponse">
+    <select id="selectGoalClockInByGoalId" resultType="com.zhuyue.clockMyGoal.modules.goal.entity.GoalClockIn">
         SELECT * FROM goal_clock_in 
         WHERE goal_id = #{goalId} AND clock_in_time BETWEEN #{cycleStartTime} AND #{cycleEndTime}
+        ORDER BY clock_in_time desc
     </select>
 </mapper>
